@@ -9,43 +9,125 @@
  */
 {
   "sections": {
-    "image-with-text": {
-      "type": "image-with-text",
+    "spread_heaven_hero_zkQrBt": {
+      "type": "spread-heaven-hero",
+      "name": "Spread Heaven Hero",
+      "settings": {
+        "hero_image_alt": "Spread Heaven premium peanut butter",
+        "primary_color": "#B97734",
+        "primary_dark_color": "#8A5A2B",
+        "accent_color": "#E7C18C",
+        "bg_color": "#FFF9F3",
+        "text_color": "#2B1B0F",
+        "text_muted_color": "#7A5C3E",
+        "border_color": "#EDD9BC",
+        "eyebrow_text": "No Junk. No Drama. Just Butter.",
+        "heading": "Grinding Peanuts Into [primary]Pure Obsession.[/primary]",
+        "description": "Made from carefully selected slow-roasted peanuts and ground into luxury spreads. Crafted for people who want pure, clean, plant-based fitness nutrition without compromising on premium taste.",
+        "primary_button_label": "Shop Collection",
+        "primary_button_link": "",
+        "secondary_button_label": "Discover Flavors",
+        "secondary_button_link": "",
+        "metric_1_value": "Up to 27g",
+        "metric_1_label": "Protein / 100g",
+        "metric_2_value": "0% Added",
+        "metric_2_label": "Palm Oil & Junk",
+        "metric_3_value": "100% Pure",
+        "metric_3_label": "Slow Roasted Nuts"
+      }
+    },
+    "featured_flavors_CC9KMX": {
+      "type": "featured-flavors",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "product_BhPRn8": {
+          "type": "product",
+          "name": "Vanilla Crispy",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h1"
+            "flavor_tag": "Creamy Vanilla & Protein Crisps",
+            "product_name": "Vanilla Crispy Peanut Butter",
+            "product_desc": "Ground roasted peanuts combined with real sweet vanilla extract and crispy protein nuggets for an exceptional crunchy texture.",
+            "protein_badge": "22% Protein",
+            "product_price": "$9.99",
+            "button_label": "Add To Cart",
+            "button_link": ""
           }
         },
-        "button": {
-          "type": "button",
+        "product_RzjkGG": {
+          "type": "product",
+          "name": "Chocolate Crunchy",
           "settings": {
-            "button_label": "Shop now",
-            "button_link": "shopify://collections/all",
-            "button_style_secondary": false
+            "flavor_tag": "Rich Cocoa & Peanut Chunks",
+            "product_name": "Chocolate Crunchy Peanut Butter",
+            "product_desc": "Golden peanut butter blended with premium unsweetened dark cocoa powder and crunchy chopped roasted peanuts. Guilt-free indulgence.",
+            "protein_badge": "24% Protein",
+            "product_price": "$11.99",
+            "button_label": "Add To Cart",
+            "button_link": ""
+          }
+        },
+        "product_qhpFfR": {
+          "type": "product",
+          "name": "Mawa Malai",
+          "settings": {
+            "flavor_tag": "The Traditional Royal Indulgence",
+            "product_name": "Mawa Malai Peanut Butter",
+            "product_desc": "A rich Indian sweet twist. Saffron-infused peanut butter combined with toasted milk solids (mawa) and aromatic green cardamom.",
+            "protein_badge": "20% Protein",
+            "product_price": "$14.99",
+            "button_label": "Add To Cart",
+            "button_link": ""
+          }
+        },
+        "product_a7HMGd": {
+          "type": "product",
+          "name": "Mango Chia",
+          "settings": {
+            "flavor_tag": "Tropical Alphonso & Chia Superfoods",
+            "product_name": "Mango Chia Peanut Butter",
+            "product_desc": "A tropical, nutrient-dense blend containing slow-roasted peanuts (78%), raw organic chia seeds (6%), and Alphonso mango flavour.",
+            "protein_badge": "27% Protein",
+            "product_price": "$12.99",
+            "button_label": "Add To Cart",
+            "button_link": ""
+          }
+        },
+        "product_jUUP6c": {
+          "type": "product",
+          "name": "Assortment Box",
+          "settings": {
+            "flavor_tag": "The Ultimate Heaven Box",
+            "product_name": "Complete Assortment Sample Box",
+            "product_desc": "Taste the entire Spread Heaven selection: includes Vanilla Crispy, Mango Chia, Chocolate Crunchy, Cookies & Cream, and Mawa Malai.",
+            "protein_badge": "Assorted Macros",
+            "product_price": "$44.99",
+            "button_label": "Add To Cart",
+            "button_link": ""
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "product_BhPRn8",
+        "product_RzjkGG",
+        "product_qhpFfR",
+        "product_a7HMGd",
+        "product_jUUP6c"
       ],
+      "name": "Featured Flavors",
       "settings": {
-        "image": "shopify://shop_images/ChatGPT_Image_Jun_21_2026_01_43_49_AM.png",
-        "height": "large",
-        "desktop_image_width": "large",
-        "layout": "text_first",
-        "image_behavior": "none",
-        "content_layout": "overlap",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-1",
-        "color_scheme": "scheme-2",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "primary_color": "#B97734",
+        "primary_dark_color": "#8A5A2B",
+        "accent_color": "#E7C18C",
+        "bg_color": "#FFF9F3",
+        "text_color": "#2B1B0F",
+        "text_muted_color": "#7A5C3E",
+        "border_color": "#EDD9BC",
+        "ticker_item_1": "100% Roasted Peanuts",
+        "ticker_item_2": "High Natural Protein",
+        "ticker_item_3": "Zero Added Palm Oils",
+        "ticker_item_4": "Zero Preservatives",
+        "section_tag": "Pure Selection",
+        "section_title": "Featured Flavors",
+        "section_subtitle": "No Junk. No Drama. Just Butter. Freshly ground jars ready to power your day."
       }
     },
     "featured-collection": {
@@ -121,7 +203,8 @@
     }
   },
   "order": [
-    "image-with-text",
+    "spread_heaven_hero_zkQrBt",
+    "featured_flavors_CC9KMX",
     "featured-collection",
     "rich_text_KNmGbh"
   ]

@@ -26,14 +26,12 @@ Shopify Online Store 2.0 compatible section
   --sp-shadow-lg: 0 24px 64px {{ section.settings.primary_color | color_to_rgb: 0.20 }};
   position: relative;
   min-height: 85vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 120px 24px 80px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 76px 0 0; /* Match header height and remove bottom padding */
   background-color: var(--sp-bg);
+  overflow: hidden; /* Prevent both horizontal and vertical scroll */
 }
 
 .sp-hero-content {
@@ -70,18 +68,6 @@ Shopify Online Store 2.0 compatible section
   display: inline-block;
 }
 
-.sp-hero-title span::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--sp-primary), var(--sp-accent));
-  border-radius: 2px;
-  transform-origin: left;
-}
-
 .sp-hero-subtitle {
   font-size: 16px;
   color: var(--sp-text-muted);
@@ -92,7 +78,7 @@ Shopify Online Store 2.0 compatible section
 .sp-hero-actions {
   display: flex;
   gap: 16px;
-  flex-wrap: wrap;
+  align-items: center;
   margin-bottom: 48px;
 }
 
@@ -110,6 +96,8 @@ Shopify Online Store 2.0 compatible section
   transition: var(--sp-transition);
   text-decoration: none;
   cursor: pointer;
+  width: 50%; /* Set each button to 50% width */
+  flex: 1 1 50%;
 }
 
 .sp-btn-primary {
@@ -226,14 +214,20 @@ Shopify Online Store 2.0 compatible section
 .sp-hero-inner {
   position: relative;
   z-index: 1;
-  display: contents;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 44px 24px 0; /* 76px header height minus 32px gap */
 }
 
 @media (max-width: 900px) {
-  .sp-hero {
+  .sp-hero-inner {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding-top: 100px;
   }
 
   .sp-hero-content {
@@ -258,8 +252,8 @@ Shopify Online Store 2.0 compatible section
 }
 
 @media (max-width: 600px) {
-  .sp-hero {
-    padding: 100px 16px 60px;
+  .sp-hero-inner {
+    padding: 24px 16px 0;
   }
 
   .sp-hero-metrics {

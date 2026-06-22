@@ -73,9 +73,15 @@ Spread Heaven Header - Exact replica of the original HTML header
   letter-spacing: 1px;
   text-decoration: none;
   line-height: 1;
+  display: flex;
+  align-items: center;
 }
 .sp-logo span {
   color: var(--sp-text);
+}
+.sp-logo-img {
+  max-height: 48px;
+  width: auto;
 }
 
 .sp-nav-links {
@@ -235,7 +241,18 @@ Spread Heaven Header - Exact replica of the original HTML header
   <header class="sp-navbar" id="spNavbar">
     <div class="sp-nav-container">
       <a href="{{ routes.root_url }}" class="sp-logo">
-        Spread <span>Heaven</span>
+        {% if section.settings.brand_logo != blank %}
+          {{
+            section.settings.brand_logo
+            | image_url: width: 200
+            | image_tag:
+              loading: 'lazy',
+              alt: section.settings.brand_logo_alt | default: shop.name,
+              class: 'sp-logo-img'
+          }}
+        {% else %}
+          Spread <span>Heaven</span>
+        {% endif %}
       </a>
 
       <nav class="sp-nav-links">
@@ -275,7 +292,20 @@ Spread Heaven Header - Exact replica of the original HTML header
   <!-- Mobile Navigation -->
   <div class="sp-mobile-nav" id="spMobileNav">
     <div class="sp-mobile-nav-header">
-      <a href="{{ routes.root_url }}" class="sp-logo">Spread <span>Heaven</span></a>
+      <a href="{{ routes.root_url }}" class="sp-logo">
+        {% if section.settings.brand_logo != blank %}
+          {{
+            section.settings.brand_logo
+            | image_url: width: 200
+            | image_tag:
+              loading: 'lazy',
+              alt: section.settings.brand_logo_alt | default: shop.name,
+              class: 'sp-logo-img'
+          }}
+        {% else %}
+          Spread <span>Heaven</span>
+        {% endif %}
+      </a>
       <button class="sp-close-btn" id="spCloseMenu" aria-label="Close menu">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -352,6 +382,21 @@ Spread Heaven Header - Exact replica of the original HTML header
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo",
+      "label": "Brand Logo",
+      "info": "Upload your brand logo (recommended: max height 48px)"
+    },
+    {
+      "type": "text",
+      "id": "brand_logo_alt",
+      "label": "Logo Alt Text"
+    },
     {
       "type": "header",
       "content": "Colors"
