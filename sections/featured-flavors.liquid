@@ -1,0 +1,579 @@
+{% comment %}
+Featured Flavors - Spread Heaven
+Shopify Online Store 2.0 Section
+{% endcomment %}
+
+{% style %}
+.sp-section {
+  --sp-primary: {{ section.settings.primary_color }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color }};
+  --sp-accent: {{ section.settings.accent_color }};
+  --sp-bg: {{ section.settings.bg_color }};
+  --sp-bg-card: #FFFDF9;
+  --sp-text: {{ section.settings.text_color }};
+  --sp-text-muted: {{ section.settings.text_muted_color }};
+  --sp-border: {{ section.settings.border_color }};
+  --sp-radius-sm: 8px;
+  --sp-radius-md: 16px;
+  --sp-radius-lg: 24px;
+  --sp-radius-xl: 40px;
+  --sp-transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --sp-font-head: var(--font-heading-family);
+  --sp-font-body: var(--font-body-family);
+  --sp-shadow-sm: 0 2px 12px {{ section.settings.primary_color | color_to_rgb: 0.10 }};
+  --sp-shadow-md: 0 8px 32px {{ section.settings.primary_color | color_to_rgb: 0.15 }};
+  --sp-shadow-lg: 0 24px 64px {{ section.settings.primary_color | color_to_rgb: 0.20 }};
+  background: var(--sp-bg);
+  overflow: hidden;
+}
+
+.sp-ticker-bar {
+  background: linear-gradient(135deg, var(--sp-primary-dark), var(--sp-primary));
+  padding: 16px 24px;
+}
+
+.sp-ticker-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.sp-ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.sp-ticker-item i {
+  font-size: 16px;
+}
+
+.sp-section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.sp-section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.sp-section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--sp-primary);
+  background: {{ section.settings.primary_color | color_to_rgb: 0.08 }};
+  padding: 6px 14px;
+  border-radius: var(--sp-radius-xl);
+  margin-bottom: 16px;
+}
+
+.sp-section-title {
+  font-family: var(--sp-font-head);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--sp-text);
+  margin-bottom: 16px;
+}
+
+.sp-section-subtitle {
+  font-size: 17px;
+  color: var(--sp-text-muted);
+  max-width: 520px;
+  line-height: 1.7;
+  margin: 0 auto;
+}
+
+.sp-grid-products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.sp-product-card {
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  overflow: hidden;
+  transition: all var(--sp-transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sp-product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sp-shadow-lg);
+  border-color: var(--sp-accent);
+}
+
+.sp-product-card-image {
+  position: relative;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--sp-accent), var(--sp-bg));
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-product-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.sp-product-card:hover .sp-product-card-image img {
+  transform: scale(1.08);
+}
+
+.sp-product-card-protein-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: var(--sp-primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--sp-radius-xl);
+}
+
+.sp-product-card-body {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-product-card-flavor {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--sp-primary);
+  margin-bottom: 6px;
+}
+
+.sp-product-card-name {
+  font-family: var(--sp-font-head);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--sp-text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.sp-product-card-desc {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sp-product-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.sp-product-card-price {
+  font-family: var(--sp-font-head);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--sp-primary);
+}
+
+.sp-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--sp-radius-xl);
+  font-family: var(--sp-font-head);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all var(--sp-transition);
+  white-space: nowrap;
+  background: var(--sp-primary);
+  color: #fff;
+  box-shadow: 0 4px 20px {{ section.settings.primary_color | color_to_rgb: 0.35 }};
+  width: 100%;
+}
+
+.sp-btn-primary:hover {
+  background: var(--sp-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px {{ section.settings.primary_color | color_to_rgb: 0.45 }};
+}
+
+@media (max-width: 1100px) {
+  .sp-grid-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sp-ticker-container {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .sp-ticker-container {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sp-grid-products {
+    grid-template-columns: 1fr;
+  }
+  .sp-section-inner {
+    padding: 60px 16px;
+  }
+  .sp-ticker-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .sp-ticker-item {
+    font-size: 13px;
+  }
+}
+{% endstyle %}
+
+<section class="sp-section">
+  <!-- Trust Ticker Bar -->
+  <div class="sp-ticker-bar">
+    <div class="sp-ticker-container">
+      {% if section.settings.ticker_item_1 != blank %}
+        <div class="sp-ticker-item">
+          <i class="fa-solid fa-check-double"></i>
+          {{ section.settings.ticker_item_1 | escape }}
+        </div>
+      {% endif %}
+      {% if section.settings.ticker_item_2 != blank %}
+        <div class="sp-ticker-item">
+          <i class="fa-solid fa-dumbbell"></i>
+          {{ section.settings.ticker_item_2 | escape }}
+        </div>
+      {% endif %}
+      {% if section.settings.ticker_item_3 != blank %}
+        <div class="sp-ticker-item">
+          <i class="fa-solid fa-ban"></i>
+          {{ section.settings.ticker_item_3 | escape }}
+        </div>
+      {% endif %}
+      {% if section.settings.ticker_item_4 != blank %}
+        <div class="sp-ticker-item">
+          <i class="fa-solid fa-shield-heart"></i>
+          {{ section.settings.ticker_item_4 | escape }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="sp-section-inner">
+    <!-- Section Header -->
+    <div class="sp-section-header">
+      {% if section.settings.section_tag != blank %}
+        <span class="sp-section-tag">{{ section.settings.section_tag | escape }}</span>
+      {% endif %}
+      {% if section.settings.section_title != blank %}
+        <h2 class="sp-section-title">{{ section.settings.section_title | escape }}</h2>
+      {% endif %}
+      {% if section.settings.section_subtitle != blank %}
+        <p class="sp-section-subtitle">{{ section.settings.section_subtitle | escape }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Products Grid -->
+    <div class="sp-grid-products">
+      {% for block in section.blocks %}
+        <div class="sp-product-card">
+          <div class="sp-product-card-image">
+            {% if block.settings.product_image != blank %}
+              {{
+                block.settings.product_image
+                | image_url: width: 500
+                | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.product_name | default: 'Product image'
+              }}
+            {% else %}
+              <div class="product-emoji-jar">🥜</div>
+            {% endif %}
+            {% if block.settings.protein_badge != blank %}
+              <div class="sp-product-card-protein-badge">{{ block.settings.protein_badge | escape }}</div>
+            {% endif %}
+          </div>
+          <div class="sp-product-card-body">
+            {% if block.settings.flavor_tag != blank %}
+              <div class="sp-product-card-flavor">{{ block.settings.flavor_tag | escape }}</div>
+            {% endif %}
+            {% if block.settings.product_name != blank %}
+              <h3 class="sp-product-card-name">{{ block.settings.product_name | escape }}</h3>
+            {% endif %}
+            {% if block.settings.product_desc != blank %}
+              <p class="sp-product-card-desc">{{ block.settings.product_desc | escape }}</p>
+            {% endif %}
+            <div class="sp-product-card-footer">
+              {% if block.settings.product_price != blank %}
+                <div class="sp-product-card-price">{{ block.settings.product_price | escape }}</div>
+              {% endif %}
+              {% if block.settings.button_label != blank %}
+                <a 
+                  href="{{ block.settings.button_link }}" 
+                  class="sp-btn-primary"
+                >
+                  {{ block.settings.button_label | escape }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Flavors",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary Dark Color",
+      "default": "#8A5A2B"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E7C18C"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF9F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2B1B0F"
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Muted Text Color",
+      "default": "#7A5C3E"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#EDD9BC"
+    },
+    {
+      "type": "header",
+      "content": "Top Feature Bar"
+    },
+    {
+      "type": "text",
+      "id": "ticker_item_1",
+      "label": "Feature Item 1",
+      "default": "100% Roasted Peanuts"
+    },
+    {
+      "type": "text",
+      "id": "ticker_item_2",
+      "label": "Feature Item 2",
+      "default": "High Natural Protein"
+    },
+    {
+      "type": "text",
+      "id": "ticker_item_3",
+      "label": "Feature Item 3",
+      "default": "Zero Added Palm Oils"
+    },
+    {
+      "type": "text",
+      "id": "ticker_item_4",
+      "label": "Feature Item 4",
+      "default": "Zero Preservatives"
+    },
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "section_tag",
+      "label": "Eyebrow Text",
+      "default": "Pure Selection"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Heading",
+      "default": "Featured Flavors"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Description",
+      "default": "No Junk. No Drama. Just Butter. Freshly ground jars ready to power your day."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "flavor_tag",
+          "label": "Flavor Tag"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name"
+        },
+        {
+          "type": "textarea",
+          "id": "product_desc",
+          "label": "Product Description"
+        },
+        {
+          "type": "text",
+          "id": "protein_badge",
+          "label": "Protein Badge Text"
+        },
+        {
+          "type": "text",
+          "id": "product_price",
+          "label": "Price"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Add To Cart"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Flavors",
+      "blocks": [
+        {
+          "type": "product",
+          "name": "Vanilla Crispy",
+          "settings": {
+            "flavor_tag": "Creamy Vanilla & Protein Crisps",
+            "product_name": "Vanilla Crispy Peanut Butter",
+            "product_desc": "Ground roasted peanuts combined with real sweet vanilla extract and crispy protein nuggets for an exceptional crunchy texture.",
+            "protein_badge": "22% Protein",
+            "product_price": "$9.99"
+          }
+        },
+        {
+          "type": "product",
+          "name": "Chocolate Crunchy",
+          "settings": {
+            "flavor_tag": "Rich Cocoa & Peanut Chunks",
+            "product_name": "Chocolate Crunchy Peanut Butter",
+            "product_desc": "Golden peanut butter blended with premium unsweetened dark cocoa powder and crunchy chopped roasted peanuts. Guilt-free indulgence.",
+            "protein_badge": "24% Protein",
+            "product_price": "$11.99"
+          }
+        },
+        {
+          "type": "product",
+          "name": "Mawa Malai",
+          "settings": {
+            "flavor_tag": "The Traditional Royal Indulgence",
+            "product_name": "Mawa Malai Peanut Butter",
+            "product_desc": "A rich Indian sweet twist. Saffron-infused peanut butter combined with toasted milk solids (mawa) and aromatic green cardamom.",
+            "protein_badge": "20% Protein",
+            "product_price": "$14.99"
+          }
+        },
+        {
+          "type": "product",
+          "name": "Mango Chia",
+          "settings": {
+            "flavor_tag": "Tropical Alphonso & Chia Superfoods",
+            "product_name": "Mango Chia Peanut Butter",
+            "product_desc": "A tropical, nutrient-dense blend containing slow-roasted peanuts (78%), raw organic chia seeds (6%), and Alphonso mango flavour.",
+            "protein_badge": "27% Protein",
+            "product_price": "$12.99"
+          }
+        },
+        {
+          "type": "product",
+          "name": "Assortment Box",
+          "settings": {
+            "flavor_tag": "The Ultimate Heaven Box",
+            "product_name": "Complete Assortment Sample Box",
+            "product_desc": "Taste the entire Spread Heaven selection: includes Vanilla Crispy, Mango Chia, Chocolate Crunchy, Cookies & Cream, and Mawa Malai.",
+            "protein_badge": "Assorted Macros",
+            "product_price": "$44.99"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

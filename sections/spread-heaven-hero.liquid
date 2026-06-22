@@ -1,0 +1,501 @@
+{% comment %}
+SPREAD HEAVEN HERO SECTION
+Shopify Online Store 2.0 compatible section
+{% endcomment %}
+
+{% style %}
+.sp-hero {
+  --sp-primary: {{ section.settings.primary_color }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color }};
+  --sp-accent: {{ section.settings.accent_color }};
+  --sp-bg: {{ section.settings.bg_color }};
+  --sp-bg-card: #FFFDF9;
+  --sp-text: {{ section.settings.text_color }};
+  --sp-text-muted: {{ section.settings.text_muted_color }};
+  --sp-text-light: #B89070;
+  --sp-border: {{ section.settings.border_color }};
+  --sp-radius-sm: 8px;
+  --sp-radius-md: 16px;
+  --sp-radius-lg: 24px;
+  --sp-radius-xl: 40px;
+  --sp-transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --sp-font-head: var(--font-heading-family);
+  --sp-font-body: var(--font-body-family);
+  --sp-shadow-sm: 0 2px 12px {{ section.settings.primary_color | color_to_rgb: 0.10 }};
+  --sp-shadow-md: 0 8px 32px {{ section.settings.primary_color | color_to_rgb: 0.15 }};
+  --sp-shadow-lg: 0 24px 64px {{ section.settings.primary_color | color_to_rgb: 0.20 }};
+  position: relative;
+  min-height: 85vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  background-color: var(--sp-bg);
+}
+
+.sp-hero-content {
+  max-width: 600px;
+}
+
+.sp-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sp-primary);
+  background-color: {{ section.settings.primary_color | color_to_rgb: 0.08 }};
+  padding: 6px 14px;
+  border-radius: var(--sp-radius-xl);
+  margin-bottom: 24px;
+}
+
+.sp-hero-title {
+  font-family: var(--sp-font-head);
+  font-size: clamp(36px, 5.5vw, 72px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--sp-text);
+  margin-bottom: 20px;
+}
+
+.sp-hero-title span {
+  color: var(--sp-primary);
+  position: relative;
+  display: inline-block;
+}
+
+.sp-hero-title span::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sp-primary), var(--sp-accent));
+  border-radius: 2px;
+  transform-origin: left;
+}
+
+.sp-hero-subtitle {
+  font-size: 16px;
+  color: var(--sp-text-muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.sp-hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.sp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--sp-radius-xl);
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: var(--sp-transition);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sp-btn-primary {
+  background: var(--sp-primary);
+  color: #fff;
+  box-shadow: 0 4px 20px {{ section.settings.primary_color | color_to_rgb: 0.35 }};
+}
+
+.sp-btn-primary:hover {
+  background: var(--sp-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px {{ section.settings.primary_color | color_to_rgb: 0.45 }};
+}
+
+.sp-btn-outline {
+  background: transparent;
+  color: var(--sp-primary);
+  border: 2px solid var(--sp-primary);
+}
+
+.sp-btn-outline:hover {
+  background: var(--sp-primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.sp-hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--sp-border);
+  padding-top: 32px;
+  gap: 16px;
+}
+
+.sp-metric-box h3 {
+  font-family: var(--sp-font-head);
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 800;
+  color: var(--sp-primary);
+  margin-bottom: 4px;
+}
+
+.sp-metric-box p {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sp-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sp-hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.sp-hero-img-card {
+  width: 100%;
+  max-width: 500px;
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 16px;
+  box-shadow: var(--sp-shadow-md);
+  transition: var(--sp-transition);
+}
+
+.sp-hero-img-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sp-shadow-lg);
+  border-color: var(--sp-accent);
+}
+
+.sp-hero-img-frame {
+  aspect-ratio: 4/3;
+  border-radius: var(--sp-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--sp-border);
+}
+
+.sp-hero-img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sp-hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, {{ section.settings.primary_color | color_to_rgb: 0.12 }} 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sp-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -150px;
+  left: -100px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, {{ section.settings.accent_color | color_to_rgb: 0.15 }} 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sp-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: contents;
+}
+
+@media (max-width: 900px) {
+  .sp-hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-top: 100px;
+  }
+
+  .sp-hero-content {
+    text-align: center;
+  }
+
+  .sp-hero-actions {
+    justify-content: center;
+  }
+
+  .sp-hero-metrics {
+    justify-content: center;
+  }
+
+  .sp-hero-title span::after {
+    display: none;
+  }
+
+  .sp-hero-visual {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .sp-hero {
+    padding: 100px 16px 60px;
+  }
+
+  .sp-hero-metrics {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+{% endstyle %}
+
+<section class="sp-hero">
+  <div class="sp-hero-inner">
+    <div class="sp-hero-content">
+      <div class="sp-brand-pill">{{ section.settings.eyebrow_text | escape }}</div>
+      <h1 class="sp-hero-title">
+        {{ section.settings.heading | escape | replace: '[primary]', '<span>' | replace: '[/primary]', '</span>' }}
+      </h1>
+      <p class="sp-hero-subtitle">{{ section.settings.description | escape }}</p>
+      <div class="sp-hero-actions">
+        {% if section.settings.primary_button_label != blank %}
+          <a 
+            href="{{ section.settings.primary_button_link }}" 
+            class="sp-btn sp-btn-primary"
+          >
+            {{ section.settings.primary_button_label | escape }}
+          </a>
+        {% endif %}
+        {% if section.settings.secondary_button_label != blank %}
+          <a 
+            href="{{ section.settings.secondary_button_link }}" 
+            class="sp-btn sp-btn-outline"
+          >
+            {{ section.settings.secondary_button_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+      <div class="sp-hero-metrics">
+        {% if section.settings.metric_1_value != blank %}
+          <div class="sp-metric-box">
+            <h3>{{ section.settings.metric_1_value | escape }}</h3>
+            <p>{{ section.settings.metric_1_label | escape }}</p>
+          </div>
+        {% endif %}
+        {% if section.settings.metric_2_value != blank %}
+          <div class="sp-metric-box">
+            <h3>{{ section.settings.metric_2_value | escape }}</h3>
+            <p>{{ section.settings.metric_2_label | escape }}</p>
+          </div>
+        {% endif %}
+        {% if section.settings.metric_3_value != blank %}
+          <div class="sp-metric-box">
+            <h3>{{ section.settings.metric_3_value | escape }}</h3>
+            <p>{{ section.settings.metric_3_label | escape }}</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="sp-hero-visual">
+      <div class="sp-hero-img-card">
+        <div class="sp-hero-img-frame">
+          {% if section.settings.hero_image != blank %}
+            {{
+              section.settings.hero_image
+              | image_url: width: 1000
+              | image_tag:
+                loading: 'lazy',
+                alt: section.settings.hero_image_alt | default: 'Spread Heaven product'
+            }}
+          {% else %}
+            <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--sp-accent),var(--sp-bg));display:flex;align-items:center;justify-content:center;font-size:80px;">🥜</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Spread Heaven Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image",
+      "info": "Main product or hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Image Alt Text",
+      "default": "Spread Heaven premium peanut butter"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary Dark Color",
+      "default": "#8A5A2B"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E7C18C"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF9F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2B1B0F"
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Muted Text Color",
+      "default": "#7A5C3E"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#EDD9BC"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow Text",
+      "default": "No Junk. No Drama. Just Butter."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use [primary] and [/primary] to highlight text",
+      "default": "Grinding Peanuts Into [primary]Pure Obsession.[/primary]"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Made from carefully selected slow-roasted peanuts and ground into luxury spreads. Crafted for people who want pure, clean, plant-based fitness nutrition without compromising on premium taste."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary Button Label",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary Button Label",
+      "default": "Discover Flavors"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Metrics"
+    },
+    {
+      "type": "text",
+      "id": "metric_1_value",
+      "label": "Metric 1 Value",
+      "default": "Up to 27g"
+    },
+    {
+      "type": "text",
+      "id": "metric_1_label",
+      "label": "Metric 1 Label",
+      "default": "Protein / 100g"
+    },
+    {
+      "type": "text",
+      "id": "metric_2_value",
+      "label": "Metric 2 Value",
+      "default": "0% Added"
+    },
+    {
+      "type": "text",
+      "id": "metric_2_label",
+      "label": "Metric 2 Label",
+      "default": "Palm Oil & Junk"
+    },
+    {
+      "type": "text",
+      "id": "metric_3_value",
+      "label": "Metric 3 Value",
+      "default": "100% Pure"
+    },
+    {
+      "type": "text",
+      "id": "metric_3_label",
+      "label": "Metric 3 Label",
+      "default": "Slow Roasted Nuts"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spread Heaven Hero",
+      "category": "Text and image"
+    }
+  ]
+}
+{% endschema %}

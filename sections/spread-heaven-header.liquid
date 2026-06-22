@@ -1,0 +1,487 @@
+{% comment %}
+Spread Heaven Header - Exact replica of the original HTML header
+{% endcomment %}
+
+{% style %}
+.sp-header-wrapper {
+  --sp-primary: {{ section.settings.primary_color | default: "#B97734" }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color | default: "#8A5A2B" }};
+  --sp-accent: {{ section.settings.accent_color | default: "#E7C18C" }};
+  --sp-bg: {{ section.settings.bg_color | default: "#FFF9F3" }};
+  --sp-bg-glass: rgba(255, 249, 243, 0.85);
+  --sp-text: {{ section.settings.text_color | default: "#2B1B0F" }};
+  --sp-text-muted: {{ section.settings.text_muted_color | default: "#5D4330" }};
+  --sp-border: {{ section.settings.border_color | default: "#EBDCCB" }};
+  --sp-radius: 12px;
+  --sp-radius-sm: 8px;
+  --sp-radius-lg: 20px;
+  --sp-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --sp-shadow-sm: 0 4px 16px rgba(138, 90, 43, 0.05);
+  --sp-font-head: var(--font-heading-family, 'Poppins', sans-serif);
+  --sp-font-body: var(--font-body-family, 'Inter', sans-serif);
+  --sp-scroll-progress: 0%;
+}
+
+.sp-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 1002;
+}
+.sp-scroll-progress-fill {
+  height: 100%;
+  background: var(--sp-primary);
+  width: var(--sp-scroll-progress);
+  transition: width 0.1s ease-out;
+}
+
+.sp-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  background: var(--sp-bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--sp-border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  transition: var(--sp-transition);
+}
+.sp-navbar.scrolled {
+  border-bottom-color: var(--sp-border);
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-nav-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sp-logo {
+  font-family: var(--sp-font-head);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--sp-primary);
+  letter-spacing: 1px;
+  text-decoration: none;
+  line-height: 1;
+}
+.sp-logo span {
+  color: var(--sp-text);
+}
+
+.sp-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sp-nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--sp-text-muted);
+  padding: 8px 14px;
+  border-radius: var(--sp-radius-sm);
+  text-decoration: none;
+  transition: all var(--sp-transition);
+}
+.sp-nav-link:hover, .sp-nav-link.active {
+  color: var(--sp-primary);
+  background: rgba(185, 119, 52, 0.08);
+}
+
+.sp-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sp-nav-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--sp-radius-sm);
+  color: var(--sp-text-muted);
+  transition: all var(--sp-transition);
+  font-size: 18px;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.sp-nav-btn:hover {
+  background: rgba(185, 119, 52, 0.08);
+  color: var(--sp-primary);
+}
+.sp-cart-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  background: var(--sp-primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.sp-mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.sp-mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  max-width: 100%;
+  height: 100%;
+  background: var(--sp-bg);
+  z-index: 1002;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  padding: 24px;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+}
+.sp-mobile-nav.active {
+  transform: translateX(0);
+}
+.sp-mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+.sp-mobile-nav-header .sp-logo {
+  font-size: 18px;
+}
+.sp-close-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--sp-radius-sm);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--sp-text-muted);
+}
+.sp-close-btn:hover {
+  background: rgba(185, 119, 52, 0.08);
+  color: var(--sp-primary);
+}
+.sp-mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sp-mobile-link {
+  display: block;
+  padding: 12px 16px;
+  border-radius: var(--sp-radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--sp-text);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.sp-mobile-link:hover {
+  background: rgba(185, 119, 52, 0.08);
+  color: var(--sp-primary);
+}
+
+@media (max-width: 900px) {
+  .sp-nav-links {
+    display: none;
+  }
+}
+@media (min-width: 901px) {
+  .sp-hamburger {
+    display: none !important;
+  }
+}
+{% endstyle %}
+
+<div class="sp-header-wrapper">
+  <!-- Scroll Progress Bar -->
+  <div class="sp-scroll-progress" id="spScrollProgress">
+    <div class="sp-scroll-progress-fill"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="sp-navbar" id="spNavbar">
+    <div class="sp-nav-container">
+      <a href="{{ routes.root_url }}" class="sp-logo">
+        Spread <span>Heaven</span>
+      </a>
+
+      <nav class="sp-nav-links">
+        {% for block in section.blocks %}
+          {% if block.type == 'nav_link' %}
+            <a href="{{ block.settings.link }}" class="sp-nav-link {% if block.settings.active %}active{% endif %}">
+              {{ block.settings.label | escape }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </nav>
+
+      <div class="sp-nav-actions">
+        {% if section.settings.show_theme_toggle %}
+          <button class="sp-nav-btn" id="spThemeToggle" title="Toggle Theme" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        {% endif %}
+        
+        <a href="{{ routes.cart_url }}" class="sp-nav-btn" title="Open Cart" aria-label="Open cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          {% if cart.item_count > 0 %}
+            <span class="sp-cart-badge">{{ cart.item_count }}</span>
+          {% endif %}
+        </a>
+        
+        <button class="sp-nav-btn sp-hamburger" id="spMenuToggle" title="Open Menu" aria-label="Open menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="sp-mobile-menu-overlay" id="spMenuOverlay"></div>
+
+  <!-- Mobile Navigation -->
+  <div class="sp-mobile-nav" id="spMobileNav">
+    <div class="sp-mobile-nav-header">
+      <a href="{{ routes.root_url }}" class="sp-logo">Spread <span>Heaven</span></a>
+      <button class="sp-close-btn" id="spCloseMenu" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="sp-mobile-links">
+      {% for block in section.blocks %}
+        {% if block.type == 'nav_link' %}
+          <a href="{{ block.settings.link }}" class="sp-mobile-link">
+            {{ block.settings.label | escape }}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // DOM Elements
+  const scrollProgress = document.getElementById('spScrollProgress');
+  const navbar = document.getElementById('spNavbar');
+  const menuToggle = document.getElementById('spMenuToggle');
+  const mobileNav = document.getElementById('spMobileNav');
+  const menuOverlay = document.getElementById('spMenuOverlay');
+  const closeMenuBtn = document.getElementById('spCloseMenu');
+  
+  // Scroll Progress + Navbar Effect
+  function updateScrollProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.documentElement.style.setProperty('--sp-scroll-progress', progress + '%');
+    
+    // Navbar scrolled state
+    if (scrollTop > 10) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+  
+  // Mobile Menu
+  function openMobileMenu() {
+    mobileNav.classList.add('active');
+    menuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeMobileMenu() {
+    mobileNav.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
+  // Event Listeners
+  window.addEventListener('scroll', updateScrollProgress);
+  window.addEventListener('load', updateScrollProgress);
+  
+  if (menuToggle) {
+    menuToggle.addEventListener('click', openMobileMenu);
+  }
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', closeMobileMenu);
+  }
+  if (menuOverlay) {
+    menuOverlay.addEventListener('click', closeMobileMenu);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Spread Heaven Header",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary Dark Color",
+      "default": "#8A5A2B"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E7C18C"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF9F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2B1B0F"
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Muted Text Color",
+      "default": "#5D4330"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#EBDCCB"
+    },
+    {
+      "type": "header",
+      "content": "Header Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_theme_toggle",
+      "label": "Show Theme Toggle",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_link",
+      "name": "Navigation Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Link Label",
+          "default": "Home"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL",
+          "default": "/"
+        },
+        {
+          "type": "checkbox",
+          "id": "active",
+          "label": "Active by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spread Heaven Header",
+      "blocks": [
+        {
+          "type": "nav_link",
+          "name": "Home",
+          "settings": {
+            "label": "Home",
+            "link": "/",
+            "active": true
+          }
+        },
+        {
+          "type": "nav_link",
+          "name": "Shop",
+          "settings": {
+            "label": "Shop",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "nav_link",
+          "name": "About",
+          "settings": {
+            "label": "About",
+            "link": "/pages/about"
+          }
+        },
+        {
+          "type": "nav_link",
+          "name": "Recipes",
+          "settings": {
+            "label": "Recipes",
+            "link": "/pages/recipes"
+          }
+        },
+        {
+          "type": "nav_link",
+          "name": "Reviews",
+          "settings": {
+            "label": "Reviews",
+            "link": "/pages/reviews"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
