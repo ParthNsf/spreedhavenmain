@@ -20,6 +20,8 @@ Spread Heaven Header - Exact replica of the original HTML header
   --sp-font-head: var(--font-heading-family, 'Poppins', sans-serif);
   --sp-font-body: var(--font-body-family, 'Inter', sans-serif);
   --sp-scroll-progress: 0%;
+  --sp-logo-max-width: {{ section.settings.brand_logo_max_width | default: 35 }}px;
+  --sp-logo-max-height: {{ section.settings.brand_logo_max_height | default: 35 }}px;
 }
 
 .sp-scroll-progress {
@@ -28,7 +30,7 @@ Spread Heaven Header - Exact replica of the original HTML header
   left: 0;
   width: 100%;
   height: 3px;
-  z-index: 1002;
+  z-index: 9999; /* Very high z-index for scroll bar */
 }
 .sp-scroll-progress-fill {
   height: 100%;
@@ -47,7 +49,7 @@ Spread Heaven Header - Exact replica of the original HTML header
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--sp-border);
-  z-index: 1000;
+  z-index: 9998; /* Very high z-index for navbar */
   display: flex;
   align-items: center;
   transition: var(--sp-transition);
@@ -80,8 +82,10 @@ Spread Heaven Header - Exact replica of the original HTML header
   color: var(--sp-text);
 }
 .sp-logo-img {
-  max-height: 48px;
-  width: auto;
+  max-width: var(--sp-logo-max-width) !important;
+  max-height: var(--sp-logo-max-height) !important;
+  width: auto !important;
+  height: auto !important;
 }
 
 .sp-nav-links {
@@ -147,7 +151,7 @@ Spread Heaven Header - Exact replica of the original HTML header
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
-  z-index: 1001;
+  z-index: 9997; /* Between navbar and scroll progress */
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
@@ -164,7 +168,7 @@ Spread Heaven Header - Exact replica of the original HTML header
   max-width: 100%;
   height: 100%;
   background: var(--sp-bg);
-  z-index: 1002;
+  z-index: 9998; /* Same as navbar */
   transform: translateX(100%);
   transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
   padding: 24px;
@@ -231,6 +235,11 @@ Spread Heaven Header - Exact replica of the original HTML header
 }
 {% endstyle %}
 
+{% assign logo_max_w = section.settings.brand_logo_max_width | default: 35 %}
+{% assign logo_max_h = section.settings.brand_logo_max_height | default: 35 %}
+{% assign logo_url_w = logo_max_w | times: 2 %} {# Get retina size #}
+{% assign logo_style = 'max-width: ' | append: logo_max_w | append: 'px; max-height: ' | append: logo_max_h | append: 'px; width: auto; height: auto;' %}
+
 <div class="sp-header-wrapper">
   <!-- Scroll Progress Bar -->
   <div class="sp-scroll-progress" id="spScrollProgress">
@@ -244,11 +253,12 @@ Spread Heaven Header - Exact replica of the original HTML header
         {% if section.settings.brand_logo != blank %}
           {{
             section.settings.brand_logo
-            | image_url: width: 200
+            | image_url: width: logo_url_w
             | image_tag:
               loading: 'lazy',
               alt: section.settings.brand_logo_alt | default: shop.name,
-              class: 'sp-logo-img'
+              class: 'sp-logo-img',
+              style: logo_style
           }}
         {% else %}
           Spread <span>Heaven</span>
@@ -296,11 +306,12 @@ Spread Heaven Header - Exact replica of the original HTML header
         {% if section.settings.brand_logo != blank %}
           {{
             section.settings.brand_logo
-            | image_url: width: 200
+            | image_url: width: logo_url_w
             | image_tag:
               loading: 'lazy',
               alt: section.settings.brand_logo_alt | default: shop.name,
-              class: 'sp-logo-img'
+              class: 'sp-logo-img',
+              style: logo_style
           }}
         {% else %}
           Spread <span>Heaven</span>
@@ -396,6 +407,18 @@ Spread Heaven Header - Exact replica of the original HTML header
       "type": "text",
       "id": "brand_logo_alt",
       "label": "Logo Alt Text"
+    },
+    {
+      "type": "number",
+      "id": "brand_logo_max_width",
+      "label": "Logo Max Width (px)",
+      "default": 35
+    },
+    {
+      "type": "number",
+      "id": "brand_logo_max_height",
+      "label": "Logo Max Height (px)",
+      "default": 35
     },
     {
       "type": "header",

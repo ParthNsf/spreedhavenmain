@@ -1,0 +1,365 @@
+{% comment %}
+  WHY SPREAD HEAVEN SECTION
+  Shopify Online Store 2.0 compatible section
+{% endcomment %}
+
+{% style %}
+.sp-why {
+  --sp-primary: {{ section.settings.primary_color | default: "#B97734" }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color | default: "#8A5A2B" }};
+  --sp-accent: {{ section.settings.accent_color | default: "#E7C18C" }};
+  --sp-bg: {{ section.settings.bg_color | default: "#FFF9F3" }};
+  --sp-bg-card: #FFFDF9;
+  --sp-text: {{ section.settings.text_color | default: "#2B1B0F" }};
+  --sp-text-muted: {{ section.settings.text_muted_color | default: "#7A5C3E" }};
+  --sp-text-light: #B89070;
+  --sp-border: {{ section.settings.border_color | default: "#EDD9BC" }};
+  --sp-radius-sm: 8px;
+  --sp-radius-md: 16px;
+  --sp-radius-lg: 24px;
+  --sp-radius-xl: 40px;
+  --sp-transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --sp-font-head: var(--font-heading-family);
+  --sp-font-body: var(--font-body-family);
+  --sp-shadow-sm: 0 2px 12px {{ section.settings.primary_color | color_to_rgb: 0.10 | default: "rgba(185, 119, 52, 0.10)" }};
+  --sp-shadow-md: 0 8px 32px {{ section.settings.primary_color | color_to_rgb: 0.15 | default: "rgba(185, 119, 52, 0.15)" }};
+  --sp-shadow-lg: 0 24px 64px {{ section.settings.primary_color | color_to_rgb: 0.20 | default: "rgba(185, 119, 52, 0.20)" }};
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 80px 0;
+  background-color: var(--sp-bg);
+  overflow: hidden;
+}
+
+.sp-why-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sp-why-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px;
+}
+
+.sp-why-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sp-primary);
+  background-color: {{ section.settings.primary_color | color_to_rgb: 0.08 | default: "rgba(185, 119, 52, 0.08)" }};
+  padding: 6px 14px;
+  border-radius: var(--sp-radius-xl);
+  margin-bottom: 20px;
+}
+
+.sp-why-title {
+  font-family: var(--sp-font-head);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--sp-text);
+  margin-bottom: 16px;
+}
+
+.sp-why-subtitle {
+  font-size: 16px;
+  color: var(--sp-text-muted);
+  line-height: 1.7;
+}
+
+.sp-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.sp-why-card {
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 32px;
+  box-shadow: var(--sp-shadow-sm);
+  transition: var(--sp-transition);
+}
+
+.sp-why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sp-shadow-md);
+  border-color: var(--sp-accent);
+}
+
+.sp-why-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--sp-radius-md);
+  background: linear-gradient(135deg, var(--sp-accent), {{ section.settings.primary_color | color_to_rgb: 0.15 }});
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--sp-primary-dark);
+  margin-bottom: 20px;
+}
+
+.sp-why-card h3 {
+  font-family: var(--sp-font-head);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--sp-text);
+  margin-bottom: 12px;
+}
+
+.sp-why-card p {
+  font-size: 15px;
+  color: var(--sp-text-muted);
+  line-height: 1.7;
+}
+
+.sp-why::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, {{ section.settings.accent_color | color_to_rgb: 0.12 | default: "rgba(231, 193, 140, 0.12)" }} 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sp-why::after {
+  content: '';
+  position: absolute;
+  bottom: -150px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, {{ section.settings.primary_color | color_to_rgb: 0.10 | default: "rgba(185, 119, 52, 0.10)" }} 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 900px) {
+  .sp-why {
+    padding: 60px 0;
+  }
+  
+  .sp-why-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .sp-why-inner {
+    padding: 0 16px;
+  }
+  
+  .sp-why-card {
+    padding: 24px;
+  }
+  
+  .sp-why-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+}
+{% endstyle %}
+
+<section class="sp-why">
+  <div class="sp-why-inner">
+    <div class="sp-why-header">
+      {% if section.settings.tag != blank %}
+        <div class="sp-why-tag">{{ section.settings.tag | escape }}</div>
+      {% endif %}
+      
+      {% if section.settings.title != blank %}
+        <h2 class="sp-why-title">{{ section.settings.title | escape }}</h2>
+      {% endif %}
+      
+      {% if section.settings.subtitle != blank %}
+        <p class="sp-why-subtitle">{{ section.settings.subtitle | escape }}</p>
+      {% endif %}
+    </div>
+
+    <div class="sp-why-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'why_card' %}
+          <div class="sp-why-card" {{ block.shopify_attributes }}>
+            {% if block.settings.icon != blank %}
+              <div class="sp-why-icon">
+                <i class="{{ block.settings.icon }}"></i>
+              </div>
+            {% endif %}
+            
+            {% if block.settings.heading != blank %}
+              <h3>{{ block.settings.heading | escape }}</h3>
+            {% endif %}
+            
+            {% if block.settings.text != blank %}
+              <p>{{ block.settings.text | escape }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why Spread Heaven",
+  "tag": "section",
+  "class": "section-why-spread-heaven",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary Dark Color",
+      "default": "#8A5A2B"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E7C18C"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF9F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2B1B0F"
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Muted Text Color",
+      "default": "#7A5C3E"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#EDD9BC"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Section Tag (Eyebrow)",
+      "default": "Pure Integrity"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Why Spread Heaven?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "We ground pure peanut butter with honest superfoods, making every scoop delicious and nutritious."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "why_card",
+      "name": "Why Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Font Awesome Icon Class",
+          "info": "Enter the full Font Awesome class, e.g. fa-solid fa-seedling",
+          "default": "fa-solid fa-seedling"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Card Heading",
+          "default": "Slow Golden Roasted"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Card Description",
+          "default": "Roasted slowly in custom batches to lock in core minerals, natural heart-healthy fats, and deep toasted nut flavor profiles."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Spread Heaven",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "why_card",
+          "settings": {
+            "icon": "fa-solid fa-seedling",
+            "heading": "Slow Golden Roasted",
+            "text": "Roasted slowly in custom batches to lock in core minerals, natural heart-healthy fats, and deep toasted nut flavor profiles."
+          }
+        },
+        {
+          "type": "why_card",
+          "settings": {
+            "icon": "fa-solid fa-dumbbell",
+            "heading": "Protein Rich Fuel",
+            "text": "Packing up to 27g of dense plant-based protein per 100g to support athletic macro goals and muscle recovery."
+          }
+        },
+        {
+          "type": "why_card",
+          "settings": {
+            "icon": "fa-solid fa-ban",
+            "heading": "No Hydrogenated Fats",
+            "text": "Absolutely no cheap palm oil fillers, thickeners, processed table sugars, or chemical shelf-life extenders."
+          }
+        },
+        {
+          "type": "why_card",
+          "settings": {
+            "icon": "fa-solid fa-heart-pulse",
+            "heading": "Daily Fitness Partner",
+            "text": "Clean nutritional profile that pairs perfectly with oatmeal bowls, banana smoothies, post-workout shakes, and morning toasts."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
