@@ -1,0 +1,500 @@
+{% comment %}
+SPREAD HEAVEN CONTACT US SECTION
+Shopify Online Store 2.0 compatible section
+{% endcomment %}
+
+{% style %}
+.sp-contact {
+  --sp-primary: {{ section.settings.primary_color }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color }};
+  --sp-accent: {{ section.settings.accent_color }};
+  --sp-bg: {{ section.settings.bg_color }};
+  --sp-bg-card: #FFFDF9;
+  --sp-text: {{ section.settings.text_color }};
+  --sp-text-muted: {{ section.settings.text_muted_color }};
+  --sp-text-light: #B89070;
+  --sp-border: {{ section.settings.border_color }};
+  --sp-radius-sm: 8px;
+  --sp-radius-md: 16px;
+  --sp-radius-lg: 24px;
+  --sp-radius-xl: 40px;
+  --sp-transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --sp-font-head: var(--font-heading-family);
+  --sp-font-body: var(--font-body-family);
+  --sp-shadow-sm: 0 2px 12px {{ section.settings.primary_color | color_to_rgb: 0.10 }};
+  --sp-shadow-md: 0 8px 32px {{ section.settings.primary_color | color_to_rgb: 0.15 }};
+  --sp-shadow-lg: 0 24px 64px {{ section.settings.primary_color | color_to_rgb: 0.20 }};
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 76px 0 40px;
+  background-color: var(--sp-bg);
+  overflow: hidden;
+}
+
+.sp-contact::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, {{ section.settings.primary_color | color_to_rgb: 0.12 }} 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sp-contact-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 44px 24px;
+}
+
+.sp-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  margin-top: 48px;
+}
+
+.sp-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sp-contact-item {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: var(--sp-bg-card);
+  border-radius: var(--sp-radius-md);
+  border: 1px solid var(--sp-border);
+  transition: var(--sp-transition);
+}
+
+.sp-contact-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sp-shadow-sm);
+  border-color: var(--sp-accent);
+}
+
+.sp-contact-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--sp-primary), var(--sp-accent));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.sp-contact-details h4 {
+  margin-bottom: 6px;
+  color: var(--sp-text);
+  font-family: var(--sp-font-head);
+}
+
+.sp-contact-details p {
+  color: var(--sp-text-muted);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.sp-contact-form-card {
+  background: var(--sp-bg-card);
+  padding: 32px;
+  border-radius: var(--sp-radius-lg);
+  border: 1px solid var(--sp-border);
+  box-shadow: var(--sp-shadow-sm);
+}
+
+.sp-form-group {
+  margin-bottom: 20px;
+}
+
+.sp-form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--sp-text);
+  font-size: 14px;
+}
+
+.sp-form-input,
+.sp-form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-md);
+  font-family: var(--sp-font-body);
+  font-size: 15px;
+  background-color: #fff;
+  color: var(--sp-text);
+  transition: var(--sp-transition);
+}
+
+.sp-form-input:focus,
+.sp-form-textarea:focus {
+  outline: none;
+  border-color: var(--sp-primary);
+  box-shadow: 0 0 0 3px {{ section.settings.primary_color | color_to_rgb: 0.15 }};
+}
+
+.sp-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.sp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--sp-radius-xl);
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: var(--sp-transition);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.sp-btn-primary {
+  background: var(--sp-primary);
+  color: #fff;
+  box-shadow: 0 4px 20px {{ section.settings.primary_color | color_to_rgb: 0.35 }};
+  width: 100%;
+}
+
+.sp-btn-primary:hover {
+  background: var(--sp-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px {{ section.settings.primary_color | color_to_rgb: 0.45 }};
+}
+
+@media (max-width: 900px) {
+  .sp-contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .sp-contact-inner {
+    padding: 24px 16px;
+  }
+
+  .sp-contact-form-card {
+    padding: 24px 20px;
+  }
+}
+{% endstyle %}
+
+<section class="sp-contact">
+  <div class="sp-contact-inner">
+    <div class="sp-section-header">
+      <div class="sp-section-eyebrow">{{ section.settings.eyebrow_text | escape }}</div>
+      <h2 class="sp-section-title">{{ section.settings.heading | escape }}</h2>
+      <p class="sp-section-description">{{ section.settings.description | escape }}</p>
+    </div>
+
+    <div class="sp-contact-grid">
+      <div class="sp-contact-info">
+        {% if section.settings.contact_1_icon != blank %}
+          <div class="sp-contact-item">
+            <div class="sp-contact-icon">{{ section.settings.contact_1_icon | escape }}</div>
+            <div class="sp-contact-details">
+              <h4>{{ section.settings.contact_1_title | escape }}</h4>
+              <p>{{ section.settings.contact_1_text | escape }}</p>
+            </div>
+          </div>
+        {% endif %}
+        {% if section.settings.contact_2_icon != blank %}
+          <div class="sp-contact-item">
+            <div class="sp-contact-icon">{{ section.settings.contact_2_icon | escape }}</div>
+            <div class="sp-contact-details">
+              <h4>{{ section.settings.contact_2_title | escape }}</h4>
+              <p>{{ section.settings.contact_2_text | escape }}</p>
+            </div>
+          </div>
+        {% endif %}
+        {% if section.settings.contact_3_icon != blank %}
+          <div class="sp-contact-item">
+            <div class="sp-contact-icon">{{ section.settings.contact_3_icon | escape }}</div>
+            <div class="sp-contact-details">
+              <h4>{{ section.settings.contact_3_title | escape }}</h4>
+              <p>{{ section.settings.contact_3_text | escape }}</p>
+            </div>
+          </div>
+        {% endif %}
+        {% if section.settings.contact_4_icon != blank %}
+          <div class="sp-contact-item">
+            <div class="sp-contact-icon">{{ section.settings.contact_4_icon | escape }}</div>
+            <div class="sp-contact-details">
+              <h4>{{ section.settings.contact_4_title | escape }}</h4>
+              <p>{{ section.settings.contact_4_text | escape }}</p>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="sp-contact-form-card">
+        <h3 style="font-family: var(--sp-font-head); color: var(--sp-text); margin-bottom: 20px;">{{ section.settings.form_title | escape }}</h3>
+        <form id="contactForm">
+          <div class="sp-form-group">
+            <label class="sp-form-label" for="contactName">{{ section.settings.name_label | escape }}</label>
+            <input type="text" id="contactName" class="sp-form-input" placeholder="{{ section.settings.name_placeholder | escape }}" required>
+          </div>
+          <div class="sp-form-group">
+            <label class="sp-form-label" for="contactEmail">{{ section.settings.email_label | escape }}</label>
+            <input type="email" id="contactEmail" class="sp-form-input" placeholder="{{ section.settings.email_placeholder | escape }}" required>
+          </div>
+          <div class="sp-form-group">
+            <label class="sp-form-label" for="contactSubject">{{ section.settings.subject_label | escape }}</label>
+            <input type="text" id="contactSubject" class="sp-form-input" placeholder="{{ section.settings.subject_placeholder | escape }}" required>
+          </div>
+          <div class="sp-form-group">
+            <label class="sp-form-label" for="contactMessage">{{ section.settings.message_label | escape }}</label>
+            <textarea id="contactMessage" class="sp-form-textarea" placeholder="{{ section.settings.message_placeholder | escape }}" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="sp-btn sp-btn-primary">{{ section.settings.submit_button | escape }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Spread Heaven Contact Us",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary Dark Color",
+      "default": "#8A5A2B"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E7C18C"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF9F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2B1B0F"
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Muted Text Color",
+      "default": "#7A5C3E"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#EDD9BC"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow Text",
+      "default": "Get In Touch"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We'd Love To Hear From You"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Have questions, feedback, or want to place a bulk order? We're here to help!"
+    },
+    {
+      "type": "header",
+      "content": "Contact Info Cards"
+    },
+    {
+      "type": "text",
+      "id": "contact_1_icon",
+      "label": "Contact 1 Icon (Emoji)",
+      "default": "📍"
+    },
+    {
+      "type": "text",
+      "id": "contact_1_title",
+      "label": "Contact 1 Title",
+      "default": "Address"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_1_text",
+      "label": "Contact 1 Text",
+      "default": "100 Golden Peanut Way, San Francisco, CA 94105"
+    },
+    {
+      "type": "text",
+      "id": "contact_2_icon",
+      "label": "Contact 2 Icon (Emoji)",
+      "default": "✉️"
+    },
+    {
+      "type": "text",
+      "id": "contact_2_title",
+      "label": "Contact 2 Title",
+      "default": "Email"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_2_text",
+      "label": "Contact 2 Text",
+      "default": "hello@spreadheaven.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_3_icon",
+      "label": "Contact 3 Icon (Emoji)",
+      "default": "📞"
+    },
+    {
+      "type": "text",
+      "id": "contact_3_title",
+      "label": "Contact 3 Title",
+      "default": "Phone"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_3_text",
+      "label": "Contact 3 Text",
+      "default": "+1 (555) 123-4567"
+    },
+    {
+      "type": "text",
+      "id": "contact_4_icon",
+      "label": "Contact 4 Icon (Emoji)",
+      "default": "📱"
+    },
+    {
+      "type": "text",
+      "id": "contact_4_title",
+      "label": "Contact 4 Title",
+      "default": "Instagram"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_4_text",
+      "label": "Contact 4 Text",
+      "default": "@spread_heaven26"
+    },
+    {
+      "type": "header",
+      "content": "Contact Form"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Title",
+      "default": "Send Us A Message"
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Name Label",
+      "default": "Full Name"
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name Placeholder",
+      "default": "John Doe"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "Email Address"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "john@example.com"
+    },
+    {
+      "type": "text",
+      "id": "subject_label",
+      "label": "Subject Label",
+      "default": "Subject"
+    },
+    {
+      "type": "text",
+      "id": "subject_placeholder",
+      "label": "Subject Placeholder",
+      "default": "How can we help?"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message Label",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message Placeholder",
+      "default": "Your message here..."
+    },
+    {
+      "type": "text",
+      "id": "submit_button",
+      "label": "Submit Button Text",
+      "default": "Send Message"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spread Heaven Contact Us",
+      "category": "Contact"
+    }
+  ]
+}
+{% endschema %}

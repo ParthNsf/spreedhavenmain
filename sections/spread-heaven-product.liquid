@@ -1,0 +1,2070 @@
+{% comment %}
+SPREAD HEAVEN PRODUCT DETAILS SECTION
+Shopify Online Store 2.0 compatible section
+{% endcomment %}
+
+{% style %}
+.sp-product {
+  --sp-primary: {{ section.settings.primary_color }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color }};
+  --sp-accent: {{ section.settings.accent_color }};
+  --sp-bg: {{ section.settings.bg_color }};
+  --sp-bg-card: #FFFDF9;
+  --sp-text: {{ section.settings.text_color }};
+  --sp-text-muted: {{ section.settings.text_muted_color }};
+  --sp-text-light: #B89070;
+  --sp-border: {{ section.settings.border_color }};
+  --sp-white: #FFFFFF;
+  --sp-success: #2E7D32;
+  --sp-font-head: var(--font-heading-family);
+  --sp-font-body: var(--font-body-family);
+  --sp-radius: 12px;
+  --sp-radius-sm: 8px;
+  --sp-radius-lg: 20px;
+  --sp-transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --sp-shadow-sm: 0 4px 16px {{ section.settings.primary_color | color_to_rgb: 0.05 }};
+  --sp-shadow-md: 0 8px 30px {{ section.settings.primary_color | color_to_rgb: 0.08 }};
+  --sp-shadow-lg: 0 20px 50px {{ section.settings.text_color | color_to_rgb: 0.12 }};
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 40px 0 80px;
+  background-color: var(--sp-bg);
+  overflow: hidden;
+}
+
+.sp-product-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Breadcrumb */
+.sp-breadcrumb-bar {
+  padding: 14px 24px;
+  background-color: var(--sp-bg-card);
+  border-bottom: 1px solid var(--sp-border);
+}
+.sp-breadcrumb-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-text-light);
+}
+.sp-breadcrumb-inner a {
+  color: var(--sp-text-light);
+  transition: var(--sp-transition);
+  text-decoration: none;
+}
+.sp-breadcrumb-inner a:hover {
+  color: var(--sp-primary);
+}
+.sp-breadcrumb-inner i {
+  font-size: 10px;
+}
+.sp-breadcrumb-inner span {
+  color: var(--sp-primary);
+}
+
+/* Product Grid */
+.sp-product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Gallery Column */
+.sp-gallery-col {
+  position: sticky;
+  top: 96px;
+}
+.sp-gallery-main {
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  overflow: hidden;
+  background-color: var(--sp-bg-card);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--sp-shadow-md);
+  position: relative;
+  margin-bottom: 12px;
+}
+.sp-gallery-main img, .sp-gallery-main video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+.sp-gallery-main .sp-media-item {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+.sp-gallery-main .sp-media-item.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sp-gallery-main .sp-media-item img {
+  object-fit: contain;
+  padding: 20px;
+}
+.sp-gallery-main .sp-media-item video {
+  object-fit: cover;
+}
+.sp-zoom-badge {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background-color: rgba(255,249,243,0.92);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: var(--sp-transition);
+}
+.sp-zoom-badge:hover {
+  border-color: var(--sp-primary);
+  color: var(--sp-primary);
+}
+.sp-gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.sp-thumb-item {
+  border: 2px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  aspect-ratio: 1;
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--sp-transition);
+  background-color: var(--sp-bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.sp-thumb-item:hover {
+  border-color: var(--sp-primary-dark);
+}
+.sp-thumb-item.active {
+  border-color: var(--sp-primary);
+  box-shadow: 0 0 0 2px {{ section.settings.primary_color | color_to_rgb: 0.2 }};
+}
+.sp-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+
+/* Info Column */
+.sp-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Brand / Tag */
+.sp-prod-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.sp-brand-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sp-primary);
+  background-color: {{ section.settings.primary_color | color_to_rgb: 0.08 }};
+  padding: 5px 12px;
+  border-radius: var(--sp-radius-sm);
+}
+
+/* Product Title */
+.sp-prod-title-main {
+  font-family: var(--sp-font-head);
+  font-size: clamp(22px, 3.5vw, 40px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--sp-text);
+}
+.sp-prod-title-main span {
+  color: var(--sp-primary);
+}
+
+/* Rating & Stock Row */
+.sp-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.sp-stars {
+  color: var(--sp-primary);
+  display: flex;
+  gap: 3px;
+  font-size: 14px;
+}
+.sp-rating-score {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sp-text);
+}
+.sp-rating-count {
+  font-size: 13px;
+  color: var(--sp-text-light);
+}
+.sp-rating-divider {
+  color: var(--sp-border);
+}
+.sp-in-stock-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--sp-success);
+  letter-spacing: 0.5px;
+}
+.sp-in-stock-badge::before {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--sp-success);
+}
+
+/* Price Block */
+.sp-price-block {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 20px 0;
+  border-top: 1px solid var(--sp-border);
+  border-bottom: 1px solid var(--sp-border);
+}
+.sp-price-current {
+  font-family: var(--sp-font-head);
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--sp-primary);
+}
+.sp-price-mrp {
+  font-size: 18px;
+  color: var(--sp-text-light);
+  text-decoration: line-through;
+  font-weight: 600;
+}
+.sp-price-savings {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: rgba(46,125,50,0.1);
+  color: var(--sp-success);
+  padding: 4px 10px;
+  border-radius: var(--sp-radius-sm);
+}
+.sp-price-tax-note {
+  font-size: 11px;
+  color: var(--sp-text-light);
+  display: block;
+  margin-top: 4px;
+}
+
+/* Variant Picker */
+.sp-picker-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-text-muted);
+  margin-bottom: 10px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.sp-picker-label strong {
+  color: var(--sp-text);
+}
+.sp-flavor-grid, .sp-weight-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sp-variant-btn {
+  border: 1.5px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-text-muted);
+  transition: var(--sp-transition);
+  cursor: pointer;
+  background-color: var(--sp-bg-card);
+}
+.sp-variant-btn:hover {
+  border-color: var(--sp-primary-dark);
+  color: var(--sp-primary);
+}
+.sp-variant-btn.active {
+  border-color: var(--sp-primary);
+  color: var(--sp-primary);
+  background-color: {{ section.settings.primary_color | color_to_rgb: 0.06 }};
+}
+.sp-weight-popular::after {
+  content: 'Popular';
+  position: absolute;
+  top: -9px;
+  right: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--sp-primary);
+  color: white;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* Quantity & Add to Cart */
+.sp-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.sp-qty-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--sp-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--sp-text-muted);
+  transition: var(--sp-transition);
+  background-color: var(--sp-bg-card);
+  cursor: pointer;
+}
+.sp-qty-btn:first-child {
+  border-radius: var(--sp-radius-sm) 0 0 var(--sp-radius-sm);
+}
+.sp-qty-btn:last-child {
+  border-radius: 0 var(--sp-radius-sm) var(--sp-radius-sm) 0;
+}
+.sp-qty-btn:hover {
+  background-color: var(--sp-primary);
+  color: white;
+  border-color: var(--sp-primary);
+}
+.sp-qty-input {
+  width: 56px;
+  height: 42px;
+  border: 1px solid var(--sp-border);
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  font-family: var(--sp-font-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--sp-text);
+  background-color: var(--sp-bg-card);
+  outline: none;
+}
+.sp-cta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sp-cta-sub-row {
+  display: flex;
+  gap: 12px;
+}
+.sp-cta-sub-row .sp-btn {
+  flex: 1;
+}
+.sp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 28px;
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  transition: var(--sp-transition);
+  cursor: pointer;
+  text-decoration: none;
+}
+.sp-btn-primary {
+  background-color: var(--sp-primary);
+  color: var(--sp-white);
+  border-color: var(--sp-primary);
+  box-shadow: 0 4px 20px {{ section.settings.primary_color | color_to_rgb: 0.35 }};
+}
+.sp-btn-primary:hover {
+  background-color: var(--sp-primary-dark);
+  border-color: var(--sp-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px {{ section.settings.primary_color | color_to_rgb: 0.45 }};
+}
+.sp-btn-outline {
+  background-color: transparent;
+  color: var(--sp-primary);
+  border-color: var(--sp-primary);
+}
+.sp-btn-outline:hover {
+  background-color: {{ section.settings.primary_color | color_to_rgb: 0.08 }};
+  transform: translateY(-2px);
+}
+
+/* Trust Strip */
+.sp-trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background-color: var(--sp-border);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius);
+  overflow: hidden;
+}
+.sp-trust-cell {
+  background-color: var(--sp-bg-card);
+  padding: 14px 12px;
+  text-align: center;
+}
+.sp-trust-cell i {
+  color: var(--sp-primary);
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+}
+.sp-trust-cell strong {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  color: var(--sp-text);
+}
+.sp-trust-cell span {
+  font-size: 10px;
+  color: var(--sp-text-light);
+}
+
+/* Shipping Block */
+.sp-shipping-block {
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius);
+  overflow: hidden;
+}
+.sp-shipping-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--sp-border);
+}
+.sp-shipping-row:last-child {
+  border-bottom: none;
+}
+.sp-shipping-row i {
+  color: var(--sp-primary);
+  width: 20px;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.sp-shipping-row-text strong {
+  font-size: 13px;
+  font-weight: 700;
+  display: block;
+  color: var(--sp-text);
+}
+.sp-shipping-row-text span {
+  font-size: 12px;
+  color: var(--sp-text-light);
+}
+.sp-pin-check {
+  display: flex;
+  gap: 0;
+  margin-top: 8px;
+}
+.sp-pin-input {
+  flex: 1;
+  height: 40px;
+  border: 1px solid var(--sp-border);
+  border-right: none;
+  border-radius: var(--sp-radius-sm) 0 0 var(--sp-radius-sm);
+  padding: 0 14px;
+  font-family: var(--sp-font-body);
+  font-size: 13px;
+  color: var(--sp-text);
+  background-color: var(--sp-bg-card);
+  outline: none;
+  transition: var(--sp-transition);
+}
+.sp-pin-input:focus {
+  border-color: var(--sp-primary);
+}
+.sp-pin-check-btn {
+  height: 40px;
+  padding: 0 18px;
+  background-color: var(--sp-primary);
+  color: white;
+  border-radius: 0 var(--sp-radius-sm) var(--sp-radius-sm) 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: var(--sp-transition);
+  cursor: pointer;
+  border: none;
+}
+.sp-pin-check-btn:hover {
+  background-color: var(--sp-primary-dark);
+}
+.sp-pin-result {
+  font-size: 12px;
+  margin-top: 8px;
+  color: var(--sp-success);
+  display: none;
+}
+.sp-pin-result.show {
+  display: block;
+}
+
+/* Tabs Section */
+.sp-tabs-section {
+  padding: 60px 0 0;
+  border-top: 1px solid var(--sp-border);
+  margin-top: 20px;
+}
+.sp-tab-nav {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--sp-border);
+  margin-bottom: 40px;
+  overflow-x: auto;
+}
+.sp-tab-btn {
+  padding: 14px 24px;
+  font-family: var(--sp-font-head);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--sp-text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: var(--sp-transition);
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+.sp-tab-btn:hover {
+  color: var(--sp-primary);
+}
+.sp-tab-btn.active {
+  color: var(--sp-primary);
+  border-bottom-color: var(--sp-primary);
+}
+.sp-tab-panel {
+  display: none;
+  animation: fadeInView 0.3s ease;
+}
+.sp-tab-panel.active {
+  display: block;
+}
+@keyframes fadeInView {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Description Tab */
+.sp-desc-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.sp-desc-body h3 {
+  font-family: var(--sp-font-head);
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  color: var(--sp-text);
+}
+.sp-desc-body p {
+  font-size: 15px;
+  color: var(--sp-text-muted);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.sp-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+.sp-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius);
+  padding: 14px;
+}
+.sp-feature-item i {
+  color: var(--sp-primary);
+  font-size: 14px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.sp-feature-item p {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+}
+.sp-feature-item p strong {
+  color: var(--sp-text);
+}
+
+/* Nutrition Tab */
+.sp-nutrition-card {
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--sp-shadow-sm);
+  max-width: 480px;
+}
+.sp-nutrition-header {
+  background-color: var(--sp-primary);
+  color: white;
+  padding: 24px 28px;
+}
+.sp-nutrition-header h3 {
+  font-family: var(--sp-font-head);
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.sp-nutrition-header p {
+  font-size: 13px;
+  opacity: 0.85;
+}
+.sp-nutrition-table {
+  background-color: var(--sp-bg-card);
+}
+.sp-nutrition-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 28px;
+  border-bottom: 1px solid var(--sp-border);
+  font-size: 14px;
+}
+.sp-nutrition-row:last-child {
+  border-bottom: none;
+}
+.sp-nutrition-row.sp-bold {
+  font-family: var(--sp-font-head);
+  font-weight: 800;
+  font-size: 15px;
+}
+.sp-nutrition-row .sp-val {
+  font-weight: 700;
+  color: var(--sp-primary);
+}
+
+/* Ingredients Tab */
+.sp-ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.sp-ingredient-card {
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 24px 20px;
+  text-align: center;
+  transition: var(--sp-transition);
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-ingredient-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sp-shadow-md);
+  border-color: var(--sp-primary);
+}
+.sp-ingredient-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.sp-ingredient-card h4 {
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: var(--sp-text);
+}
+.sp-ingredient-card p {
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  line-height: 1.5;
+}
+.sp-ingredients-full {
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius);
+  padding: 24px;
+}
+.sp-ingredients-full h4 {
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: var(--sp-text-muted);
+}
+.sp-ingredients-full p {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+  line-height: 1.8;
+}
+.sp-allergen-note {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background-color: {{ section.settings.primary_color | color_to_rgb: 0.06 }};
+  border: 1px solid {{ section.settings.primary_color | color_to_rgb: 0.2 }};
+  border-radius: var(--sp-radius-sm);
+  font-size: 12px;
+  color: var(--sp-text-muted);
+}
+.sp-allergen-note strong {
+  color: var(--sp-primary);
+}
+
+/* Reviews Tab */
+.sp-reviews-summary-bar {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  align-items: center;
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-big-score {
+  text-align: center;
+  border-right: 1px solid var(--sp-border);
+  padding-right: 40px;
+}
+.sp-big-score-num {
+  font-family: var(--sp-font-head);
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--sp-primary);
+  line-height: 1;
+}
+.sp-big-score-stars {
+  color: var(--sp-primary);
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin: 8px 0;
+}
+.sp-big-score-count {
+  font-size: 13px;
+  color: var(--sp-text-light);
+}
+.sp-bar-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sp-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.sp-bar-row span:first-child {
+  width: 40px;
+  text-align: right;
+  color: var(--sp-text-muted);
+}
+.sp-bar-row .sp-mini-bg {
+  flex: 1;
+  height: 8px;
+  background-color: {{ section.settings.text_color | color_to_rgb: 0.1 }};
+  border-radius: var(--sp-radius-sm);
+  overflow: hidden;
+}
+.sp-bar-row .sp-mini-fill {
+  height: 100%;
+  background-color: var(--sp-primary);
+  border-radius: var(--sp-radius-sm);
+  transition: width 1s ease;
+}
+.sp-bar-row span:last-child {
+  width: 30px;
+  color: var(--sp-text-light);
+}
+.sp-reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.sp-review-card {
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 28px;
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-review-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+.sp-reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sp-reviewer-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: {{ section.settings.primary_color | color_to_rgb: 0.12 }};
+  border: 1px solid var(--sp-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sp-font-head);
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--sp-primary);
+}
+.sp-reviewer-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sp-text);
+}
+.sp-reviewer-meta {
+  font-size: 11px;
+  color: var(--sp-text-light);
+  display: flex;
+  gap: 8px;
+}
+.sp-verified-tag {
+  color: var(--sp-success);
+  font-weight: 600;
+}
+.sp-review-stars {
+  color: var(--sp-primary);
+  display: flex;
+  gap: 3px;
+  font-size: 13px;
+}
+.sp-review-title {
+  font-family: var(--sp-font-head);
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--sp-text);
+}
+.sp-review-text {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+  line-height: 1.7;
+}
+.sp-review-helpful {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--sp-text-light);
+}
+.sp-helpful-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sp-text-muted);
+  transition: var(--sp-transition);
+  cursor: pointer;
+}
+.sp-helpful-btn:hover {
+  border-color: var(--sp-primary);
+  color: var(--sp-primary);
+}
+
+/* Related Products */
+.sp-related-section {
+  padding: 60px 24px;
+  border-top: 1px solid var(--sp-border);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.sp-section-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sp-primary);
+  display: block;
+  margin-bottom: 8px;
+}
+.sp-section-title-sm {
+  font-family: var(--sp-font-head);
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  color: var(--sp-text);
+}
+.sp-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+.sp-rel-card {
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 20px;
+  box-shadow: var(--sp-shadow-sm);
+  transition: var(--sp-transition);
+  text-decoration: none;
+}
+.sp-rel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sp-shadow-lg);
+  border-color: var(--sp-primary-dark);
+}
+.sp-rel-img {
+  aspect-ratio: 1;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius);
+  overflow: hidden;
+  background-color: var(--sp-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.sp-rel-img img {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+}
+.sp-rel-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--sp-primary);
+  margin-bottom: 4px;
+}
+.sp-rel-name {
+  font-family: var(--sp-font-head);
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  line-height: 1.2;
+  color: var(--sp-text);
+}
+.sp-rel-desc {
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  margin-bottom: 14px;
+}
+.sp-rel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--sp-border);
+  padding-top: 12px;
+}
+.sp-rel-price {
+  font-family: var(--sp-font-head);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--sp-primary);
+}
+.sp-rel-btn {
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: var(--sp-transition);
+  color: var(--sp-text);
+  cursor: pointer;
+}
+.sp-rel-btn:hover {
+  background-color: var(--sp-primary);
+  border-color: var(--sp-primary);
+  color: white;
+}
+
+/* Ticker */
+.sp-ticker-bar {
+  background-color: var(--sp-primary-dark);
+  color: var(--sp-white);
+  padding: 18px 0;
+  border-top: 1px solid var(--sp-border);
+}
+.sp-ticker-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.sp-ticker-item {
+  font-family: var(--sp-font-head);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sp-ticker-item i {
+  color: var(--sp-accent);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sp-product-grid { grid-template-columns: 1fr; gap: 40px; }
+  .sp-gallery-col { position: static; }
+  .sp-desc-split { grid-template-columns: 1fr; gap: 40px; }
+  .sp-reviews-summary-bar { grid-template-columns: 1fr; }
+  .sp-big-score { border-right: none; border-bottom: 1px solid var(--sp-border); padding-right: 0; padding-bottom: 24px; }
+}
+@media (max-width: 768px) {
+  .sp-gallery-thumbs { grid-template-columns: repeat(6, 1fr); }
+  .sp-trust-strip { grid-template-columns: 1fr; }
+  .sp-cta-sub-row { flex-direction: column; }
+  .sp-related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .sp-related-grid { grid-template-columns: 1fr; }
+  .sp-gallery-thumbs { grid-template-columns: repeat(6, 1fr); gap: 6px; }
+}
+
+/* Nutrition Bar Styles */
+.sp-nutri-bar-wrap {
+  margin-top: 32px;
+}
+.sp-nutri-bar-title {
+  font-family: var(--sp-font-head);
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--sp-text);
+}
+.sp-nutri-bar-item {
+  margin-bottom: 20px;
+}
+.sp-nutri-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.sp-nutri-bar-bg {
+  width: 100%;
+  height: 12px;
+  background-color: {{ section.settings.text_color | color_to_rgb: 0.1 }};
+  border-radius: var(--sp-radius-sm);
+  overflow: hidden;
+}
+.sp-nutri-bar-fill {
+  height: 100%;
+  background-color: var(--sp-primary);
+  border-radius: var(--sp-radius-sm);
+  width: 0;
+  transition: width 0.8s ease-out;
+}
+
+/* Shipping Tab Styles */
+.sp-shipping-tab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.sp-shipping-tab-card {
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-shipping-tab-card i {
+  font-size: 32px;
+  color: var(--sp-primary);
+  margin-bottom: 16px;
+}
+.sp-shipping-tab-card h4 {
+  font-family: var(--sp-font-head);
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: var(--sp-text);
+}
+.sp-shipping-tab-card p {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.sp-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-white);
+  background-color: var(--sp-primary);
+  padding: 4px 10px;
+  border-radius: var(--sp-radius-sm);
+}
+.sp-return-policy {
+  background-color: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 28px;
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-return-policy h3 {
+  font-family: var(--sp-font-head);
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: var(--sp-text);
+}
+.sp-policy-row {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--sp-border);
+}
+.sp-policy-row:last-child {
+  border-bottom: none;
+}
+.sp-policy-row i {
+  font-size: 20px;
+  color: var(--sp-primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.sp-policy-row strong {
+  font-size: 13px;
+  font-weight: 700;
+  display: block;
+  color: var(--sp-text);
+  margin-bottom: 4px;
+}
+.sp-policy-row p {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+{% endstyle %}
+
+<!-- Breadcrumb -->
+<div class="sp-breadcrumb-bar">
+  <div class="sp-breadcrumb-inner">
+    <a href="{{ routes.root_url }}">Home</a>
+    <i class="fa-solid fa-chevron-right"></i>
+    <a href="{{ routes.collections_url }}">Shop</a>
+    <i class="fa-solid fa-chevron-right"></i>
+    {% if collection %}
+      <a href="{{ collection.url }}">{{ collection.title | escape }}</a>
+      <i class="fa-solid fa-chevron-right"></i>
+    {% endif %}
+    <span>{{ product.title | escape }}</span>
+  </div>
+</div>
+
+<!-- Main Product Section -->
+<section class="sp-product">
+  <div class="sp-product-inner">
+    <div class="sp-product-grid">
+      
+      <!-- Gallery Column -->
+      <div class="sp-gallery-col">
+        <div class="sp-gallery-main" id="spMainMedia">
+          {% for media in product.media %}
+            <div class="sp-media-item {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}">
+              {% if media.media_type == 'image' %}
+                <img 
+                  src="{{ media | image_url: width: 1000 }}" 
+                  alt="{{ media.alt | escape | default: product.title | escape }}"
+                  id="spMainImage{{ forloop.index0 }}"
+                >
+              {% elsif media.media_type == 'video' %}
+                <video 
+                  controls 
+                  muted 
+                  loop 
+                  playsinline 
+                  id="spProductVideo{{ forloop.index0 }}"
+                  style="width:100%;height:100%;object-fit:cover;"
+                >
+                  <source src="{{ media | media_source_url: 1000 }}" type="video/mp4">
+                </video>
+              {% endif %}
+            </div>
+          {% endfor %}
+          {% if product.images.size == 0 %}
+            <div class="sp-media-item active" data-index="0">
+              <img src="https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=700&q=85" alt="Product Image">
+            </div>
+          {% endif %}
+          <div class="sp-zoom-badge" id="spZoomBadge">
+            <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom
+          </div>
+        </div>
+
+        <!-- Thumbnails -->
+        {% if product.media.size > 1 %}
+          <div class="sp-gallery-thumbs">
+            {% for media in product.media %}
+              <div class="sp-thumb-item {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}">
+                {% if media.media_type == 'image' %}
+                  <img 
+                    src="{{ media | image_url: width: 120 }}" 
+                    alt="{{ media.alt | escape | default: product.title | escape }}"
+                  >
+                {% else %}
+                  <div class="sp-thumb-item video-thumb">
+                    <i class="fa-solid fa-film"></i>
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Info Column -->
+      <div class="sp-info-col">
+        
+        <!-- Eyebrow -->
+        <div class="sp-prod-eyebrow">
+          {% if section.settings.show_bestseller_badge %}
+            <span class="sp-brand-pill">Best Seller</span>
+          {% endif %}
+          {% if section.settings.show_new_badge %}
+            <span class="sp-brand-pill" style="background-color:{{ section.settings.success_color }}; color:white;">New</span>
+          {% endif %}
+          <span class="sp-brand-pill">{{ product.vendor | escape }}</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="sp-prod-title-main">{{ product.title | escape }}</h1>
+
+        <!-- Rating & Stock -->
+        <div class="sp-rating-row">
+          {% if product.metafields.spread_heaven.rating %}
+            <div class="sp-stars" aria-label="{{ product.metafields.spread_heaven.rating }} out of 5 stars">
+              {% for i in (1..5) %}
+                {% if i <= product.metafields.spread_heaven.rating %}
+                  <i class="fa-solid fa-star"></i>
+                {% else %}
+                  <i class="fa-regular fa-star"></i>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="sp-rating-score">{{ product.metafields.spread_heaven.rating }}</div>
+            {% if product.metafields.spread_heaven.review_count %}
+              <div class="sp-rating-divider">•</div>
+              <div class="sp-rating-count">{{ product.metafields.spread_heaven.review_count }} reviews</div>
+            {% endif %}
+          {% endif %}
+          {% if product.available %}
+            <div class="sp-in-stock-badge">In stock</div>
+          {% else %}
+            <div class="sp-in-stock-badge" style="color:#d32f2f;">Out of stock</div>
+          {% endif %}
+        </div>
+
+        <!-- Price -->
+        <div class="sp-price-block">
+          <div>
+            {% if product.compare_at_price > product.price %}
+              <span class="sp-price-mrp">{{ product.compare_at_price | money }}</span>
+              <span class="sp-price-current">{{ product.price | money }}</span>
+              {% assign savings = product.compare_at_price | minus: product.price %}
+              {% assign savings_percent = savings | times: 100 | divided_by: product.compare_at_price %}
+              <span class="sp-price-savings">Save {{ savings_percent }}%</span>
+            {% else %}
+              <span class="sp-price-current">{{ product.price | money }}</span>
+            {% endif %}
+            {% if section.settings.show_tax_shipping_note %}
+              <span class="sp-price-tax-note">Tax included. Shipping calculated at checkout.</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Variant Pickers -->
+        <product-form id="spProductForm" data-productid="{{ product.id }}">
+          {% form 'product', product, id: 'spAddToCartForm' %}
+            {% for option in product.options_with_values %}
+              <div class="sp-picker-section" style="margin-bottom:20px;">
+                <div class="sp-picker-label">
+                  <strong>{{ option.name | escape }}</strong>
+                </div>
+                {% assign option_index = forloop.index0 %}
+                {% if option.name == 'Size' or option.name == 'size' or option.name == 'Weight' or option.name == 'weight' %}
+                  <div class="sp-weight-grid" data-option="{{ option_index }}">
+                    {% for value in option.values %}
+                      <button 
+                        type="button"
+                        class="sp-variant-btn {% if forloop.first %}active{% endif %}"
+                        data-value="{{ value | escape }}"
+                        {% if forloop.first %}data-popular="true"{% endif %}
+                        onclick="selectVariantOption(this, {{ option_index }}, '{{ value | escape }}')"
+                      >
+                        {{ value | escape }}
+                      </button>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <div class="sp-flavor-grid" data-option="{{ option_index }}">
+                    {% for value in option.values %}
+                      <button 
+                        type="button"
+                        class="sp-variant-btn {% if forloop.first %}active{% endif %}"
+                        data-value="{{ value | escape }}"
+                        onclick="selectVariantOption(this, {{ option_index }}, '{{ value | escape }}')"
+                      >
+                        {{ value | escape }}
+                      </button>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+
+            <!-- Quantity -->
+            <div style="margin-bottom:20px;">
+              <div class="sp-picker-label"><strong>Quantity</strong></div>
+              <div class="sp-qty-row">
+                <button class="sp-qty-btn" type="button" id="spQtyMinus"><i class="fa-solid fa-minus"></i></button>
+                <input class="sp-qty-input" id="spQtyInput" type="number" name="quantity" value="1" min="1">
+                <button class="sp-qty-btn" type="button" id="spQtyPlus"><i class="fa-solid fa-plus"></i></button>
+              </div>
+            </div>
+
+            <!-- Add to Cart -->
+            <div class="sp-cta-row">
+              <div class="sp-cta-sub-row">
+                <button type="submit" class="sp-btn sp-btn-primary" name="add" id="spAddToCartBtn" {% unless product.available %}disabled{% endunless %}>
+                  <i class="fa-solid fa-shopping-bag"></i> Add to Cart
+                </button>
+                <button type="button" class="sp-btn sp-btn-outline" id="spBuyNowBtn" {% unless product.available %}disabled{% endunless %}>
+                  <i class="fa-solid fa-bolt"></i> Buy Now
+                </button>
+              </div>
+              <button type="button" class="sp-btn sp-btn-outline" id="spWishlistBtn">
+                <i class="fa-regular fa-heart"></i> Wishlist
+              </button>
+            </div>
+          {% endform %}
+        </product-form>
+
+        <!-- Trust Strip -->
+        <div class="sp-trust-strip">
+          <div class="sp-trust-cell">
+            <i class="fa-solid fa-truck-fast"></i>
+            <strong>{{ section.settings.trust1_title | escape }}</strong>
+            <span>{{ section.settings.trust1_desc | escape }}</span>
+          </div>
+          <div class="sp-trust-cell">
+            <i class="fa-solid fa-shield-halved"></i>
+            <strong>{{ section.settings.trust2_title | escape }}</strong>
+            <span>{{ section.settings.trust2_desc | escape }}</span>
+          </div>
+          <div class="sp-trust-cell">
+            <i class="fa-solid fa-rotate-left"></i>
+            <strong>{{ section.settings.trust3_title | escape }}</strong>
+            <span>{{ section.settings.trust3_desc | escape }}</span>
+          </div>
+        </div>
+
+        <!-- Shipping Block -->
+        <div class="sp-shipping-block">
+          <div class="sp-shipping-row">
+            <i class="fa-solid fa-truck"></i>
+            <div class="sp-shipping-row-text">
+              <strong>Free Shipping</strong>
+              <span>On all orders over $50</span>
+            </div>
+          </div>
+          <div class="sp-shipping-row">
+            <i class="fa-solid fa-undo"></i>
+            <div class="sp-shipping-row-text">
+              <strong>30-Day Returns</strong>
+              <span>No questions asked</span>
+            </div>
+          </div>
+          <div class="sp-shipping-row" style="display:block;">
+            <div style="display:flex; gap:12px; align-items:center;">
+              <i class="fa-solid fa-location-dot"></i>
+              <div class="sp-shipping-row-text" style="flex:1;">
+                <strong>Check Delivery</strong>
+                <span>Enter your pincode for delivery date</span>
+              </div>
+            </div>
+            <div class="sp-pin-check">
+              <input type="text" class="sp-pin-input" id="spPinInput" placeholder="Enter pincode">
+              <button class="sp-pin-check-btn" type="button" id="spPinCheckBtn">Check</button>
+            </div>
+            <div class="sp-pin-result" id="spPinResult">✅ Estimated delivery: 3-5 days</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="sp-tabs-section">
+      <div class="sp-tab-nav" id="spTabNav">
+        <button class="sp-tab-btn active" data-tab="description" type="button">Description</button>
+        <button class="sp-tab-btn" data-tab="nutrition" type="button">Nutrition</button>
+        <button class="sp-tab-btn" data-tab="ingredients" type="button">Ingredients</button>
+        <button class="sp-tab-btn" data-tab="shipping" type="button">Shipping</button>
+        <button class="sp-tab-btn" data-tab="reviews" type="button">Reviews</button>
+      </div>
+
+      <!-- Description Panel -->
+      <div class="sp-tab-panel active" id="spTab-description">
+        <div class="sp-desc-split">
+          <div class="sp-desc-body">
+            <h3>About this product</h3>
+            {{ product.description }}
+            <div class="sp-feature-list">
+              {% if product.metafields.spread_heaven.feature1_title %}
+                <div class="sp-feature-item">
+                  <i class="fa-solid fa-check-circle"></i>
+                  <p><strong>{{ product.metafields.spread_heaven.feature1_title | escape }}</strong> {{ product.metafields.spread_heaven.feature1_desc | escape }}</p>
+                </div>
+              {% else %}
+                <div class="sp-feature-item">
+                  <i class="fa-solid fa-check-circle"></i>
+                  <p><strong>100% Natural</strong> No artificial preservatives, colors, or flavors</p>
+                </div>
+              {% endif %}
+              {% if product.metafields.spread_heaven.feature2_title %}
+                <div class="sp-feature-item">
+                  <i class="fa-solid fa-check-circle"></i>
+                  <p><strong>{{ product.metafields.spread_heaven.feature2_title | escape }}</strong> {{ product.metafields.spread_heaven.feature2_desc | escape }}</p>
+                </div>
+              {% else %}
+                <div class="sp-feature-item">
+                  <i class="fa-solid fa-check-circle"></i>
+                  <p><strong>No Palm Oil</strong> Ethically sourced, sustainable ingredients</p>
+                </div>
+              {% endif %}
+              {% if product.metafields.spread_heaven.feature3_title %}
+                <div class="sp-feature-item">
+                  <i class="fa-solid fa-check-circle"></i>
+                  <p><strong>{{ product.metafields.spread_heaven.feature3_title | escape }}</strong> {{ product.metafields.spread_heaven.feature3_desc | escape }}</p>
+                </div>
+              {% else %}
+                <div class="sp-feature-item">
+                  <i class="fa-solid fa-check-circle"></i>
+                  <p><strong>High Protein</strong> Perfect for fitness enthusiasts and athletes</p>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </div>
+
+      <!-- Nutrition Panel -->
+      <div class="sp-tab-panel" id="spTab-nutrition">
+        <div class="sp-desc-split">
+          <div>
+            <div class="sp-nutrition-card">
+              <div class="sp-nutrition-header">
+                <h3>Nutrition Facts</h3>
+                <p>Serving Size: 32g (2 tablespoons) · Servings Per Container: ~15 (500g)</p>
+              </div>
+              <div class="sp-nutrition-table">
+                {% if product.metafields.spread_heaven.calories_per_serving %}
+                  <div class="sp-nutrition-row sp-bold"><span>Calories</span><span class="sp-val">{{ product.metafields.spread_heaven.calories_per_serving }}</span></div>
+                {% else %}
+                  <div class="sp-nutrition-row sp-bold"><span>Calories</span><span class="sp-val">191 kcal</span></div>
+                {% endif %}
+                <div class="sp-nutrition-row sp-bold"><span>Total Fat</span><span class="sp-val">15.7g</span></div>
+                <div class="sp-nutrition-row"><span>— Saturated Fat</span><span class="sp-val">2.6g</span></div>
+                <div class="sp-nutrition-row"><span>— Trans Fat</span><span class="sp-val">0g</span></div>
+                <div class="sp-nutrition-row"><span>— Monounsaturated Fat</span><span class="sp-val">7.8g</span></div>
+                <div class="sp-nutrition-row"><span>— Polyunsaturated Fat</span><span class="sp-val">3.4g</span></div>
+                <div class="sp-nutrition-row sp-bold"><span>Cholesterol</span><span class="sp-val">0mg</span></div>
+                <div class="sp-nutrition-row sp-bold"><span>Sodium</span><span class="sp-val">4.8mg</span></div>
+                <div class="sp-nutrition-row sp-bold"><span>Carbohydrates</span><span class="sp-val">5.1g</span></div>
+                <div class="sp-nutrition-row"><span>— Dietary Fibre</span><span class="sp-val">1.9g</span></div>
+                <div class="sp-nutrition-row"><span>— Total Sugars</span><span class="sp-val">1.3g</span></div>
+                <div class="sp-nutrition-row sp-bold"><span>Protein</span><span class="sp-val">8.6g</span></div>
+                <div class="sp-nutrition-row"><span>Vitamin E</span><span class="sp-val">2.9mg (19% DV)</span></div>
+                <div class="sp-nutrition-row"><span>Magnesium</span><span class="sp-val">49mg (12% DV)</span></div>
+                <div class="sp-nutrition-row"><span>Potassium</span><span class="sp-val">207mg (4% DV)</span></div>
+                <div class="sp-nutrition-row"><span>Iron</span><span class="sp-val">0.6mg (3% DV)</span></div>
+              </div>
+            </div>
+            <div class="sp-nutri-bar-wrap">
+              <h3 class="sp-nutri-bar-title">How It Compares</h3>
+              <p style="font-size:13px;color:var(--sp-text-muted);margin-bottom:24px;">Per 100g — Spread Heaven vs Average Market Brand</p>
+
+              <div class="sp-nutri-bar-item">
+                <div class="sp-nutri-bar-header"><span>Protein</span><span style="color:var(--sp-primary)">27g vs 21g</span></div>
+                <div class="sp-nutri-bar-bg"><div class="sp-nutri-bar-fill" data-width="90%"></div></div>
+              </div>
+              <div class="sp-nutri-bar-item">
+                <div class="sp-nutri-bar-header"><span>Added Sugar</span><span style="color:var(--sp-success)">0g vs 5g</span></div>
+                <div class="sp-nutri-bar-bg"><div class="sp-nutri-bar-fill" data-width="5%" style="background:var(--sp-success)"></div></div>
+              </div>
+              <div class="sp-nutri-bar-item">
+                <div class="sp-nutri-bar-header"><span>Healthy Fats</span><span style="color:var(--sp-primary)">49g vs 38g</span></div>
+                <div class="sp-nutri-bar-bg"><div class="sp-nutri-bar-fill" data-width="80%"></div></div>
+              </div>
+              <div class="sp-nutri-bar-item">
+                <div class="sp-nutri-bar-header"><span>Dietary Fibre</span><span style="color:var(--sp-primary)">6g vs 3g</span></div>
+                <div class="sp-nutri-bar-bg"><div class="sp-nutri-bar-fill" data-width="70%"></div></div>
+              </div>
+              <div class="sp-nutri-bar-item">
+                <div class="sp-nutri-bar-header"><span>Artificial Additives</span><span style="color:var(--sp-success)">0 vs Many</span></div>
+                <div class="sp-nutri-bar-bg"><div class="sp-nutri-bar-fill" data-width="2%" style="background:var(--sp-success)"></div></div>
+              </div>
+
+              <div style="margin-top:24px;padding:16px;background:rgba(185,119,52,0.06);border:1px solid rgba(185,119,52,0.2);border-radius:var(--sp-radius-sm);">
+                <p style="font-size:12px;color:var(--sp-text-muted);line-height:1.6;">
+                  <strong style="color:var(--sp-primary);">Note:</strong> % Daily Values are based on a 2,000 calorie diet. Nutritional content may vary slightly by batch. All data verified by an FSSAI-approved laboratory.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </div>
+
+      <!-- Ingredients Panel -->
+      <div class="sp-tab-panel" id="spTab-ingredients">
+        <div class="sp-ingredients-grid">
+          <div class="sp-ingredient-card">
+            <div class="sp-ingredient-icon">🥜</div>
+            <h4>Dry Roasted Peanuts</h4>
+            <p>A-grade Indian peanuts, slow batch-roasted without oil for rich depth of flavour.</p>
+          </div>
+          <div class="sp-ingredient-card">
+            <div class="sp-ingredient-icon">🍦</div>
+            <h4>Vanilla Extract</h4>
+            <p>Real Madagascar vanilla bean extract — no artificial flavouring or synthetic vanillin.</p>
+          </div>
+          <div class="sp-ingredient-card">
+            <div class="sp-ingredient-icon">�</div>
+            <h4>Himalayan Pink Salt</h4>
+            <p>A trace of Himalayan salt to balance flavour and enhance the natural nuttiness.</p>
+          </div>
+          <div class="sp-ingredient-card">
+            <div class="sp-ingredient-icon">🫒</div>
+            <h4>Cold-Pressed Groundnut Oil</h4>
+            <p>Only cold-pressed peanut oil — zero palm oil, zero hydrogenated fats, ever.</p>
+          </div>
+          <div class="sp-ingredient-card">
+            <div class="sp-ingredient-icon">🌾</div>
+            <h4>Roasted Peanut Pieces</h4>
+            <p>Coarsely chopped roasted peanuts added for that signature crispy crunch texture.</p>
+          </div>
+        </div>
+        <div class="sp-ingredients-full">
+          <h4>Full Ingredients List</h4>
+          {% if product.metafields.spread_heaven.full_ingredients %}
+            <p>{{ product.metafields.spread_heaven.full_ingredients }}</p>
+          {% else %}
+            <p>
+              <strong>Dry Roasted Peanuts</strong> (96%), Cold-Pressed Groundnut Oil (2%), Real Madagascar Vanilla Extract (1.5%), Himalayan Pink Salt (0.5%).
+            </p>
+            <p style="margin-top:10px;">
+              Contains roasted peanut pieces for crisp texture. No artificial colours, flavours, or preservatives. No palm oil. No hydrogenated fats. No added sugars. No emulsifiers.
+            </p>
+          {% endif %}
+          <div class="sp-allergen-note">
+            <strong>⚠ Allergen Info:</strong> Contains <strong>Peanuts</strong>. Manufactured in a facility that also processes <strong>tree nuts, soy, and milk</strong>. Not suitable for those with nut allergies.
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Panel -->
+      <div class="sp-tab-panel" id="spTab-shipping">
+        <div class="sp-shipping-tab-grid">
+          <div class="sp-shipping-tab-card">
+            <i class="fa-solid fa-truck-fast"></i>
+            <h4>Standard Delivery</h4>
+            <p>Orders dispatched within 24 hours. Delivery within 3–5 business days across India.</p>
+            <span class="sp-tag">FREE above ₹499</span>
+          </div>
+          <div class="sp-shipping-tab-card">
+            <i class="fa-solid fa-bolt"></i>
+            <h4>Express Delivery</h4>
+            <p>Same-day dispatch for orders placed before 12 PM. Delivered within 1–2 business days.</p>
+            <span class="sp-tag">₹79 flat fee</span>
+          </div>
+          <div class="sp-shipping-tab-card">
+            <i class="fa-solid fa-city"></i>
+            <h4>Metro Cities</h4>
+            <p>Mumbai, Delhi, Bangalore, Hyderabad, Chennai, Pune, Kolkata — 24-hour delivery available.</p>
+            <span class="sp-tag">Check pincode</span>
+          </div>
+          <div class="sp-shipping-tab-card">
+            <i class="fa-solid fa-snowflake"></i>
+            <h4>Secure Packaging</h4>
+            <p>Vacuum-sealed lids, tamper-evident seals, and insulated thermal pouches for freshness.</p>
+            <span class="sp-tag">All orders</span>
+          </div>
+          <div class="sp-shipping-tab-card">
+            <i class="fa-solid fa-globe"></i>
+            <h4>International Orders</h4>
+            <p>We ship to UAE, USA, UK, Canada, and Australia. Customs duties may apply at destination.</p>
+            <span class="sp-tag">7–14 business days</span>
+          </div>
+          <div class="sp-shipping-tab-card">
+            <i class="fa-solid fa-receipt"></i>
+            <h4>Order Tracking</h4>
+            <p>Real-time tracking via SMS and email. WhatsApp updates available on request.</p>
+            <span class="sp-tag">All orders</span>
+          </div>
+        </div>
+
+        <div class="sp-return-policy">
+          <h4>Return & Refund Policy</h4>
+          <div class="sp-policy-row">
+            <i class="fa-solid fa-circle-check"></i>
+            <p><strong>7-Day Return Window</strong> — Initiate a return within 7 days of delivery for damaged, wrong, or defective products.</p>
+          </div>
+          <div class="sp-policy-row">
+            <i class="fa-solid fa-circle-check"></i>
+            <p><strong>Full Refund</strong> — Refund processed to the original payment method within 5–7 business days after pickup.</p>
+          </div>
+          <div class="sp-policy-row">
+            <i class="fa-solid fa-circle-check"></i>
+            <p><strong>Free Pickup</strong> — We arrange reverse pickup at no cost to you for eligible returns.</p>
+          </div>
+          <div class="sp-policy-row">
+            <i class="fa-solid fa-circle-xmark" style="color:var(--sp-text-light)"></i>
+            <p><strong>Non-Returnable:</strong> Opened products, perishables consumed, or items returned after 7 days are not eligible for refund.</p>
+          </div>
+          <div class="sp-policy-row">
+            <i class="fa-solid fa-headset"></i>
+            <p><strong>Support:</strong> Reach us at <strong style="color:var(--sp-primary)">hello@spreadheaven.com</strong> or WhatsApp <strong style="color:var(--sp-primary)">+91 98765 43210</strong> — 9 AM to 6 PM, Mon–Sat.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews Panel -->
+      <div class="sp-tab-panel" id="spTab-reviews">
+        <div class="sp-reviews-summary-bar">
+          <div class="sp-big-score">
+            <div class="sp-big-score-num">4.8</div>
+            <div class="sp-big-score-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <div class="sp-big-score-count">Based on 312 reviews</div>
+          </div>
+          <div class="sp-bar-breakdown">
+            <div class="sp-bar-row">
+              <span>5 ★</span>
+              <div class="sp-mini-bg"><div class="sp-mini-fill" data-width="74%"></div></div>
+              <span>74%</span>
+            </div>
+            <div class="sp-bar-row">
+              <span>4 ★</span>
+              <div class="sp-mini-bg"><div class="sp-mini-fill" data-width="18%"></div></div>
+              <span>18%</span>
+            </div>
+            <div class="sp-bar-row">
+              <span>3 ★</span>
+              <div class="sp-mini-bg"><div class="sp-mini-fill" data-width="5%"></div></div>
+              <span>5%</span>
+            </div>
+            <div class="sp-bar-row">
+              <span>2 ★</span>
+              <div class="sp-mini-bg"><div class="sp-mini-fill" data-width="2%"></div></div>
+              <span>2%</span>
+            </div>
+            <div class="sp-bar-row">
+              <span>1 ★</span>
+              <div class="sp-mini-bg"><div class="sp-mini-fill" data-width="1%"></div></div>
+              <span>1%</span>
+            </div>
+          </div>
+        </div>
+        <div class="sp-reviews-list">
+          <div class="sp-review-card">
+            <div class="sp-review-card-top">
+              <div class="sp-reviewer-info">
+                <div class="sp-reviewer-avatar">R</div>
+                <div>
+                  <div class="sp-reviewer-name">Riya Sharma <i class="fa-solid fa-circle-check" style="color:var(--sp-success);font-size:12px;"></i></div>
+                  <div class="sp-reviewer-meta">
+                    <span>Mumbai, Maharashtra</span><span class="sp-verified-tag">Verified Purchase</span><span>14 Jun 2026</span>
+                  </div>
+                </div>
+              </div>
+              <div class="sp-review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="sp-review-title">Best peanut butter I've ever had in India!</div>
+            <div class="sp-review-text">I've tried almost every brand on the market and nothing comes close. The vanilla flavour is subtle and real — not that fake chemical sweetness. The crunchy bits are perfect. I eat it straight from the jar every morning before my run and I've genuinely seen improvement in my energy levels. Will 100% be reordering.</div>
+            <div class="sp-review-helpful">Helpful? <button class="sp-helpful-btn"><i class="fa-regular fa-thumbs-up"></i> Yes (42)</button></div>
+          </div>
+          <div class="sp-review-card">
+            <div class="sp-review-card-top">
+              <div class="sp-reviewer-info">
+                <div class="sp-reviewer-avatar">A</div>
+                <div>
+                  <div class="sp-reviewer-name">Arjun Mehta <i class="fa-solid fa-circle-check" style="color:var(--sp-success);font-size:12px;"></i></div>
+                  <div class="sp-reviewer-meta">
+                    <span>Bangalore, Karnataka</span><span class="sp-verified-tag">Verified Purchase</span><span>3 Jun 2026</span>
+                  </div>
+                </div>
+              </div>
+              <div class="sp-review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="sp-review-title">Finally — a peanut butter without palm oil</div>
+            <div class="sp-review-text">Was struggling to find a truly clean peanut butter. Most brands hide palm oil in tiny print. Spread Heaven is completely transparent — ingredients list is just 4 things. I use the 1kg jar for my weekly meal prep. Protein macros are genuinely impressive. Packaging is sturdy too. No leaks, no mess.</div>
+            <div class="sp-review-helpful">Helpful? <button class="sp-helpful-btn"><i class="fa-regular fa-thumbs-up"></i> Yes (31)</button></div>
+          </div>
+          <div class="sp-review-card">
+            <div class="sp-review-card-top">
+              <div class="sp-reviewer-info">
+                <div class="sp-reviewer-avatar">P</div>
+                <div>
+                  <div class="sp-reviewer-name">Priya Kapoor</div>
+                  <div class="sp-reviewer-meta">
+                    <span>Delhi, NCR</span><span class="sp-verified-tag">Verified Purchase</span><span>28 May 2026</span>
+                  </div>
+                </div>
+              </div>
+              <div class="sp-review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+            </div>
+            <div class="sp-review-title">Great product — delivery was a bit slow</div>
+            <div class="sp-review-text">The peanut butter itself is fantastic — thick, flavourful, and genuinely filling. Kids loved it on toast. Deducting one star because my order took 6 days instead of the promised 3–5. But the product itself is 5 stars. Would order again.</div>
+            <div class="sp-review-helpful">Helpful? <button class="sp-helpful-btn"><i class="fa-regular fa-thumbs-up"></i> Yes (18)</button></div>
+          </div>
+          <div class="sp-review-card">
+            <div class="sp-review-card-top">
+              <div class="sp-reviewer-info">
+                <div class="sp-reviewer-avatar">K</div>
+                <div>
+                  <div class="sp-reviewer-name">Karan Bose <i class="fa-solid fa-circle-check" style="color:var(--sp-success);font-size:12px;"></i></div>
+                  <div class="sp-reviewer-meta">
+                    <span>Pune, Maharashtra</span><span class="sp-verified-tag">Verified Purchase</span><span>19 May 2026</span>
+                  </div>
+                </div>
+              </div>
+              <div class="sp-review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="sp-review-title">My gym coach recommended it and I'm not going back</div>
+            <div class="sp-review-text">My trainer told me to drop the sugary commercial stuff and try Spread Heaven. Was skeptical but after 4 weeks of use, I can actually see the difference in my recovery times. Mixes perfectly into my post-workout shake. The vanilla smell alone is addictive.</div>
+            <div class="sp-review-helpful">Helpful? <button class="sp-helpful-btn"><i class="fa-regular fa-thumbs-up"></i> Yes (27)</button></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Related Products -->
+{% if section.settings.show_related_products %}
+  <section class="sp-related-section">
+    <span class="sp-section-tag">{{ section.settings.related_eyebrow | escape }}</span>
+    <h2 class="sp-section-title-sm">{{ section.settings.related_title | escape }}</h2>
+    <div class="sp-related-grid">
+      {% for product in section.settings.related_products %}
+        <a href="{{ product.url }}" class="sp-rel-card">
+          <div class="sp-rel-img">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}">
+            {% endif %}
+          </div>
+          <div class="sp-rel-tag">{{ product.vendor | escape }}</div>
+          <div class="sp-rel-name">{{ product.title | escape }}</div>
+          <div class="sp-rel-desc">{{ product.excerpt | escape }}</div>
+          <div class="sp-rel-footer">
+            <span class="sp-rel-price">{{ product.price | money }}</span>
+            <button class="sp-rel-btn" type="button" onclick="event.preventDefault(); window.location.href='{{ product.url }}'">View</button>
+          </div>
+        </a>
+      {% else %}
+        {% for product in collections.all.products limit: 4 %}
+          <a href="{{ product.url }}" class="sp-rel-card">
+            <div class="sp-rel-img">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}">
+              {% endif %}
+            </div>
+            <div class="sp-rel-tag">{{ product.vendor | escape }}</div>
+            <div class="sp-rel-name">{{ product.title | escape }}</div>
+            <div class="sp-rel-desc">{{ product.excerpt | escape }}</div>
+            <div class="sp-rel-footer">
+              <span class="sp-rel-price">{{ product.price | money }}</span>
+              <button class="sp-rel-btn" type="button" onclick="event.preventDefault(); window.location.href='{{ product.url }}'">View</button>
+            </div>
+          </a>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+<!-- Ticker Bar -->
+<div class="sp-ticker-bar">
+  <div class="sp-ticker-container">
+    <div class="sp-ticker-item">
+      <i class="fa-solid fa-circle-check"></i> 100% Natural Ingredients
+    </div>
+    <div class="sp-ticker-item">
+      <i class="fa-solid fa-leaf"></i> No Palm Oil
+    </div>
+    <div class="sp-ticker-item">
+      <i class="fa-solid fa-dumbbell"></i> High Protein
+    </div>
+    <div class="sp-ticker-item">
+      <i class="fa-solid fa-truck-fast"></i> Free Shipping Over $50
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Spread Heaven Product",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary Dark Color",
+      "default": "#8A5A2B"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E7C18C"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF9F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2B1B0F"
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Muted Text Color",
+      "default": "#7A5C3E"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#EDD9BC"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success Color",
+      "default": "#2E7D32"
+    },
+    {
+      "type": "header",
+      "content": "Badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bestseller_badge",
+      "label": "Show Best Seller Badge",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_new_badge",
+      "label": "Show New Badge",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Trust Strip"
+    },
+    {
+      "type": "text",
+      "id": "trust1_title",
+      "label": "Trust 1 Title",
+      "default": "Fast Shipping"
+    },
+    {
+      "type": "text",
+      "id": "trust1_desc",
+      "label": "Trust 1 Description",
+      "default": "2-5 day delivery"
+    },
+    {
+      "type": "text",
+      "id": "trust2_title",
+      "label": "Trust 2 Title",
+      "default": "100% Safe"
+    },
+    {
+      "type": "text",
+      "id": "trust2_desc",
+      "label": "Trust 2 Description",
+      "default": "Secure payments"
+    },
+    {
+      "type": "text",
+      "id": "trust3_title",
+      "label": "Trust 3 Title",
+      "default": "Easy Returns"
+    },
+    {
+      "type": "text",
+      "id": "trust3_desc",
+      "label": "Trust 3 Description",
+      "default": "30 day guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Related Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_products",
+      "label": "Show Related Products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_eyebrow",
+      "label": "Related Eyebrow",
+      "default": "More Spreads"
+    },
+    {
+      "type": "text",
+      "id": "related_title",
+      "label": "Related Title",
+      "default": "You may also like"
+    },
+    {
+      "type": "product_list",
+      "id": "related_products",
+      "label": "Related Products"
+    },
+    {
+      "type": "header",
+      "content": "Other Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tax_shipping_note",
+      "label": "Show Tax & Shipping Note",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spread Heaven Product",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

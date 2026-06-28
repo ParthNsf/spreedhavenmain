@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "about": {
+      "type": "spread-heaven-about-us",
+      "settings": {}
+    }
+  },
+  "order": [
+    "about"
+  ]
+}

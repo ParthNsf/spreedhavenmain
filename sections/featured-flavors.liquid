@@ -115,6 +115,7 @@ Shopify Online Store 2.0 Section
   display: flex;
   flex-direction: column;
   height: 100%;
+  text-decoration: none;
 }
 
 .sp-product-card:hover {
@@ -226,6 +227,8 @@ Shopify Online Store 2.0 Section
   color: #fff;
   box-shadow: 0 4px 20px {{ section.settings.primary_color | color_to_rgb: 0.35 }};
   width: 100%;
+  border: none;
+  cursor: pointer;
 }
 
 .sp-btn-primary:hover {
@@ -314,48 +317,49 @@ Shopify Online Store 2.0 Section
     <!-- Products Grid -->
     <div class="sp-grid-products">
       {% for block in section.blocks %}
-        <div class="sp-product-card">
-          <div class="sp-product-card-image">
-            {% if block.settings.product_image != blank %}
-              {{
-                block.settings.product_image
-                | image_url: width: 500
-                | image_tag:
-                  loading: 'lazy',
-                  alt: block.settings.product_name | default: 'Product image'
-              }}
-            {% else %}
-              <div class="product-emoji-jar">🥜</div>
-            {% endif %}
-            {% if block.settings.protein_badge != blank %}
-              <div class="sp-product-card-protein-badge">{{ block.settings.protein_badge | escape }}</div>
-            {% endif %}
-          </div>
-          <div class="sp-product-card-body">
-            {% if block.settings.flavor_tag != blank %}
-              <div class="sp-product-card-flavor">{{ block.settings.flavor_tag | escape }}</div>
-            {% endif %}
-            {% if block.settings.product_name != blank %}
-              <h3 class="sp-product-card-name">{{ block.settings.product_name | escape }}</h3>
-            {% endif %}
-            {% if block.settings.product_desc != blank %}
-              <p class="sp-product-card-desc">{{ block.settings.product_desc | escape }}</p>
-            {% endif %}
-            <div class="sp-product-card-footer">
-              {% if block.settings.product_price != blank %}
-                <div class="sp-product-card-price">{{ block.settings.product_price | escape }}</div>
+        {% assign product = block.settings.product %}
+        {% if product %}
+          <a href="{{ product.url }}" class="sp-product-card">
+            <div class="sp-product-card-image">
+              {% if product.featured_image %}
+                {{
+                  product.featured_image
+                  | image_url: width: 500
+                  | image_tag:
+                    loading: 'lazy',
+                    alt: product.title | escape
+                }}
+              {% else %}
+                <div class="product-emoji-jar">🥜</div>
               {% endif %}
-              {% if block.settings.button_label != blank %}
-                <a 
-                  href="{{ block.settings.button_link }}" 
-                  class="sp-btn-primary"
-                >
-                  {{ block.settings.button_label | escape }}
-                </a>
+              {% if block.settings.protein_badge != blank %}
+                <div class="sp-product-card-protein-badge">{{ block.settings.protein_badge | escape }}</div>
               {% endif %}
             </div>
-          </div>
-        </div>
+            <div class="sp-product-card-body">
+              {% if block.settings.flavor_tag != blank %}
+                <div class="sp-product-card-flavor">{{ block.settings.flavor_tag | escape }}</div>
+              {% endif %}
+              <h3 class="sp-product-card-name">{{ product.title | escape }}</h3>
+              {% if block.settings.product_desc != blank %}
+                <p class="sp-product-card-desc">{{ block.settings.product_desc | escape }}</p>
+              {% elsif product.description != blank %}
+                <p class="sp-product-card-desc">{{ product.description | strip_html | truncate: 100 | escape }}</p>
+              {% endif %}
+              <div class="sp-product-card-footer">
+                <div class="sp-product-card-price">{{ product.price | money }}</div>
+                {% if block.settings.button_label != blank %}
+                  <button 
+                    class="sp-btn-primary"
+                    onclick="event.preventDefault(); window.location.href='{{ product.url }}'"
+                  >
+                    {{ block.settings.button_label | escape }}
+                  </button>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -470,9 +474,9 @@ Shopify Online Store 2.0 Section
       "name": "Product Card",
       "settings": [
         {
-          "type": "image_picker",
-          "id": "product_image",
-          "label": "Product Image"
+          "type": "product",
+          "id": "product",
+          "label": "Product"
         },
         {
           "type": "text",
@@ -480,14 +484,9 @@ Shopify Online Store 2.0 Section
           "label": "Flavor Tag"
         },
         {
-          "type": "text",
-          "id": "product_name",
-          "label": "Product Name"
-        },
-        {
           "type": "textarea",
           "id": "product_desc",
-          "label": "Product Description"
+          "label": "Custom Description (optional)"
         },
         {
           "type": "text",
@@ -496,19 +495,9 @@ Shopify Online Store 2.0 Section
         },
         {
           "type": "text",
-          "id": "product_price",
-          "label": "Price"
-        },
-        {
-          "type": "text",
           "id": "button_label",
           "label": "Button Label",
-          "default": "Add To Cart"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "Button Link"
+          "default": "View Product"
         }
       ]
     }
@@ -522,10 +511,8 @@ Shopify Online Store 2.0 Section
           "name": "Vanilla Crispy",
           "settings": {
             "flavor_tag": "Creamy Vanilla & Protein Crisps",
-            "product_name": "Vanilla Crispy Peanut Butter",
-            "product_desc": "Ground roasted peanuts combined with real sweet vanilla extract and crispy protein nuggets for an exceptional crunchy texture.",
             "protein_badge": "22% Protein",
-            "product_price": "$9.99"
+            "button_label": "View Product"
           }
         },
         {
@@ -533,10 +520,8 @@ Shopify Online Store 2.0 Section
           "name": "Chocolate Crunchy",
           "settings": {
             "flavor_tag": "Rich Cocoa & Peanut Chunks",
-            "product_name": "Chocolate Crunchy Peanut Butter",
-            "product_desc": "Golden peanut butter blended with premium unsweetened dark cocoa powder and crunchy chopped roasted peanuts. Guilt-free indulgence.",
             "protein_badge": "24% Protein",
-            "product_price": "$11.99"
+            "button_label": "View Product"
           }
         },
         {
@@ -544,10 +529,8 @@ Shopify Online Store 2.0 Section
           "name": "Mawa Malai",
           "settings": {
             "flavor_tag": "The Traditional Royal Indulgence",
-            "product_name": "Mawa Malai Peanut Butter",
-            "product_desc": "A rich Indian sweet twist. Saffron-infused peanut butter combined with toasted milk solids (mawa) and aromatic green cardamom.",
             "protein_badge": "20% Protein",
-            "product_price": "$14.99"
+            "button_label": "View Product"
           }
         },
         {
@@ -555,10 +538,8 @@ Shopify Online Store 2.0 Section
           "name": "Mango Chia",
           "settings": {
             "flavor_tag": "Tropical Alphonso & Chia Superfoods",
-            "product_name": "Mango Chia Peanut Butter",
-            "product_desc": "A tropical, nutrient-dense blend containing slow-roasted peanuts (78%), raw organic chia seeds (6%), and Alphonso mango flavour.",
             "protein_badge": "27% Protein",
-            "product_price": "$12.99"
+            "button_label": "View Product"
           }
         },
         {
@@ -566,10 +547,8 @@ Shopify Online Store 2.0 Section
           "name": "Assortment Box",
           "settings": {
             "flavor_tag": "The Ultimate Heaven Box",
-            "product_name": "Complete Assortment Sample Box",
-            "product_desc": "Taste the entire Spread Heaven selection: includes Vanilla Crispy, Mango Chia, Chocolate Crunchy, Cookies & Cream, and Mawa Malai.",
             "protein_badge": "Assorted Macros",
-            "product_price": "$44.99"
+            "button_label": "View Product"
           }
         }
       ]

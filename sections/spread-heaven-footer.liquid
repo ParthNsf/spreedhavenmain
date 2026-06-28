@@ -1,0 +1,552 @@
+{% comment %}
+SPREAD HEAVEN FOOTER SECTION
+Shopify Online Store 2.0 compatible section
+{% endcomment %}
+
+{% style %}
+.sp-footer {
+  --sp-primary: {{ section.settings.primary_color | default: '#B97734' }};
+  --sp-bg: {{ section.settings.background_color | default: '#2B1B0F' }};
+  --sp-white: #FFF9F3;
+  --sp-text-muted: rgba(255, 249, 243, 0.65);
+  --sp-border: rgba(255, 249, 243, 0.2);
+  --sp-radius-sm: 8px;
+  --sp-transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --sp-font-head: var(--font-heading-family);
+  --sp-font-body: var(--font-body-family);
+  background-color: var(--sp-bg);
+  color: var(--sp-text-muted);
+  padding: 80px 24px 40px;
+  font-size: 14px;
+}
+
+.sp-footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.sp-footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 48px;
+  margin-bottom: 60px;
+}
+
+.sp-footer-col-brand h3 {
+  font-family: var(--sp-font-head);
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--sp-white);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.sp-footer-col-brand p {
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.sp-footer-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.sp-social-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--sp-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sp-white);
+  transition: var(--sp-transition);
+  text-decoration: none;
+}
+
+.sp-social-btn:hover {
+  background-color: var(--sp-primary);
+  border-color: var(--sp-primary);
+  transform: translateY(-2px);
+}
+
+.sp-footer-col h4 {
+  font-family: var(--sp-font-head);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--sp-white);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.sp-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sp-footer-link {
+  transition: var(--sp-transition);
+  color: var(--sp-text-muted);
+  text-decoration: none;
+}
+
+.sp-footer-link:hover {
+  color: var(--sp-white);
+  padding-left: 4px;
+}
+
+.sp-newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sp-newsletter-form p {
+  color: var(--sp-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sp-newsletter-input-group {
+  display: flex;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  overflow: hidden;
+}
+
+.sp-newsletter-input-group input {
+  flex: 1;
+  padding: 12px;
+  background-color: transparent;
+  border: none;
+  color: var(--sp-white);
+  outline: none;
+  font-family: var(--sp-font-body);
+}
+
+.sp-newsletter-input-group input::placeholder {
+  color: rgba(255, 249, 243, 0.4);
+}
+
+.sp-newsletter-input-group button {
+  background-color: var(--sp-primary);
+  color: var(--sp-white);
+  padding: 0 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sp-font-head);
+  transition: var(--sp-transition);
+}
+
+.sp-newsletter-input-group button:hover {
+  background-color: #8A5A2B;
+}
+
+.sp-footer-bottom {
+  border-top: 1px solid rgba(255, 249, 243, 0.1);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 12px;
+  color: rgba(255, 249, 243, 0.5);
+}
+
+.sp-footer-bottom-links {
+  display: flex;
+  gap: 24px;
+}
+
+.sp-footer-bottom-link {
+  color: rgba(255, 249, 243, 0.5);
+  text-decoration: none;
+  transition: var(--sp-transition);
+}
+
+.sp-footer-bottom-link:hover {
+  color: var(--sp-white);
+}
+
+@media (max-width: 1024px) {
+  .sp-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .sp-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .sp-footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+{% endstyle %}
+
+<section class="sp-footer">
+  <div class="sp-footer-inner">
+    <div class="sp-footer-grid">
+      <div class="sp-footer-col-brand">
+        <h3>{{ section.settings.brand_title | default: 'SPREAD HEAVEN' }}</h3>
+        <p>{{ section.settings.brand_description | default: 'Grinding peanuts into pure obsession. Sourcing premium, high-protein whole ingredients to fuel athletic goals and everyday clean nutrition.' }}</p>
+        
+        <div class="sp-footer-socials">
+          {% if section.settings.instagram_url != blank %}
+            <a href="{{ section.settings.instagram_url }}" class="sp-social-btn" target="_blank" rel="noopener">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+          {% endif %}
+          {% if section.settings.facebook_url != blank %}
+            <a href="{{ section.settings.facebook_url }}" class="sp-social-btn" target="_blank" rel="noopener">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+          {% endif %}
+          {% if section.settings.twitter_url != blank %}
+            <a href="{{ section.settings.twitter_url }}" class="sp-social-btn" target="_blank" rel="noopener">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+          {% endif %}
+          {% if section.settings.youtube_url != blank %}
+            <a href="{{ section.settings.youtube_url }}" class="sp-social-btn" target="_blank" rel="noopener">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="sp-footer-col">
+        <h4>{{ section.settings.explore_title | default: 'EXPLORE' }}</h4>
+        <div class="sp-footer-links">
+          {% for block in section.blocks %}
+            {% if block.type == 'explore_link' %}
+              <a href="{{ block.settings.link }}" class="sp-footer-link">
+                {{ block.settings.label | escape }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="sp-footer-col">
+        <h4>{{ section.settings.products_title | default: 'PRODUCT FLAVORS' }}</h4>
+        <div class="sp-footer-links">
+          {% for block in section.blocks %}
+            {% if block.type == 'product_link' %}
+              <a href="{{ block.settings.link }}" class="sp-footer-link">
+                {{ block.settings.label | escape }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="sp-footer-col">
+        <h4>{{ section.settings.newsletter_title | default: 'NEWSLETTER' }}</h4>
+        <div class="sp-newsletter-form">
+          <p>{{ section.settings.newsletter_description | default: 'Subscribe to receive clean recipe ideas and exclusive flavor releases.' }}</p>
+          
+          <form action="{{ routes.newsletter_url }}" method="post" class="sp-newsletter-input-group">
+            <input type="email" name="email" placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' }}" required>
+            <button type="submit">{{ section.settings.newsletter_button | default: 'SUBSCRIBE' }}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-footer-bottom">
+      <div class="sp-footer-copyright">
+        {{ section.settings.copyright_text | default: '&copy; 2026 SPREAD HEAVEN. All rights reserved.' }}
+      </div>
+      
+      <div class="sp-footer-bottom-links">
+        {% for block in section.blocks %}
+          {% if block.type == 'bottom_link' %}
+            <a href="{{ block.settings.link }}" class="sp-footer-bottom-link">
+              {{ block.settings.label | escape }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Spread Heaven Footer",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#2B1B0F"
+    },
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand Title",
+      "default": "SPREAD HEAVEN"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand Description",
+      "default": "Grinding peanuts into pure obsession. Sourcing premium, high-protein whole ingredients to fuel athletic goals and everyday clean nutrition."
+    },
+    {
+      "type": "header",
+      "content": "Social Links"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "Twitter/X URL"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "header",
+      "content": "Explore Column"
+    },
+    {
+      "type": "text",
+      "id": "explore_title",
+      "label": "Explore Column Title",
+      "default": "EXPLORE"
+    },
+    {
+      "type": "header",
+      "content": "Products Column"
+    },
+    {
+      "type": "text",
+      "id": "products_title",
+      "label": "Products Column Title",
+      "default": "PRODUCT FLAVORS"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "NEWSLETTER"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_description",
+      "label": "Newsletter Description",
+      "default": "Subscribe to receive clean recipe ideas and exclusive flavor releases."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Button Text",
+      "default": "SUBSCRIBE"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Bar"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "&copy; 2026 SPREAD HEAVEN. All rights reserved."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "explore_link",
+      "name": "Explore Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Link Label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    },
+    {
+      "type": "product_link",
+      "name": "Product Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Link Label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    },
+    {
+      "type": "bottom_link",
+      "name": "Bottom Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Link Label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spread Heaven Footer",
+      "blocks": [
+        {
+          "type": "explore_link",
+          "name": "Home",
+          "settings": {
+            "label": "Home",
+            "link": "/"
+          }
+        },
+        {
+          "type": "explore_link",
+          "name": "Shop",
+          "settings": {
+            "label": "Shop",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "explore_link",
+          "name": "About Us",
+          "settings": {
+            "label": "About Us",
+            "link": "/pages/about"
+          }
+        },
+        {
+          "type": "explore_link",
+          "name": "Contact Us",
+          "settings": {
+            "label": "Contact Us",
+            "link": "/pages/contact"
+          }
+        },
+        {
+          "type": "product_link",
+          "name": "Vanilla Crispy",
+          "settings": {
+            "label": "Vanilla Crispy",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "product_link",
+          "name": "Chocolate Crunchy",
+          "settings": {
+            "label": "Chocolate Crunchy",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "product_link",
+          "name": "Mawa Malai",
+          "settings": {
+            "label": "Mawa Malai",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "product_link",
+          "name": "Mango Chia",
+          "settings": {
+            "label": "Mango Chia",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "product_link",
+          "name": "Complete Sample Box",
+          "settings": {
+            "label": "Complete Sample Box",
+            "link": "/collections/all"
+          }
+        },
+        {
+          "type": "bottom_link",
+          "name": "Privacy Policy",
+          "settings": {
+            "label": "Privacy Policy",
+            "link": "/policies/privacy-policy"
+          }
+        },
+        {
+          "type": "bottom_link",
+          "name": "Terms of Service",
+          "settings": {
+            "label": "Terms of Service",
+            "link": "/policies/terms-of-service"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
