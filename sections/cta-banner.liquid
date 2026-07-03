@@ -1,0 +1,207 @@
+{{ 'section-cta-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Custom override to allow CTA banner custom colors matching the user static design */
+  #cta-banner-{{ section.id }} {
+    {% if section.settings.use_custom_brand_colors %}
+      background-color: {{ section.settings.brand_bg_color }};
+      color: {{ section.settings.brand_text_color }};
+      border-color: rgba({{ section.settings.brand_text_color | color_to_rgb | replace: 'rgb(', '' | replace: ')', '' }}, 0.15);
+    {% endif %}
+  }
+
+  #cta-banner-{{ section.id }} .cta-banner__btn--white {
+    {% if section.settings.use_custom_brand_colors %}
+      background-color: {{ section.settings.brand_button_bg }};
+      color: {{ section.settings.brand_button_text }};
+      border-color: {{ section.settings.brand_button_bg }};
+    {% endif %}
+  }
+
+  #cta-banner-{{ section.id }} .cta-banner__btn--white:hover {
+    {% if section.settings.use_custom_brand_colors %}
+      background-color: transparent;
+      color: {{ section.settings.brand_button_bg }};
+      border-color: {{ section.settings.brand_button_bg }};
+    {% endif %}
+  }
+
+  #cta-banner-{{ section.id }} .cta-banner__btn--outline-white {
+    {% if section.settings.use_custom_brand_colors %}
+      color: {{ section.settings.brand_text_color }};
+      border-color: {{ section.settings.brand_text_color }};
+    {% endif %}
+  }
+
+  #cta-banner-{{ section.id }} .cta-banner__btn--outline-white:hover {
+    {% if section.settings.use_custom_brand_colors %}
+      background-color: {{ section.settings.brand_text_color }};
+      color: {{ section.settings.brand_bg_color }};
+    {% endif %}
+  }
+{%- endstyle -%}
+
+<div class="cta-banner-section page-width section-{{ section.id }}-padding">
+  <div id="cta-banner-{{ section.id }}" class="cta-banner color-{{ section.settings.color_scheme }} gradient">
+    <div class="cta-banner__container">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="cta-banner__title inline-richtext">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="cta-banner__description inline-richtext">{{ section.settings.description }}</div>
+      {%- endif -%}
+      
+      {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+        <div class="cta-banner__buttons">
+          {%- if section.settings.button_1_label != blank -%}
+            <a href="{{ section.settings.button_1_link | default: '#' }}" class="cta-banner__btn cta-banner__btn--white">
+              {{ section.settings.button_1_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank -%}
+            <a href="{{ section.settings.button_2_link | default: '#' }}" class="cta-banner__btn cta-banner__btn--outline-white">
+              {{ section.settings.button_2_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "CTA Banner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Ready To Spread Heaven?",
+      "label": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "description",
+      "default": "Clean plant-based protein fuel with absolute integrity. Directly from our roasters to your kitchen.",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Button 1 Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "default": "Shop the Lineup",
+      "label": "Button 1 Label"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "header",
+      "content": "Button 2 Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "default": "Follow @spread_heaven26",
+      "label": "Button 2 Label"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Custom Brand Colors",
+      "info": "Overrides the color scheme with precise brand hex colors matching index.html."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_brand_colors",
+      "default": true,
+      "label": "Use custom brand colors"
+    },
+    {
+      "type": "color",
+      "id": "brand_bg_color",
+      "default": "#B97734",
+      "label": "Brand Background Color"
+    },
+    {
+      "type": "color",
+      "id": "brand_text_color",
+      "default": "#FFF9F3",
+      "label": "Brand Text Color"
+    },
+    {
+      "type": "color",
+      "id": "brand_button_bg",
+      "default": "#FFF9F3",
+      "label": "Solid Button Background"
+    },
+    {
+      "type": "color",
+      "id": "brand_button_text",
+      "default": "#8A5A2B",
+      "label": "Solid Button Text"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,2110 @@
+{% comment %}
+Spread Heaven Collection Section - Premium collection page with filters
+{% endcomment %}
+
+{% style %}
+:root {
+  --sp-primary: {{ section.settings.primary_color | default: '#B97734' }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color | default: '#8A5A2B' }};
+  --sp-accent: {{ section.settings.accent_color | default: '#E7C18C' }};
+  --sp-bg: {{ section.settings.bg_color | default: '#FFF9F3' }};
+  --sp-bg-card: #FFFFFF;
+  --sp-bg-glass: rgba(255,249,243,0.88);
+  --sp-text: #2B1B0F;
+  --sp-text-muted: #5D4330;
+  --sp-text-light: #8E7A6B;
+  --sp-border: #EBDCCB;
+  --sp-white: #FFFFFF;
+  --sp-success: #2E7D32;
+  --sp-font-head: var(--font-heading-family, 'Poppins', sans-serif);
+  --sp-font-body: var(--font-body-family, 'Inter', sans-serif);
+  --sp-radius: 12px;
+  --sp-radius-sm: 8px;
+  --sp-radius-lg: 20px;
+  --sp-transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --sp-shadow-sm: 0 4px 16px rgba(138,90,43,0.05);
+  --sp-shadow-md: 0 8px 30px rgba(138,90,43,0.08);
+  --sp-shadow-lg: 0 20px 50px rgba(43,27,15,0.12);
+}
+
+/* Breadcrumb */
+.sp-breadcrumb {
+  border-bottom: 1px solid var(--sp-border);
+  background: var(--sp-bg-card);
+  padding: 13px 0;
+}
+.sp-breadcrumb-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-text-light);
+}
+.sp-breadcrumb-inner a {
+  color: var(--sp-text-light);
+  text-decoration: none;
+  transition: var(--sp-transition);
+}
+.sp-breadcrumb-inner a:hover {
+  color: var(--sp-primary);
+}
+.sp-breadcrumb-inner span {
+  color: var(--sp-primary);
+}
+
+/* Collection Hero */
+.sp-collection-hero {
+  background: linear-gradient(135deg, var(--sp-primary-dark) 0%, var(--sp-primary) 60%, var(--sp-accent) 100%);
+  padding: 52px 24px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.sp-collection-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.sp-collection-hero-inner {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.sp-hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.75;
+  margin-bottom: 10px;
+}
+.sp-hero-title {
+  font-family: var(--sp-font-head);
+  font-size: clamp(28px,5vw,48px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+.sp-hero-sub {
+  font-size: 14px;
+  opacity: 0.85;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.sp-hero-pills {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.sp-hero-pill {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Shop Layout */
+.sp-shop-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 36px 24px 80px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Sidebar */
+.sp-sidebar {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
+}
+
+/* Sidebar Overlay (for mobile/tablet desktop) */
+.sp-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--sp-transition);
+}
+.sp-sidebar-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Sidebar Header */
+.sp-sidebar-head {
+  padding: 8px 0 16px;
+  border-bottom: 1px solid var(--sp-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sp-sidebar-title {
+  font-family: var(--sp-font-head);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+  color: var(--sp-text);
+}
+.sp-sidebar-close {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--sp-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: var(--sp-transition);
+}
+.sp-sidebar-close:hover {
+  background: var(--sp-border);
+  color: var(--sp-text);
+}
+
+/* Sidebar Toggle Button */
+.sp-sidebar-toggle-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-family: var(--sp-font-head);
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--sp-white);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  cursor: pointer;
+  color: var(--sp-text);
+  transition: var(--sp-transition);
+}
+.sp-sidebar-toggle-btn:hover {
+  border-color: var(--sp-primary);
+  color: var(--sp-primary);
+}
+.sp-filter-card {
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-filter-card-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--sp-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.sp-filter-card-head h3 {
+  font-family: var(--sp-font-head);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+  color: var(--sp-text);
+}
+.sp-filter-toggle-icon {
+  font-size: 11px;
+  color: var(--sp-text-light);
+  transition: var(--sp-transition);
+}
+.sp-filter-card.collapsed .sp-filter-toggle-icon {
+  transform: rotate(-90deg);
+}
+.sp-filter-card-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sp-filter-card.collapsed .sp-filter-card-body {
+  display: none;
+}
+
+/* Checkboxes */
+.sp-filter-check {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+}
+.sp-filter-check input[type="checkbox"] {
+  display: none;
+}
+.sp-check-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--sp-border);
+  border-radius: 5px;
+  background: var(--sp-bg-card);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--sp-transition);
+  font-size: 10px;
+  color: transparent;
+}
+.sp-filter-check.checked .sp-check-box {
+  background: var(--sp-primary);
+  border-color: var(--sp-primary);
+  color: white;
+}
+.sp-check-label-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.sp-check-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sp-check-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sp-text);
+}
+.sp-check-count {
+  font-size: 11px;
+  color: var(--sp-text-light);
+  background: rgba(43,27,15,0.06);
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+/* Price Range */
+.sp-price-range-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sp-price-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sp-text);
+}
+.sp-range-track {
+  position: relative;
+  height: 6px;
+  background: var(--sp-border);
+  border-radius: 4px;
+  margin: 4px 0;
+}
+.sp-range-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--sp-primary);
+  border-radius: 4px;
+  pointer-events: none;
+}
+.sp-range-input {
+  position: absolute;
+  top: -7px;
+  width: 100%;
+  height: 20px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+.sp-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--sp-primary);
+  border: 2px solid var(--sp-white);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+  pointer-events: all;
+}
+.sp-price-inputs {
+  display: flex;
+  gap: 8px;
+}
+.sp-price-input-box {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  background: var(--sp-bg-card);
+  color: var(--sp-text);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  transition: var(--sp-transition);
+}
+.sp-price-input-box:focus {
+  border-color: var(--sp-primary);
+}
+
+/* Star Filter */
+.sp-star-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sp-star-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.sp-star-row input {
+  display: none;
+}
+.sp-star-icons {
+  display: flex;
+  gap: 2px;
+}
+.sp-star-icons i {
+  font-size: 12px;
+  color: var(--sp-primary);
+}
+.sp-star-row span {
+  font-size: 12px;
+  color: var(--sp-text-muted);
+}
+.sp-star-row.active-star .sp-star-icons i {
+  color: var(--sp-primary);
+}
+.sp-star-check {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--sp-border);
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  transition: var(--sp-transition);
+}
+.sp-star-row.active-star .sp-star-check {
+  background: var(--sp-primary);
+  border-color: var(--sp-primary);
+  color: white;
+}
+
+/* Clear Filters */
+.sp-clear-filters-btn {
+  width: 100%;
+  padding: 11px;
+  border: 1.5px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-text-muted);
+  transition: var(--sp-transition);
+  background: transparent;
+  cursor: pointer;
+}
+.sp-clear-filters-btn:hover {
+  border-color: var(--sp-primary);
+  color: var(--sp-primary);
+  background: rgba(185,119,52,0.05);
+}
+
+/* Active Filter Pills */
+.sp-active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.sp-active-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(185,119,52,0.1);
+  border: 1px solid rgba(185,119,52,0.25);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sp-primary);
+}
+.sp-active-pill button {
+  background: transparent;
+  border: none;
+  color: var(--sp-primary);
+  font-size: 10px;
+  padding: 0;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Main Content */
+.sp-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Top Bar */
+.sp-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius);
+  padding: 14px 18px;
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-search-wrap {
+  flex: 1;
+  min-width: 180px;
+  position: relative;
+}
+.sp-search-wrap i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sp-text-light);
+  font-size: 13px;
+  pointer-events: none;
+}
+.sp-search-input {
+  width: 100%;
+  padding: 9px 12px 9px 36px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  background: var(--sp-bg);
+  color: var(--sp-text);
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  transition: var(--sp-transition);
+}
+.sp-search-input::placeholder {
+  color: var(--sp-text-light);
+}
+.sp-search-input:focus {
+  border-color: var(--sp-primary);
+  background: var(--sp-bg-card);
+}
+.sp-clear-search {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sp-text-light);
+  font-size: 12px;
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.sp-clear-search.show {
+  display: block;
+}
+.sp-sort-select {
+  padding: 9px 32px 9px 12px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  background: var(--sp-bg);
+  color: var(--sp-text);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  outline: none;
+  cursor: pointer;
+  transition: var(--sp-transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238E7A6B'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.sp-sort-select:focus {
+  border-color: var(--sp-primary);
+}
+.sp-view-toggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  overflow: hidden;
+}
+.sp-view-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--sp-text-light);
+  transition: var(--sp-transition);
+  background: var(--sp-bg-card);
+  border: none;
+  cursor: pointer;
+}
+.sp-view-btn.active {
+  background: var(--sp-primary);
+  color: white;
+}
+.sp-view-btn:hover:not(.active) {
+  background: var(--sp-bg);
+}
+.sp-results-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sp-text-light);
+  white-space: nowrap;
+}
+.sp-mobile-filter-btn {
+  display: none;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-text);
+  transition: var(--sp-transition);
+  background: var(--sp-bg-card);
+  position: relative;
+  cursor: pointer;
+}
+.sp-mobile-filter-btn:hover {
+  border-color: var(--sp-primary);
+  color: var(--sp-primary);
+}
+.sp-filter-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  background: var(--sp-primary);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.sp-filter-badge.show {
+  display: flex;
+}
+
+/* Product Grid */
+.sp-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  min-height: 400px;
+}
+.sp-products-grid.list-view {
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+/* Product Card */
+.sp-product-card {
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 20px;
+  box-shadow: var(--sp-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: var(--sp-transition);
+  position: relative;
+}
+.sp-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sp-shadow-lg);
+  border-color: var(--sp-accent);
+}
+.sp-card-badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 2;
+}
+.sp-badge {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.sp-badge-sale { background: #DC2626; color: white; }
+.sp-badge-new  { background: var(--sp-success); color: white; }
+.sp-badge-hot  { background: var(--sp-primary); color: white; }
+.sp-card-wish {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--sp-text-light);
+  transition: var(--sp-transition);
+  cursor: pointer;
+}
+.sp-card-wish:hover, .sp-card-wish.wished {
+  color: #DC2626;
+  border-color: #DC2626;
+}
+.sp-card-wish.wished {
+  background: #FEF2F2;
+}
+.sp-prod-image-box {
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius);
+  aspect-ratio: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sp-white);
+  position: relative;
+  margin-bottom: 16px;
+}
+.sp-prod-image-box img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  transition: var(--sp-transition);
+}
+.sp-product-card:hover .sp-prod-image-box img {
+  transform: scale(1.04);
+}
+.sp-prod-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--sp-primary);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+}
+.sp-prod-title {
+  font-family: var(--sp-font-head);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 5px;
+  color: var(--sp-text);
+}
+.sp-prod-desc {
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  flex-grow: 1;
+}
+.sp-card-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.sp-stars-row {
+  display: flex;
+  gap: 2px;
+}
+.sp-stars-row i {
+  font-size: 12px;
+  color: var(--sp-primary);
+}
+.sp-card-rating-txt {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sp-text-muted);
+}
+.sp-prod-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--sp-border);
+  padding-top: 10px;
+  margin-bottom: 12px;
+}
+.sp-prod-protein {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(185,119,52,0.08);
+  color: var(--sp-primary);
+  padding: 3px 7px;
+  border-radius: var(--sp-radius-sm);
+  text-transform: uppercase;
+}
+.sp-prod-weight {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--sp-text-light);
+}
+.sp-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+.sp-price-now {
+  font-family: var(--sp-font-head);
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--sp-primary);
+}
+.sp-price-was {
+  font-size: 13px;
+  color: var(--sp-text-light);
+  text-decoration: line-through;
+}
+.sp-price-off {
+  font-size: 10px;
+  font-weight: 800;
+  background: #FEF2F2;
+  color: #DC2626;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.sp-prod-btn {
+  width: 100%;
+  background: var(--sp-primary);
+  color: white;
+  padding: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  border-radius: var(--sp-radius-sm);
+  transition: var(--sp-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sp-prod-btn:hover {
+  background: var(--sp-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--sp-shadow-sm);
+}
+
+/* List View */
+.sp-products-grid.list-view .sp-product-card {
+  flex-direction: row;
+  gap: 20px;
+  padding: 16px;
+}
+.sp-products-grid.list-view .sp-prod-image-box {
+  width: 120px;
+  min-width: 120px;
+  margin-bottom: 0;
+  aspect-ratio: 1;
+}
+.sp-products-grid.list-view .sp-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.sp-products-grid.list-view .sp-prod-desc {
+  display: block;
+}
+.sp-products-grid.list-view .sp-card-badges {
+  top: 10px;
+  left: 130px;
+}
+.sp-products-grid.list-view .sp-card-wish {
+  top: 10px;
+  right: 10px;
+}
+.sp-products-grid.list-view .sp-prod-btn {
+  max-width: 180px;
+}
+
+/* Empty State */
+.sp-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.sp-empty-icon {
+  font-size: 48px;
+  color: var(--sp-border);
+}
+.sp-empty-state h3 {
+  font-family: var(--sp-font-head);
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--sp-text);
+  margin: 0;
+}
+.sp-empty-state p {
+  font-size: 14px;
+  color: var(--sp-text-muted);
+  max-width: 320px;
+  margin: 0;
+}
+.sp-empty-state button {
+  background: var(--sp-primary);
+  color: white;
+  padding: 12px 28px;
+  border-radius: var(--sp-radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--sp-transition);
+  border: none;
+  cursor: pointer;
+}
+.sp-empty-state button:hover {
+  background: var(--sp-primary-dark);
+}
+
+/* Pagination */
+.sp-pagination-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.sp-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sp-page-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  background: var(--sp-bg-card);
+  color: var(--sp-text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--sp-transition);
+  cursor: pointer;
+  text-decoration: none;
+}
+.sp-page-btn:hover {
+  border-color: var(--sp-primary);
+  color: var(--sp-primary);
+}
+.sp-page-btn.active {
+  background: var(--sp-primary);
+  border-color: var(--sp-primary);
+  color: white;
+}
+.sp-page-btn.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.sp-per-page-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--sp-text-light);
+}
+.sp-per-page-select {
+  padding: 8px 28px 8px 10px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  background: var(--sp-bg-card);
+  color: var(--sp-text);
+  font-size: 12px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238E7A6B'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+/* Mobile Filter Drawer */
+.sp-filter-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--sp-transition);
+}
+.sp-filter-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.sp-filter-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 88%;
+  max-width: 340px;
+  height: 100%;
+  background: var(--sp-bg);
+  border-left: 1px solid var(--sp-border);
+  z-index: 2010;
+  overflow-y: auto;
+  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.sp-filter-drawer.open {
+  right: 0;
+}
+.sp-filter-drawer-head {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--sp-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--sp-bg);
+  z-index: 1;
+}
+.sp-filter-drawer-head h3 {
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--sp-text);
+}
+.sp-filter-drawer-close {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--sp-text-muted);
+  cursor: pointer;
+}
+.sp-filter-drawer-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .sp-shop-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .sp-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 300px;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    z-index: 1010;
+    background: var(--sp-bg);
+    border: none;
+    border-radius: 0;
+    border-right: 1px solid var(--sp-border);
+    padding: 20px;
+    margin: 0;
+  }
+  .sp-sidebar.open {
+    left: 0;
+  }
+  .sp-sidebar-toggle-btn {
+    display: flex;
+  }
+  .sp-sidebar-head {
+    display: flex;
+  }
+  .sp-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .sp-sidebar {
+    display: none;
+  }
+  .sp-sidebar-toggle-btn {
+    display: none;
+  }
+  .sp-mobile-filter-btn {
+    display: flex;
+  }
+  .sp-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .sp-product-card {
+    padding: 12px;
+  }
+  .sp-prod-title {
+    font-size: 13px;
+  }
+  .sp-prod-desc {
+    display: none;
+  }
+  .sp-price-now {
+    font-size: 15px;
+  }
+}
+@media (max-width: 480px) {
+  .sp-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .sp-product-card {
+    padding: 10px;
+    border-radius: var(--sp-radius);
+  }
+  .sp-prod-image-box {
+    margin-bottom: 10px;
+  }
+  .sp-card-stars {
+    display: none;
+  }
+  .sp-prod-protein {
+    display: none;
+  }
+  .sp-prod-btn {
+    padding: 9px;
+    font-size: 10px;
+  }
+  .sp-price-now {
+    font-size: 14px;
+  }
+  .sp-price-was, .sp-price-off {
+    display: none;
+  }
+  .sp-hero-title {
+    font-size: 24px;
+  }
+  .sp-top-bar {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+}
+{% endstyle %}
+
+<div class="sp-collection-wrapper">
+  <!-- Breadcrumb -->
+  <div class="sp-breadcrumb">
+    <div class="sp-breadcrumb-inner">
+      <a href="{{ routes.root_url }}">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>{{ collection.title | escape }}</span>
+    </div>
+  </div>
+
+  <!-- Collection Hero -->
+  <div class="sp-collection-hero">
+    <div class="sp-collection-hero-inner">
+      <div class="sp-hero-eyebrow">{{ section.settings.hero_eyebrow | default: 'Premium Peanut Butter Collection' }}</div>
+      <h1 class="sp-hero-title">{{ collection.title | escape }}</h1>
+      <p class="sp-hero-sub">{{ section.settings.hero_subtitle | default: 'Slow-roasted, high-protein, zero-junk spreads crafted for real athletes and food lovers.' }}</p>
+      {% if section.settings.show_hero_pills %}
+      <div class="sp-hero-pills">
+        {% if section.settings.pill_1_text %}<span class="sp-hero-pill"><i class="fa-solid fa-{{ section.settings.pill_1_icon | default: 'dumbbell' }}"></i> {{ section.settings.pill_1_text }}</span>{% endif %}
+        {% if section.settings.pill_2_text %}<span class="sp-hero-pill"><i class="fa-solid fa-{{ section.settings.pill_2_icon | default: 'ban' }}"></i> {{ section.settings.pill_2_text }}</span>{% endif %}
+        {% if section.settings.pill_3_text %}<span class="sp-hero-pill"><i class="fa-solid fa-{{ section.settings.pill_3_icon | default: 'leaf' }}"></i> {{ section.settings.pill_3_text }}</span>{% endif %}
+        {% if section.settings.pill_4_text %}<span class="sp-hero-pill"><i class="fa-solid fa-{{ section.settings.pill_4_icon | default: 'truck-fast' }}"></i> {{ section.settings.pill_4_text }}</span>{% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Shop Layout -->
+  <div class="sp-shop-wrapper">
+    <!-- Sidebar -->
+    <aside class="sp-sidebar" id="spSidebar">
+      <!-- Sidebar Header with Close Button -->
+      <div class="sp-sidebar-head">
+        <h3 class="sp-sidebar-title">Filters</h3>
+        <button class="sp-sidebar-close" id="spCloseSidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      
+      <!-- Active Filters -->
+      <div id="spActiveFiltersWrap" style="display:none;">
+        <div class="sp-filter-card">
+          <div class="sp-filter-card-body">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <span style="font-size:11px;font-weight:800;text-transform:uppercase;color:var(--sp-text-muted);">Active Filters</span>
+              <button class="sp-clear-filters-btn" id="spClearAll" style="width:auto;padding:4px 10px;font-size:10px;">Clear All</button>
+            </div>
+            <div class="sp-active-filters" id="spActivePills"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flavor -->
+      <div class="sp-filter-card" id="spFcFlavor">
+        <div class="sp-filter-card-head" onclick="spToggleFilter('spFcFlavor')">
+          <h3><i class="fa-solid fa-swatchbook" style="color:var(--sp-primary);margin-right:7px;"></i>Flavour</h3>
+          <i class="fa-solid fa-chevron-down sp-filter-toggle-icon"></i>
+        </div>
+        <div class="sp-filter-card-body" id="spFlavorOptions">
+          {% comment %} Dynamic filter options will be rendered via JS {% endcomment %}
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="sp-filter-card" id="spFcCategory">
+        <div class="sp-filter-card-head" onclick="spToggleFilter('spFcCategory')">
+          <h3><i class="fa-solid fa-layer-group" style="color:var(--sp-primary);margin-right:7px;"></i>Category</h3>
+          <i class="fa-solid fa-chevron-down sp-filter-toggle-icon"></i>
+        </div>
+        <div class="sp-filter-card-body" id="spCategoryOptions">
+          {% comment %} Dynamic filter options will be rendered via JS {% endcomment %}
+        </div>
+      </div>
+
+      <!-- Weight -->
+      <div class="sp-filter-card" id="spFcWeight">
+        <div class="sp-filter-card-head" onclick="spToggleFilter('spFcWeight')">
+          <h3><i class="fa-solid fa-weight-scale" style="color:var(--sp-primary);margin-right:7px;"></i>Size / Weight</h3>
+          <i class="fa-solid fa-chevron-down sp-filter-toggle-icon"></i>
+        </div>
+        <div class="sp-filter-card-body" id="spWeightOptions">
+          {% comment %} Dynamic filter options will be rendered via JS {% endcomment %}
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="sp-filter-card" id="spFcPrice">
+        <div class="sp-filter-card-head" onclick="spToggleFilter('spFcPrice')">
+          <h3><i class="fa-solid fa-indian-rupee-sign" style="color:var(--sp-primary);margin-right:7px;"></i>Price Range</h3>
+          <i class="fa-solid fa-chevron-down sp-filter-toggle-icon"></i>
+        </div>
+        <div class="sp-filter-card-body">
+          <div class="sp-price-range-wrap">
+            <div class="sp-price-labels">
+              <span>₹<span id="spPriceMinLabel">199</span></span>
+              <span>₹<span id="spPriceMaxLabel">999</span></span>
+            </div>
+            <div class="sp-range-track">
+              <div class="sp-range-fill" id="spRangeFill"></div>
+              <input type="range" class="sp-range-input" id="spRangeMin" min="199" max="999" value="199" step="10">
+              <input type="range" class="sp-range-input" id="spRangeMax" min="199" max="999" value="999" step="10">
+            </div>
+            <div class="sp-price-inputs">
+              <input class="sp-price-input-box" id="spPriceMinIn" type="number" value="199" min="199" max="999" placeholder="Min">
+              <input class="sp-price-input-box" id="spPriceMaxIn" type="number" value="999" min="199" max="999" placeholder="Max">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rating -->
+      <div class="sp-filter-card" id="spFcRating">
+        <div class="sp-filter-card-head" onclick="spToggleFilter('spFcRating')">
+          <h3><i class="fa-solid fa-star" style="color:var(--sp-primary);margin-right:7px;"></i>Min Rating</h3>
+          <i class="fa-solid fa-chevron-down sp-filter-toggle-icon"></i>
+        </div>
+        <div class="sp-filter-card-body">
+          <div class="sp-star-filter" id="spStarOptions">
+            {% for i in (3..5) reversed %}
+            <div class="sp-star-row" id="spStar{{ i }}" onclick="spSetRating({{ i }})">
+              <div class="sp-star-check" id="spStarCheck{{ i }}"><i class="fa-solid fa-check"></i></div>
+              <div class="sp-star-icons">
+                {% for j in (1..i) %}<i class="fa-solid fa-star"></i>{% endfor %}
+                {% for j in (i..4) %}<i class="fa-regular fa-star"></i>{% endfor %}
+              </div>
+              <span>& up</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Protein -->
+      <div class="sp-filter-card" id="spFcProtein">
+        <div class="sp-filter-card-head" onclick="spToggleFilter('spFcProtein')">
+          <h3><i class="fa-solid fa-bolt" style="color:var(--sp-primary);margin-right:7px;"></i>Protein Content</h3>
+          <i class="fa-solid fa-chevron-down sp-filter-toggle-icon"></i>
+        </div>
+        <div class="sp-filter-card-body" id="spProteinOptions">
+          {% comment %} Dynamic filter options will be rendered via JS {% endcomment %}
+        </div>
+      </div>
+
+      <button class="sp-clear-filters-btn" id="spClearAllSide">
+        <i class="fa-solid fa-rotate-left"></i> Reset All Filters
+      </button>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="sp-main-content">
+      <!-- Top Bar -->
+      <div class="sp-top-bar">
+        <div class="sp-search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input class="sp-search-input" id="spSearchInput" type="text" placeholder="Search products by name or flavour…">
+          <button class="sp-clear-search" id="spClearSearch"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <select class="sp-sort-select" id="spSortSelect">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="rating">Top Rated</option>
+          <option value="name-asc">Name: A → Z</option>
+          <option value="newest">Newest First</option>
+        </select>
+        <button class="sp-sidebar-toggle-btn" id="spSidebarToggleBtn">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+        <button class="sp-mobile-filter-btn" id="spMobileFilterBtn">
+          <i class="fa-solid fa-sliders"></i> Filters
+          <span class="sp-filter-badge" id="spFilterBadge"></span>
+        </button>
+        <div class="sp-view-toggle">
+          <button class="sp-view-btn active" id="spGridViewBtn" title="Grid view"><i class="fa-solid fa-grip"></i></button>
+          <button class="sp-view-btn" id="spListViewBtn" title="List view"><i class="fa-solid fa-list"></i></button>
+        </div>
+        <div class="sp-results-count" id="spResultsCount">{{ collection.products_count }} products</div>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="sp-products-grid" id="spProductsGrid">
+        {% paginate collection.products by section.settings.products_per_page | default: 12 %}
+          {% for product in collection.products %}
+            {% render 'spread-heaven-product-card', product: product %}
+          {% else %}
+            <div class="sp-empty-state">
+              <i class="fa-solid fa-box-open sp-empty-icon"></i>
+              <h3>No products found</h3>
+              <p>Try adjusting your filters or search terms to find what you're looking for.</p>
+              <button onclick="spClearFilters()">Clear All Filters</button>
+            </div>
+          {% endfor %}
+        {% endpaginate %}
+      </div>
+
+      <!-- Pagination -->
+      <div class="sp-pagination-wrap">
+        <div class="sp-per-page-wrap">
+          Show
+          <select class="sp-per-page-select" id="spPerPageSelect">
+            <option value="9">9</option>
+            <option value="12" selected>12</option>
+            <option value="24">24</option>
+            <option value="48">48</option>
+          </select>
+          per page
+        </div>
+        <div class="sp-pagination" id="spPagination">
+          {% paginate collection.products by section.settings.products_per_page | default: 12 %}
+            {% if paginate.pages > 1 %}
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="sp-page-btn"><i class="fa-solid fa-chevron-left"></i></a>
+              {% else %}
+                <span class="sp-page-btn disabled"><i class="fa-solid fa-chevron-left"></i></span>
+              {% endif %}
+              
+              {% for part in paginate.parts %}
+                {% if part.is_link %}
+                  <a href="{{ part.url }}" class="sp-page-btn {% if part.title == paginate.current_page %}active{% endif %}">{{ part.title }}</a>
+                {% else %}
+                  <span class="sp-page-btn disabled">...</span>
+                {% endif %}
+              {% endfor %}
+              
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="sp-page-btn"><i class="fa-solid fa-chevron-right"></i></a>
+              {% else %}
+                <span class="sp-page-btn disabled"><i class="fa-solid fa-chevron-right"></i></span>
+              {% endif %}
+            {% endif %}
+          {% endpaginate %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar Overlay (Desktop/Tablet) -->
+<div class="sp-sidebar-overlay" id="spSidebarOverlay"></div>
+
+<!-- Mobile Filter Drawer -->
+<div class="sp-filter-drawer-overlay" id="spFilterDrawerOverlay"></div>
+<div class="sp-filter-drawer" id="spFilterDrawer">
+  <div class="sp-filter-drawer-head">
+    <h3>Filters</h3>
+    <button class="sp-filter-drawer-close" id="spCloseFilterDrawer"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="sp-filter-drawer-body" id="spMobileFilterBody">
+    {% comment %} Mobile filters will be populated via JS {% endcomment %}
+  </div>
+</div>
+
+<!-- Hidden product data for JS filtering -->
+<div id="spProductData" style="display:none;" data-collection="{{ collection.handle }}">
+  {% for product in collection.products %}
+    {%- assign variant = product.selected_or_first_available_variant -%}
+    <div class="sp-product-data" 
+         data-id="{{ product.id }}" 
+         data-variant-id="{{ variant.id }}"
+         data-title="{{ product.title | escape }}" 
+         data-url="{{ product.url }}" 
+         data-image="{{ product.featured_image | image_url: width: 400 }}"
+         data-price="{{ product.price | money_without_currency | remove: ',' }}"
+         data-price-formatted="{{ product.price | money }}"
+         data-compare-price="{{ product.compare_at_price | money_without_currency | remove: ',' | default: 0 }}"
+         data-compare-price-formatted="{{ product.compare_at_price | money }}"
+         data-available="{{ variant.available }}"
+         {% for tag in product.tags %}
+           {% if tag contains 'flavor:' %}data-flavor="{{ tag | remove: 'flavor:' | escape }}"{% endif %}
+           {% if tag contains 'category:' %}data-category="{{ tag | remove: 'category:' | escape }}"{% endif %}
+           {% if tag contains 'weight:' %}data-weight="{{ tag | remove: 'weight:' | escape }}"{% endif %}
+           {% if tag contains 'protein:' %}data-protein="{{ tag | remove: 'protein:' | escape }}"{% endif %}
+           {% if tag contains 'rating:' %}data-rating="{{ tag | remove: 'rating:' | escape }}"{% endif %}
+           {% if tag contains 'badge:' %}data-badge="{{ tag | remove: 'badge:' | escape }}"{% endif %}
+         {% endfor %}
+         data-description="{{ product.description | strip_html | truncatewords: 15 | escape }}"
+    ></div>
+  {% endfor %}
+</div>
+
+<script>
+(function() {
+  // Flavor colors mapping
+  const spFlavorColors = {
+    'Vanilla': '#F5C842',
+    'Chocolate': '#6B3A2A',
+    'Mango': '#FF8C00',
+    'Mawa': '#D2B48C',
+    'Original': '#B97734',
+    'Honey': '#FFA500',
+    'Cinnamon': '#C2703A',
+    'Strawberry': '#E75480',
+    'Coffee': '#6F4E37',
+    'Matcha': '#6B8E23'
+  };
+
+  // State
+  let spState = {
+    search: '',
+    flavors: new Set(),
+    categories: new Set(),
+    weights: new Set(),
+    proteins: new Set(),
+    priceMin: 199,
+    priceMax: 999,
+    minRating: 0,
+    sort: 'featured',
+    page: 1,
+    perPage: 12,
+    view: 'grid'
+  };
+
+  // Get product data from DOM
+  function spGetProducts() {
+    const products = [];
+    document.querySelectorAll('#spProductData .sp-product-data').forEach(el => {
+      products.push({
+        id: el.dataset.id,
+        variantId: el.dataset.variantId,
+        title: el.dataset.title,
+        url: el.dataset.url,
+        image: el.dataset.image,
+        price: parseFloat(el.dataset.price) || 0,
+        priceFormatted: el.dataset.priceFormatted,
+        comparePrice: parseFloat(el.dataset.comparePrice) || 0,
+        comparePriceFormatted: el.dataset.comparePriceFormatted,
+        available: el.dataset.available === 'true',
+        flavor: el.dataset.flavor || '',
+        category: el.dataset.category || '',
+        weight: el.dataset.weight || '',
+        protein: parseInt(el.dataset.protein) || 0,
+        rating: parseFloat(el.dataset.rating) || 4.5,
+        badge: el.dataset.badge || '',
+        description: el.dataset.description || ''
+      });
+    });
+    return products;
+  }
+
+  // Build filter options
+  function spBuildFilters() {
+    const products = spGetProducts();
+    const flavors = [...new Set(products.map(p => p.flavor).filter(f => f))].sort();
+    const categories = [...new Set(products.map(p => p.category).filter(c => c))].sort();
+    const weights = [...new Set(products.map(p => p.weight).filter(w => w))].sort();
+    const proteins = ['20-24g', '25-27g', '28g+'];
+
+    const flavorCount = {}; flavors.forEach(f => flavorCount[f] = products.filter(p => p.flavor === f).length);
+    const catCount = {}; categories.forEach(c => catCount[c] = products.filter(p => p.category === c).length);
+    const weightCount = {}; weights.forEach(w => weightCount[w] = products.filter(p => p.weight === w).length);
+
+    // Render flavor options
+    document.getElementById('spFlavorOptions').innerHTML = flavors.map(f => `
+      <label class="sp-filter-check" onclick="spToggleFlavor('${f}')">
+        <div class="sp-check-label-row">
+          <div class="sp-check-dot" style="background:${spFlavorColors[f] || '#B97734'}"></div>
+          <span class="sp-check-label">${f}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span class="sp-check-count">${flavorCount[f]}</span>
+          <div class="sp-check-box" id="spFlavorBox-${f.replace(/'/g, '')}"><i class="fa-solid fa-check"></i></div>
+        </div>
+      </label>
+    `).join('');
+
+    // Category options
+    document.getElementById('spCategoryOptions').innerHTML = categories.map(c => `
+      <label class="sp-filter-check" onclick="spToggleCategory('${c}')">
+        <div class="sp-check-label-row">
+          <span class="sp-check-label">${c}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span class="sp-check-count">${catCount[c]}</span>
+          <div class="sp-check-box" id="spCategoryBox-${c.replace(/'/g, '')}"><i class="fa-solid fa-check"></i></div>
+        </div>
+      </label>
+    `).join('');
+
+    // Weight options
+    document.getElementById('spWeightOptions').innerHTML = weights.map(w => `
+      <label class="sp-filter-check" onclick="spToggleWeight('${w}')">
+        <div class="sp-check-label-row">
+          <span class="sp-check-label">${w}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span class="sp-check-count">${weightCount[w]}</span>
+          <div class="sp-check-box" id="spWeightBox-${w.replace(/'/g, '')}"><i class="fa-solid fa-check"></i></div>
+        </div>
+      </label>
+    `).join('');
+
+    // Protein options
+    document.getElementById('spProteinOptions').innerHTML = proteins.map(p => `
+      <label class="sp-filter-check" onclick="spToggleProtein('${p}')">
+        <div class="sp-check-label-row">
+          <span class="sp-check-label">${p} Protein</span>
+        </div>
+        <div class="sp-check-box" id="spProteinBox-${p.replace(/'/g, '').replace(/\+/g, 'plus')}"><i class="fa-solid fa-check"></i></div>
+      </label>
+    `).join('');
+
+    // Clone filters to mobile drawer
+    const sidebar = document.getElementById('spSidebar');
+    const mobileBody = document.getElementById('spMobileFilterBody');
+    if (sidebar && mobileBody) {
+      mobileBody.innerHTML = sidebar.innerHTML;
+    }
+  }
+
+  // Filter toggle functions
+  window.spToggleFilter = function(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('collapsed');
+  };
+  window.spToggleFlavor = function(f) {
+    const key = f.replace(/'/g, '');
+    if (spState.flavors.has(f)) spState.flavors.delete(f);
+    else spState.flavors.add(f);
+    spUpdateCheckBox('spFlavorBox-' + key, spState.flavors.has(f));
+    spRender();
+  };
+  window.spToggleCategory = function(c) {
+    const key = c.replace(/'/g, '');
+    if (spState.categories.has(c)) spState.categories.delete(c);
+    else spState.categories.add(c);
+    spUpdateCheckBox('spCategoryBox-' + key, spState.categories.has(c));
+    spRender();
+  };
+  window.spToggleWeight = function(w) {
+    const key = w.replace(/'/g, '');
+    if (spState.weights.has(w)) spState.weights.delete(w);
+    else spState.weights.add(w);
+    spUpdateCheckBox('spWeightBox-' + key, spState.weights.has(w));
+    spRender();
+  };
+  window.spToggleProtein = function(p) {
+    const key = p.replace(/'/g, '').replace(/\+/g, 'plus');
+    if (spState.proteins.has(p)) spState.proteins.delete(p);
+    else spState.proteins.add(p);
+    spUpdateCheckBox('spProteinBox-' + key, spState.proteins.has(p));
+    spRender();
+  };
+  window.spSetRating = function(r) {
+    spState.minRating = (spState.minRating === r) ? 0 : r;
+    document.querySelectorAll('.sp-star-row').forEach(row => row.classList.remove('active-star'));
+    if (spState.minRating > 0) {
+      [3,4,5].filter(x => x >= spState.minRating).forEach(x => {
+        document.getElementById('spStar' + x)?.classList.add('active-star');
+      });
+    }
+    spRender();
+  };
+  function spUpdateCheckBox(id, checked) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (checked) {
+      el.style.background = 'var(--sp-primary)';
+      el.style.borderColor = 'var(--sp-primary)';
+      el.style.color = 'white';
+    } else {
+      el.style.background = '';
+      el.style.borderColor = '';
+      el.style.color = 'transparent';
+    }
+  }
+
+  // Price range
+  const rangeMin = document.getElementById('spRangeMin');
+  const rangeMax = document.getElementById('spRangeMax');
+  const priceMinLabel = document.getElementById('spPriceMinLabel');
+  const priceMaxLabel = document.getElementById('spPriceMaxLabel');
+  const priceMinIn = document.getElementById('spPriceMinIn');
+  const priceMaxIn = document.getElementById('spPriceMaxIn');
+  const rangeFill = document.getElementById('spRangeFill');
+
+  function spUpdateRangeFill() {
+    if (!rangeFill) return;
+    const min = parseInt(rangeMin.value);
+    const max = parseInt(rangeMax.value);
+    const total = 999 - 199;
+    const leftPct = ((min - 199) / total) * 100;
+    const rightPct = ((max - 199) / total) * 100;
+    rangeFill.style.left = leftPct + '%';
+    rangeFill.style.width = (rightPct - leftPct) + '%';
+  }
+  function spSyncPrice() {
+    let mn = parseInt(rangeMin.value);
+    let mx = parseInt(rangeMax.value);
+    if (mn > mx - 50) { mn = mx - 50; rangeMin.value = mn; }
+    spState.priceMin = mn;
+    spState.priceMax = mx;
+    if (priceMinLabel) priceMinLabel.textContent = mn;
+    if (priceMaxLabel) priceMaxLabel.textContent = mx;
+    if (priceMinIn) priceMinIn.value = mn;
+    if (priceMaxIn) priceMaxIn.value = mx;
+    spUpdateRangeFill();
+    spRender();
+  }
+  if (rangeMin) rangeMin.addEventListener('input', spSyncPrice);
+  if (rangeMax) rangeMax.addEventListener('input', spSyncPrice);
+  if (priceMinIn) priceMinIn.addEventListener('change', () => {
+    rangeMin.value = priceMinIn.value;
+    spSyncPrice();
+  });
+  if (priceMaxIn) priceMaxIn.addEventListener('change', () => {
+    rangeMax.value = priceMaxIn.value;
+    spSyncPrice();
+  });
+  spUpdateRangeFill();
+
+  // Search
+  const searchInput = document.getElementById('spSearchInput');
+  const clearSearch = document.getElementById('spClearSearch');
+  let searchTimeout;
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      spState.search = searchInput.value.trim().toLowerCase();
+      if (clearSearch) clearSearch.classList.toggle('show', spState.search.length > 0);
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => { spState.page = 1; spRender(); }, 250);
+    });
+  }
+  if (clearSearch) {
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      spState.search = '';
+      clearSearch.classList.remove('show');
+      spState.page = 1;
+      spRender();
+    });
+  }
+
+  // Sort
+  const sortSelect = document.getElementById('spSortSelect');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      spState.sort = e.target.value;
+      spState.page = 1;
+      spRender();
+    });
+  }
+
+  // View toggle
+  const gridViewBtn = document.getElementById('spGridViewBtn');
+  const listViewBtn = document.getElementById('spListViewBtn');
+  const productsGrid = document.getElementById('spProductsGrid');
+  if (gridViewBtn) gridViewBtn.addEventListener('click', () => {
+    spState.view = 'grid';
+    if (productsGrid) productsGrid.classList.remove('list-view');
+    gridViewBtn.classList.add('active');
+    listViewBtn?.classList.remove('active');
+  });
+  if (listViewBtn) listViewBtn.addEventListener('click', () => {
+    spState.view = 'list';
+    if (productsGrid) productsGrid.classList.add('list-view');
+    listViewBtn.classList.add('active');
+    gridViewBtn?.classList.remove('active');
+  });
+
+  // Clear filters
+  window.spClearFilters = function() {
+    spState.flavors.clear();
+    spState.categories.clear();
+    spState.weights.clear();
+    spState.proteins.clear();
+    spState.priceMin = 199;
+    spState.priceMax = 999;
+    spState.minRating = 0;
+    spState.page = 1;
+    if (rangeMin) rangeMin.value = 199;
+    if (rangeMax) rangeMax.value = 999;
+    spUpdateRangeFill();
+    if (priceMinLabel) priceMinLabel.textContent = 199;
+    if (priceMaxLabel) priceMaxLabel.textContent = 999;
+    if (priceMinIn) priceMinIn.value = 199;
+    if (priceMaxIn) priceMaxIn.value = 999;
+    document.querySelectorAll('.sp-check-box').forEach(b => {
+      b.style.background = '';
+      b.style.borderColor = '';
+      b.style.color = 'transparent';
+    });
+    document.querySelectorAll('.sp-star-row').forEach(r => r.classList.remove('active-star'));
+    spRender();
+  };
+  document.getElementById('spClearAll')?.addEventListener('click', spClearFilters);
+  document.getElementById('spClearAllSide')?.addEventListener('click', spClearFilters);
+
+  // Filter and sort products
+  function spGetFiltered() {
+    const products = spGetProducts();
+    return products.filter(p => {
+      if (spState.search) {
+        const searchTerm = spState.search.toLowerCase();
+        if (!p.title.toLowerCase().includes(searchTerm) && 
+            !p.flavor.toLowerCase().includes(searchTerm) &&
+            !p.description.toLowerCase().includes(searchTerm)) {
+          return false;
+        }
+      }
+      if (spState.flavors.size > 0 && !spState.flavors.has(p.flavor)) return false;
+      if (spState.categories.size > 0 && !spState.categories.has(p.category)) return false;
+      if (spState.weights.size > 0 && !spState.weights.has(p.weight)) return false;
+      if (p.price < spState.priceMin || p.price > spState.priceMax) return false;
+      if (spState.minRating > 0 && p.rating < spState.minRating) return false;
+      if (spState.proteins.size > 0) {
+        const matches = [...spState.proteins].some(pr => {
+          if (pr === '20-24g') return p.protein >= 20 && p.protein <= 24;
+          if (pr === '25-27g') return p.protein >= 25 && p.protein <= 27;
+          if (pr === '28g+') return p.protein >= 28;
+          return false;
+        });
+        if (!matches) return false;
+      }
+      return true;
+    }).sort((a, b) => {
+      switch (spState.sort) {
+        case 'price-asc': return a.price - b.price;
+        case 'price-desc': return b.price - a.price;
+        case 'rating': return b.rating - a.rating;
+        case 'name-asc': return a.title.localeCompare(b.title);
+        case 'newest': return b.id - a.id;
+        default: return 0;
+      }
+    });
+  }
+
+  // Render active pills
+  function spRenderActivePills() {
+    const pills = [];
+    spState.flavors.forEach(f => pills.push({ label: 'Flavour: ' + f, remove: () => spToggleFlavor(f) }));
+    spState.categories.forEach(c => pills.push({ label: 'Category: ' + c, remove: () => spToggleCategory(c) }));
+    spState.weights.forEach(w => pills.push({ label: 'Size: ' + w, remove: () => spToggleWeight(w) }));
+    spState.proteins.forEach(p => pills.push({ label: 'Protein: ' + p, remove: () => spToggleProtein(p) }));
+    if (spState.priceMin > 199 || spState.priceMax < 999) {
+      pills.push({
+        label: `Price: ₹${spState.priceMin}-₹${spState.priceMax}`,
+        remove: () => {
+          spState.priceMin = 199;
+          spState.priceMax = 999;
+          if (rangeMin) rangeMin.value = 199;
+          if (rangeMax) rangeMax.value = 999;
+          spSyncPrice();
+        }
+      });
+    }
+    if (spState.minRating > 0) {
+      pills.push({
+        label: `${spState.minRating}★ & up`,
+        remove: () => spSetRating(0)
+      });
+    }
+    const wrap = document.getElementById('spActiveFiltersWrap');
+    const cont = document.getElementById('spActivePills');
+    if (wrap && cont) {
+      wrap.style.display = pills.length > 0 ? 'block' : 'none';
+      cont.innerHTML = pills.map((_, i) => `
+        <div class="sp-active-pill">${_.label}<button onclick="spRemovePill(${i})"><i class="fa-solid fa-xmark"></i></button></div>
+      `).join('');
+      wrap._pills = pills;
+    }
+    const badge = document.getElementById('spFilterBadge');
+    if (badge) {
+      badge.textContent = pills.length;
+      badge.classList.toggle('show', pills.length > 0);
+    }
+  }
+  window.spRemovePill = function(i) {
+    const wrap = document.getElementById('spActiveFiltersWrap');
+    if (wrap && wrap._pills && wrap._pills[i]) {
+      wrap._pills[i].remove();
+    }
+  };
+
+  // Render product card
+  function spRenderProductCard(product) {
+    const discount = product.comparePrice > product.price 
+      ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100) 
+      : 0;
+    let badgeClass = '';
+    let badgeText = product.badge;
+    if (product.badge === 'sale') { badgeClass = 'sp-badge-sale'; badgeText = 'Sale'; }
+    else if (product.badge === 'new') { badgeClass = 'sp-badge-new'; badgeText = 'New'; }
+    else if (product.badge === 'hot') { badgeClass = 'sp-badge-hot'; badgeText = 'Hot'; }
+
+    return `
+      <div class="sp-product-card">
+        ${badgeText ? `<div class="sp-card-badges"><span class="sp-badge ${badgeClass}">${badgeText}</span></div>` : ''}
+        <button class="sp-card-wish"><i class="fa-regular fa-heart"></i></button>
+        <div class="sp-prod-image-box">
+          <img src="${product.image}" alt="${product.title}" loading="lazy">
+        </div>
+        <div class="sp-card-content">
+          <div class="sp-prod-tag">${product.flavor || 'Peanut Butter'}</div>
+          <h3 class="sp-prod-title">${product.title}</h3>
+          <p class="sp-prod-desc">${product.description}</p>
+          <div class="sp-card-stars">
+            <div class="sp-stars-row">
+              ${Array(Math.round(product.rating)).fill('<i class="fa-solid fa-star"></i>').join('')}
+            </div>
+            <span class="sp-card-rating-txt">${product.rating} (${Math.floor(Math.random() * 300) + 50} reviews)</span>
+          </div>
+          <div class="sp-prod-meta">
+            ${product.protein ? `<span class="sp-prod-protein">${product.protein}g Protein</span>` : ''}
+            ${product.weight ? `<span class="sp-prod-weight">${product.weight}</span>` : ''}
+          </div>
+          <div class="sp-price-row">
+            <span class="sp-price-now">₹${product.price}</span>
+            ${product.comparePrice > product.price ? `
+              <span class="sp-price-was">₹${product.comparePrice}</span>
+              <span class="sp-price-off">${discount}% OFF</span>
+            ` : ''}
+          </div>
+          <a href="${product.url}" class="sp-prod-btn">
+            <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
+  // Main render function
+  function spRender() {
+    const filtered = spGetFiltered();
+    const resultsCount = document.getElementById('spResultsCount');
+    if (resultsCount) resultsCount.textContent = `${filtered.length} products`;
+    spRenderActivePills();
+
+    if (filtered.length === 0) {
+      if (productsGrid) {
+        productsGrid.innerHTML = `
+          <div class="sp-empty-state">
+            <i class="fa-solid fa-box-open sp-empty-icon"></i>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or search terms to find what you're looking for.</p>
+            <button onclick="spClearFilters()">Clear All Filters</button>
+          </div>
+        `;
+      }
+      return;
+    }
+
+    // Pagination logic
+    const start = (spState.page - 1) * spState.perPage;
+    const pageProducts = filtered.slice(start, start + spState.perPage);
+
+    if (productsGrid) {
+      productsGrid.innerHTML = pageProducts.map(spRenderProductCard).join('');
+    }
+
+    // Render pagination
+    const totalPages = Math.ceil(filtered.length / spState.perPage);
+    const pagination = document.getElementById('spPagination');
+    if (pagination) {
+      let html = '';
+      if (spState.page > 1) {
+        html += `<button class="sp-page-btn" onclick="spGoToPage(${spState.page - 1})"><i class="fa-solid fa-chevron-left"></i></button>`;
+      } else {
+        html += `<span class="sp-page-btn disabled"><i class="fa-solid fa-chevron-left"></i></span>`;
+      }
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= spState.page - 1 && i <= spState.page + 1)) {
+          html += `<button class="sp-page-btn ${i === spState.page ? 'active' : ''}" onclick="spGoToPage(${i})">${i}</button>`;
+        } else if (i === spState.page - 2 || i === spState.page + 2) {
+          html += `<span class="sp-page-btn disabled">...</span>`;
+        }
+      }
+      if (spState.page < totalPages) {
+        html += `<button class="sp-page-btn" onclick="spGoToPage(${spState.page + 1})"><i class="fa-solid fa-chevron-right"></i></button>`;
+      } else {
+        html += `<span class="sp-page-btn disabled"><i class="fa-solid fa-chevron-right"></i></span>`;
+      }
+      pagination.innerHTML = html;
+    }
+  }
+  window.spGoToPage = function(page) {
+    spState.page = page;
+    spRender();
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  };
+
+  // Mobile filter drawer
+  const mobileFilterBtn = document.getElementById('spMobileFilterBtn');
+  const filterDrawerOverlay = document.getElementById('spFilterDrawerOverlay');
+  const filterDrawer = document.getElementById('spFilterDrawer');
+  const closeFilterDrawer = document.getElementById('spCloseFilterDrawer');
+
+  function spOpenFilterDrawer() {
+    if (filterDrawer) filterDrawer.classList.add('open');
+    if (filterDrawerOverlay) filterDrawerOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function spCloseFilterDrawerFn() {
+    if (filterDrawer) filterDrawer.classList.remove('open');
+    if (filterDrawerOverlay) filterDrawerOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  if (mobileFilterBtn) mobileFilterBtn.addEventListener('click', spOpenFilterDrawer);
+  if (closeFilterDrawer) closeFilterDrawer.addEventListener('click', spCloseFilterDrawerFn);
+  if (filterDrawerOverlay) filterDrawerOverlay.addEventListener('click', spCloseFilterDrawerFn);
+
+  // Desktop Sidebar (for tablet/desktop sizes)
+  const sidebarToggleBtn = document.getElementById('spSidebarToggleBtn');
+  const sidebarOverlay = document.getElementById('spSidebarOverlay');
+  const sidebar = document.getElementById('spSidebar');
+  const closeSidebar = document.getElementById('spCloseSidebar');
+
+  function spOpenSidebar() {
+    if (sidebar) sidebar.classList.add('open');
+    if (sidebarOverlay) sidebarOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function spCloseSidebarFn() {
+    if (sidebar) sidebar.classList.remove('open');
+    if (sidebarOverlay) sidebarOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  if (sidebarToggleBtn) sidebarToggleBtn.addEventListener('click', spOpenSidebar);
+  if (closeSidebar) closeSidebar.addEventListener('click', spCloseSidebarFn);
+  if (sidebarOverlay) sidebarOverlay.addEventListener('click', spCloseSidebarFn);
+
+  // Initialize
+  spBuildFilters();
+  spRender();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Spread Heaven Collection",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Hero Eyebrow Text",
+      "default": "Premium Peanut Butter Collection"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Slow-roasted, high-protein, zero-junk spreads crafted for real athletes and food lovers."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero_pills",
+      "label": "Show Hero Pills",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "pill_1_text",
+      "label": "Pill 1 Text",
+      "default": "27g Protein"
+    },
+    {
+      "type": "text",
+      "id": "pill_1_icon",
+      "label": "Pill 1 Icon",
+      "default": "dumbbell"
+    },
+    {
+      "type": "text",
+      "id": "pill_2_text",
+      "label": "Pill 2 Text",
+      "default": "No Palm Oil"
+    },
+    {
+      "type": "text",
+      "id": "pill_2_icon",
+      "label": "Pill 2 Icon",
+      "default": "ban"
+    },
+    {
+      "type": "text",
+      "id": "pill_3_text",
+      "label": "Pill 3 Text",
+      "default": "100% Natural"
+    },
+    {
+      "type": "text",
+      "id": "pill_3_icon",
+      "label": "Pill 3 Icon",
+      "default": "leaf"
+    },
+    {
+      "type": "text",
+      "id": "pill_4_text",
+      "label": "Pill 4 Text",
+      "default": "Free Shipping ₹499+"
+    },
+    {
+      "type": "text",
+      "id": "pill_4_icon",
+      "label": "Pill 4 Icon",
+      "default": "truck-fast"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary Dark Color",
+      "default": "#8A5A2B"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E7C18C"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF9F3"
+    },
+    {
+      "type": "header",
+      "content": "Product Grid"
+    },
+    {
+      "type": "select",
+      "id": "products_per_page",
+      "label": "Products Per Page",
+      "options": [
+        { "value": "9", "label": "9" },
+        { "value": "12", "label": "12" },
+        { "value": "24", "label": "24" },
+        { "value": "48", "label": "48" }
+      ],
+      "default": "12"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spread Heaven Collection",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

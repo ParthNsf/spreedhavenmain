@@ -1,0 +1,215 @@
+{{ 'section-healthy-ideas.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="healthy-ideas page-width">
+    {%- if section.settings.tag != blank or section.settings.heading != blank or section.settings.subtitle != blank -%}
+      <div class="healthy-ideas__title-wrapper title-wrapper title-wrapper--no-top-margin">
+        {%- if section.settings.tag != blank -%}
+          <span class="healthy-ideas__tag">{{ section.settings.tag }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="healthy-ideas__title inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="healthy-ideas__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="healthy-ideas__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign image = block.settings.image
+          assign title = block.settings.title
+          assign description = block.settings.description
+          assign link = block.settings.link
+        -%}
+        
+        {%- if link != blank -%}
+          <a href="{{ link }}" class="healthy-ideas__card" {{ block.shopify_attributes }}>
+        {%- else -%}
+          <div class="healthy-ideas__card" {{ block.shopify_attributes }}>
+        {%- endif -%}
+        
+          <div class="healthy-ideas__img-frame">
+            {%- if image != blank -%}
+              {{ image | image_url: width: 600 | image_tag: class: 'healthy-ideas__img', loading: 'lazy' }}
+            {%- else -%}
+              {{ 'hero-apparel-3' | placeholder_svg_tag: 'placeholder-svg healthy-ideas__img' }}
+            {%- endif -%}
+          </div>
+
+          <div class="healthy-ideas__info">
+            {%- if title != blank -%}
+              <h3 class="healthy-ideas__card-title">{{ title | escape }}</h3>
+            {%- endif -%}
+            {%- if description != blank -%}
+              <p class="healthy-ideas__card-description">{{ description }}</p>
+            {%- endif -%}
+          </div>
+
+        {%- if link != blank -%}
+          </a>
+        {%- else -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Healthy Ideas",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "default": "Healthy Ideas",
+      "label": "Section Tag"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "How To Enjoy",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Real athletic suggestions pulled straight from our official tub labels.",
+      "label": "Subtitle"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "idea",
+      "name": "Idea Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Bread & Crackers"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "description",
+          "label": "Card Description",
+          "default": "Spread a generous, thick golden layer over toasted sourdough slices or crisp crackers."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card Link",
+          "info": "Optional link to redirect when the card is clicked."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Healthy Ideas",
+      "blocks": [
+        {
+          "type": "idea",
+          "settings": {
+            "title": "Label Instructions",
+            "description": "Official suggestions ground directly onto the back of our premium product jars."
+          }
+        },
+        {
+          "type": "idea",
+          "settings": {
+            "title": "Bread & Crackers",
+            "description": "Spread a generous, thick golden layer over toasted sourdough slices or crisp crackers."
+          }
+        },
+        {
+          "type": "idea",
+          "settings": {
+            "title": "Smoothies & Dips",
+            "description": "Swirl into your morning blender or serve as a clean dip for raw apple and banana bowls."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

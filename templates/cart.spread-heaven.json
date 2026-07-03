@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "header": {
+      "type": "spread-heaven-header"
+    },
+    "spread-heaven-cart": {
+      "type": "spread-heaven-cart",
+      "settings": {
+        "primary_color": "#B97734",
+        "primary_dark_color": "#8A5A2B",
+        "accent_color": "#E7C18C",
+        "bg_color": "#FFF9F3"
+      }
+    },
+    "footer": {
+      "type": "spread-heaven-footer"
+    }
+  },
+  "order": [
+    "header",
+    "spread-heaven-cart",
+    "footer"
+  ]
+}

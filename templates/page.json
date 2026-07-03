@@ -11,13 +11,52 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "spread_heaven_about_us_kHHtJn": {
+      "type": "spread-heaven-about-us",
+      "name": "Spread Heaven About Us",
+      "settings": {
+        "primary_color": "#B97734",
+        "primary_dark_color": "#8A5A2B",
+        "accent_color": "#E7C18C",
+        "bg_color": "#FFF9F3",
+        "text_color": "#2B1B0F",
+        "text_muted_color": "#7A5C3E",
+        "border_color": "#EDD9BC",
+        "eyebrow_text": "Our Story",
+        "heading": "Crafting Peanut Butter With Pure Passion",
+        "description": "Grinding peanuts into pure obsession. We are committed to crafting premium spreads with the highest quality ingredients.",
+        "card_1_icon": "🎯",
+        "card_1_title": "Our Mission",
+        "card_1_description": "To provide clean, high-protein peanut butter that fuels fitness and everyday life.",
+        "card_2_icon": "💎",
+        "card_2_title": "Our Values",
+        "card_2_description": "Quality, transparency, and sustainability guide every step of our process.",
+        "card_3_icon": "👥",
+        "card_3_title": "Our Team",
+        "card_3_description": "Passionate food lovers dedicated to perfecting the art of peanut butter.",
+        "story_image_alt": "Our Story - Spread Heaven",
+        "story_title": "The Spread Heaven Journey",
+        "story_description_1": "It all started with a simple idea: peanut butter should be pure, delicious, and nutritious. We spent years perfecting our recipes, sourcing the finest slow-roasted peanuts.",
+        "story_description_2": "Today, Spread Heaven is proud to offer premium spreads that fuel your fitness goals and bring joy to your everyday meals. No junk, no drama, just butter.",
+        "milestone_1_value": "5+",
+        "milestone_1_label": "Unique Flavors",
+        "milestone_2_value": "100%",
+        "milestone_2_label": "Natural Ingredients",
+        "milestone_3_value": "27g",
+        "milestone_3_label": "Max Protein",
+        "milestone_4_value": "0%",
+        "milestone_4_label": "Palm Oil"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "spread_heaven_about_us_kHHtJn"
   ]
 }

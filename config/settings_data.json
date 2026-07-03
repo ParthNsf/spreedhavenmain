@@ -154,7 +154,7 @@
             "type": "nav_link",
             "settings": {
               "label": "Shop",
-              "link": "/",
+              "link": "shopify://collections/shop",
               "active": false
             }
           },
@@ -162,7 +162,7 @@
             "type": "nav_link",
             "settings": {
               "label": "About Us",
-              "link": "/",
+              "link": "shopify://pages/about-us",
               "active": false
             }
           },
@@ -170,7 +170,7 @@
             "type": "nav_link",
             "settings": {
               "label": "Contact Us",
-              "link": "/",
+              "link": "shopify://pages/contact",
               "active": false
             }
           }
@@ -184,6 +184,8 @@
         "settings": {
           "brand_logo": "shopify://shop_images/625887042_17842700409687503_6844823249060374975_n.png",
           "brand_logo_alt": "",
+          "brand_logo_max_width": 20,
+          "brand_logo_max_height": 20,
           "primary_color": "#b97734",
           "primary_dark_color": "#8a5a2b",
           "accent_color": "#e7c18c",

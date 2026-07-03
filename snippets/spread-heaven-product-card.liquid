@@ -1,0 +1,302 @@
+{% comment %}
+Spread Heaven Product Card Snippet
+{% endcomment %}
+
+{% style %}
+.sp-card-wrapper {
+  --sp-primary: {{ section.settings.primary_color | default: '#B97734' }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color | default: '#8A5A2B' }};
+  --sp-accent: {{ section.settings.accent_color | default: '#E7C18C' }};
+  --sp-bg: {{ section.settings.bg_color | default: '#FFF9F3' }};
+  --sp-bg-card: #FFFFFF;
+  --sp-border: #EBDCCB;
+  --sp-text: #2B1B0F;
+  --sp-text-muted: #5D4330;
+  --sp-text-light: #8E7A6B;
+  --sp-font-head: var(--font-heading-family, 'Poppins', sans-serif);
+  --sp-transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --sp-shadow-sm: 0 4px 16px rgba(138,90,43,0.05);
+  --sp-radius-sm: 8px;
+  --sp-radius-lg: 20px;
+}
+.sp-card-wrapper .sp-product-card {
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  padding: 20px;
+  box-shadow: var(--sp-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: var(--sp-transition);
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+.sp-card-wrapper .sp-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(43,27,15,0.12);
+  border-color: var(--sp-accent);
+}
+.sp-card-wrapper .sp-card-badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 2;
+}
+.sp-card-wrapper .sp-badge {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.sp-card-wrapper .sp-badge-sale { background: #DC2626; color: white; }
+.sp-card-wrapper .sp-badge-new { background: #2E7D32; color: white; }
+.sp-card-wrapper .sp-badge-hot { background: var(--sp-primary); color: white; }
+.sp-card-wrapper .sp-card-wish {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--sp-text-light);
+  transition: var(--sp-transition);
+  cursor: pointer;
+}
+.sp-card-wrapper .sp-card-wish:hover, .sp-card-wrapper .sp-card-wish.wished {
+  color: #DC2626;
+  border-color: #DC2626;
+}
+.sp-card-wrapper .sp-prod-image-box {
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  aspect-ratio: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  position: relative;
+  margin-bottom: 16px;
+}
+.sp-card-wrapper .sp-prod-image-box img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  transition: var(--sp-transition);
+}
+.sp-card-wrapper .sp-product-card:hover .sp-prod-image-box img {
+  transform: scale(1.04);
+}
+.sp-card-wrapper .sp-prod-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--sp-primary);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+}
+.sp-card-wrapper .sp-prod-title {
+  font-family: var(--sp-font-head);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 5px;
+  color: var(--sp-text);
+}
+.sp-card-wrapper .sp-prod-desc {
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  flex-grow: 1;
+}
+.sp-card-wrapper .sp-card-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.sp-card-wrapper .sp-stars-row {
+  display: flex;
+  gap: 2px;
+}
+.sp-card-wrapper .sp-stars-row i {
+  font-size: 12px;
+  color: var(--sp-primary);
+}
+.sp-card-wrapper .sp-card-rating-txt {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sp-text-muted);
+}
+.sp-card-wrapper .sp-prod-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--sp-border);
+  padding-top: 10px;
+  margin-bottom: 12px;
+}
+.sp-card-wrapper .sp-prod-protein {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(185,119,52,0.08);
+  color: var(--sp-primary);
+  padding: 3px 7px;
+  border-radius: var(--sp-radius-sm);
+  text-transform: uppercase;
+}
+.sp-card-wrapper .sp-prod-weight {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--sp-text-light);
+}
+.sp-card-wrapper .sp-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+.sp-card-wrapper .sp-price-now {
+  font-family: var(--sp-font-head);
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--sp-primary);
+}
+.sp-card-wrapper .sp-price-was {
+  font-size: 13px;
+  color: var(--sp-text-light);
+  text-decoration: line-through;
+}
+.sp-card-wrapper .sp-price-off {
+  font-size: 10px;
+  font-weight: 800;
+  background: #FEF2F2;
+  color: #DC2626;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.sp-card-wrapper .sp-prod-btn {
+  width: 100%;
+  background: var(--sp-primary);
+  color: white;
+  padding: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  border-radius: var(--sp-radius-sm);
+  transition: var(--sp-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sp-card-wrapper .sp-prod-btn:hover {
+  background: var(--sp-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--sp-shadow-sm);
+}
+{% endstyle %}
+
+<div class="sp-card-wrapper">
+  <div class="sp-product-card">
+    {%- assign flavor = '' -%}
+    {%- assign category = '' -%}
+    {%- assign weight = '' -%}
+    {%- assign protein = 0 -%}
+    {%- assign rating = 4.5 -%}
+    {%- assign badge = '' -%}
+    {%- for tag in product.tags -%}
+      {%- if tag contains 'flavor:' -%}{%- assign flavor = tag | remove: 'flavor:' -%}{%- endif -%}
+      {%- if tag contains 'category:' -%}{%- assign category = tag | remove: 'category:' -%}{%- endif -%}
+      {%- if tag contains 'weight:' -%}{%- assign weight = tag | remove: 'weight:' -%}{%- endif -%}
+      {%- if tag contains 'protein:' -%}{%- assign protein = tag | remove: 'protein:' | plus: 0 -%}{%- endif -%}
+      {%- if tag contains 'rating:' -%}{%- assign rating = tag | remove: 'rating:' | plus: 0 -%}{%- endif -%}
+      {%- if tag contains 'badge:' -%}{%- assign badge = tag | remove: 'badge:' -%}{%- endif -%}
+    {%- endfor -%}
+
+    {%- assign discount = 0 -%}
+    {%- if product.compare_at_price > product.price -%}
+      {%- assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round -%}
+    {%- endif -%}
+
+    {%- capture badge_html -%}
+      {%- if badge == 'sale' -%}<span class="sp-badge sp-badge-sale">Sale</span>{%- endif -%}
+      {%- if badge == 'new' -%}<span class="sp-badge sp-badge-new">New</span>{%- endif -%}
+      {%- if badge == 'hot' -%}<span class="sp-badge sp-badge-hot">Hot</span>{%- endif -%}
+    {%- endcapture -%}
+
+    {%- if badge_html != '' -%}
+      <div class="sp-card-badges">
+        {{ badge_html }}
+      </div>
+    {%- endif -%}
+
+    <button class="sp-card-wish" onclick="event.preventDefault(); event.stopPropagation(); this.classList.toggle('wished'); const icon = this.querySelector('i'); icon.classList.toggle('fa-regular'); icon.classList.toggle('fa-solid');">
+      <i class="fa-regular fa-heart"></i>
+    </button>
+
+    <a href="{{ product.url }}" class="sp-card-image-link" style="text-decoration: none;">
+      <div class="sp-prod-image-box">
+        <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy">
+      </div>
+    </a>
+
+    <div class="sp-card-content">
+      <a href="{{ product.url }}" class="sp-card-text-link" style="text-decoration: none;">
+        <div class="sp-prod-tag">{{ flavor | default: 'Peanut Butter' }}</div>
+        <h3 class="sp-prod-title">{{ product.title | escape }}</h3>
+        <p class="sp-prod-desc">{{ product.description | strip_html | truncatewords: 15 }}</p>
+        
+        <div class="sp-card-stars">
+          <div class="sp-stars-row">
+            {%- assign rounded_rating = rating | round -%}
+            {%- for i in (1..rounded_rating) -%}
+              <i class="fa-solid fa-star"></i>
+            {%- endfor -%}
+          </div>
+          <span class="sp-card-rating-txt">{{ rating }} ({{ product.reviews_count | default: 0 | plus: 50 }} reviews)</span>
+        </div>
+
+        <div class="sp-prod-meta">
+          {%- if protein > 0 -%}<span class="sp-prod-protein">{{ protein }}g Protein</span>{%- endif -%}
+          {%- if weight != '' -%}<span class="sp-prod-weight">{{ weight }}</span>{%- endif -%}
+        </div>
+
+        <div class="sp-price-row">
+          <span class="sp-price-now">{{ product.price | money }}</span>
+          {%- if product.compare_at_price > product.price -%}
+            <span class="sp-price-was">{{ product.compare_at_price | money }}</span>
+            <span class="sp-price-off">{{ discount }}% OFF</span>
+          {%- endif -%}
+        </div>
+      </a>
+
+      {%- form 'product', product, class: 'sp-add-to-cart-form' -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <button type="submit" name="add" class="sp-prod-btn"{% if product.selected_or_first_available_variant.available == false %} disabled{% endif %}>
+          <i class="fa-solid fa-bag-shopping"></i> 
+          {% if product.selected_or_first_available_variant.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+</div>

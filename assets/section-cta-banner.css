@@ -1,0 +1,128 @@
+/* section-cta-banner.css */
+
+.cta-banner-section {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .cta-banner-section {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.cta-banner {
+  border-radius: 20px;
+  padding: 4.8rem 2.4rem;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(43, 27, 15, 0.12);
+  position: relative;
+  overflow: hidden;
+  max-width: 1232px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(135deg, #8A5A2B 0%, #B97734 50%, #D4914A 100%);
+  color: #FFF9F3;
+}
+
+@media screen and (min-width: 750px) {
+  .cta-banner {
+    padding: 7.2rem 4.8rem;
+  }
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1.5' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.cta-banner__container {
+  max-width: 60rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-banner__title {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.8rem, 4vw, 4.8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #FFF9F3;
+}
+
+.cta-banner__description {
+  margin: 0 0 1.6rem 0;
+  font-size: 1.7rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.cta-banner__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  width: 100%;
+}
+
+/* CTA Specific Buttons styles */
+.cta-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 2.8rem;
+  font-family: var(--font-heading-family), sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 0.8rem;
+  text-decoration: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.2s ease,
+              color 0.2s ease,
+              border-color 0.2s ease;
+  cursor: pointer;
+  min-width: 18rem;
+}
+
+.cta-banner__btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Style variants for buttons matching home.css */
+.cta-banner__btn--white {
+  background-color: #FFF9F3;
+  color: #8A5A2B;
+  border: 1px solid #FFF9F3;
+}
+
+.cta-banner__btn--white:hover {
+  background-color: transparent;
+  color: #FFF9F3;
+  border-color: #FFF9F3;
+}
+
+.cta-banner__btn--outline-white {
+  background-color: transparent;
+  color: #FFF9F3;
+  border: 1px solid #FFF9F3;
+}
+
+.cta-banner__btn--outline-white:hover {
+  background-color: #FFF9F3;
+  color: #8A5A2B;
+}

@@ -1,0 +1,148 @@
+/* section-healthy-ideas.css */
+
+.healthy-ideas {
+  --primary-color: #B97734;
+  --bg-color: #FFF9F3;
+  --text-color: #2B1B0F;
+  --text-muted: #5D4330;
+  --border-color: #EBDCCB;
+  --bg-card: #FFFFFF;
+  --radius-lg: 20px;
+  --radius-sm: 12px;
+  
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .healthy-ideas {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.healthy-ideas__title-wrapper {
+  margin-bottom: 3.2rem;
+}
+
+.healthy-ideas__tag {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--primary-color);
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.healthy-ideas__title {
+  margin: 0 0 0.8rem 0;
+  font-family: var(--font-heading-family);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-color);
+  text-transform: uppercase;
+}
+
+.healthy-ideas__subtitle {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+
+/* Grid & Cards */
+.healthy-ideas__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (min-width: 550px) {
+  .healthy-ideas__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.4rem;
+  }
+}
+
+@media screen pipelines and (min-width: 990px) {
+  .healthy-ideas__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3.2rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .healthy-ideas__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3.2rem;
+  }
+}
+
+.healthy-ideas__card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  box-shadow: 0 4px 16px rgba(138, 90, 43, 0.05);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.healthy-ideas__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(138, 90, 43, 0.08);
+  border-color: var(--primary-color);
+}
+
+.healthy-ideas__img-frame {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(var(--color-foreground), 0.03);
+}
+
+.healthy-ideas__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.healthy-ideas__card:hover .healthy-ideas__img {
+  transform: scale(1.04);
+}
+
+.healthy-ideas__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.healthy-ideas__card-title {
+  font-family: var(--font-heading-family);
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-color);
+}
+
+.healthy-ideas__card-description {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}

@@ -1,0 +1,531 @@
+{% comment %}
+Spread Heaven Cart Section - Full Cart Page
+{% endcomment %}
+
+{% style %}
+.sp-cart-page-wrapper {
+  --sp-primary: {{ section.settings.primary_color | default: '#B97734' }};
+  --sp-primary-dark: {{ section.settings.primary_dark_color | default: '#8A5A2B' }};
+  --sp-accent: {{ section.settings.accent_color | default: '#E7C18C' }};
+  --sp-bg: {{ section.settings.bg_color | default: '#FFF9F3' }};
+  --sp-bg-card: #FFFFFF;
+  --sp-border: #EBDCCB;
+  --sp-text: #2B1B0F;
+  --sp-text-muted: #5D4330;
+  --sp-text-light: #8E7A6B;
+  --sp-font-head: var(--font-heading-family, 'Poppins', sans-serif);
+  --sp-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --sp-radius: 12px;
+  --sp-radius-sm: 8px;
+  --sp-radius-lg: 20px;
+  --sp-shadow-sm: 0 4px 16px rgba(138, 90, 43, 0.05);
+  --sp-shadow-lg: 0 20px 50px rgba(43, 27, 15, 0.12);
+}
+
+/* Breadcrumb */
+.sp-cart-breadcrumb {
+  border-bottom: 1px solid var(--sp-border);
+  background: var(--sp-bg-card);
+  padding: 13px 0;
+}
+.sp-cart-breadcrumb-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sp-text-light);
+}
+.sp-cart-breadcrumb-inner a {
+  color: var(--sp-text-light);
+  text-decoration: none;
+  transition: var(--sp-transition);
+}
+.sp-cart-breadcrumb-inner a:hover {
+  color: var(--sp-primary);
+}
+.sp-cart-breadcrumb-inner span {
+  color: var(--sp-primary);
+}
+
+/* Cart Hero */
+.sp-cart-hero {
+  background: linear-gradient(135deg, var(--sp-primary-dark) 0%, var(--sp-primary) 60%, var(--sp-accent) 100%);
+  padding: 48px 24px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.sp-cart-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.sp-cart-hero-inner {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.sp-cart-hero-title {
+  font-family: var(--sp-font-head);
+  font-size: clamp(28px,5vw,44px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+.sp-cart-hero-sub {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* Cart Container */
+.sp-cart-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Cart Items */
+.sp-cart-items-wrap {
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  box-shadow: var(--sp-shadow-sm);
+  padding: 24px;
+}
+
+.sp-cart-items-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--sp-border);
+  margin-bottom: 20px;
+}
+.sp-cart-items-header h3 {
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+  color: var(--sp-text);
+}
+.sp-cart-continue-shopping {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sp-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--sp-transition);
+}
+.sp-cart-continue-shopping:hover {
+  color: var(--sp-primary-dark);
+}
+
+.sp-cart-item-card {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--sp-border);
+}
+.sp-cart-item-card:last-child {
+  border-bottom: none;
+}
+
+.sp-cart-item-image-wrap {
+  width: 120px;
+  height: 120px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--sp-bg-card);
+  flex-shrink: 0;
+}
+.sp-cart-item-image-wrap img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.sp-cart-item-details-wrap {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sp-cart-item-title-wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sp-cart-item-title-wrap h4 {
+  font-family: var(--sp-font-head);
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+  color: var(--sp-text);
+  line-height: 1.3;
+}
+.sp-cart-item-delete-btn {
+  background: transparent;
+  border: none;
+  color: #C62828;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  transition: var(--sp-transition);
+}
+.sp-cart-item-delete-btn:hover {
+  opacity: 0.7;
+}
+
+.sp-cart-item-variant {
+  font-size: 12px;
+  color: var(--sp-text-light);
+  margin: 0;
+}
+
+.sp-cart-item-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sp-cart-item-price {
+  font-family: var(--sp-font-head);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--sp-primary);
+}
+
+.sp-cart-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sp-cart-qty-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sp-text-muted);
+}
+
+/* Cart Summary */
+.sp-cart-summary-wrap {
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  box-shadow: var(--sp-shadow-sm);
+  padding: 24px;
+  position: sticky;
+  top: 90px;
+}
+
+.sp-cart-summary-title {
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 20px 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--sp-border);
+  color: var(--sp-text);
+}
+
+.sp-cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--sp-text-muted);
+}
+.sp-cart-summary-row strong {
+  color: var(--sp-text);
+  font-weight: 700;
+}
+
+.sp-cart-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sp-border);
+  font-family: var(--sp-font-head);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: var(--sp-text);
+}
+.sp-cart-summary-total span:last-child {
+  color: var(--sp-primary);
+  font-size: 20px;
+}
+
+.sp-cart-checkout-btn {
+  width: 100%;
+  background: var(--sp-primary);
+  color: white;
+  padding: 14px 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  border-radius: var(--sp-radius-sm);
+  transition: var(--sp-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 24px;
+}
+.sp-cart-checkout-btn:hover {
+  background: var(--sp-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--sp-shadow-sm);
+}
+
+/* Empty Cart */
+.sp-cart-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 24px;
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-lg);
+  box-shadow: var(--sp-shadow-sm);
+}
+.sp-cart-empty-icon {
+  font-size: 48px;
+  color: var(--sp-border);
+  margin-bottom: 16px;
+}
+.sp-cart-empty-state h3 {
+  font-family: var(--sp-font-head);
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--sp-text);
+  margin: 0 0 8px 0;
+}
+.sp-cart-empty-state p {
+  font-size: 14px;
+  color: var(--sp-text-muted);
+  margin: 0 0 24px 0;
+}
+.sp-cart-empty-btn {
+  background: var(--sp-primary);
+  color: white;
+  padding: 12px 28px;
+  border-radius: var(--sp-radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--sp-transition);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sp-cart-empty-btn:hover {
+  background: var(--sp-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--sp-shadow-sm);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .sp-cart-container {
+    grid-template-columns: 1fr;
+  }
+  .sp-cart-summary-wrap {
+    position: static;
+  }
+}
+@media (max-width: 600px) {
+  .sp-cart-item-card {
+    flex-direction: column;
+  }
+  .sp-cart-item-image-wrap {
+    width: 100%;
+    height: 180px;
+  }
+}
+{% endstyle %}
+
+<div class="sp-cart-page-wrapper">
+  <!-- Breadcrumb -->
+  <div class="sp-cart-breadcrumb">
+    <div class="sp-cart-breadcrumb-inner">
+      <a href="{{ routes.root_url }}">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Cart</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="sp-cart-hero">
+    <div class="sp-cart-hero-inner">
+      <h1 class="sp-cart-hero-title">Shopping Cart</h1>
+      <p class="sp-cart-hero-sub">Review your items and checkout</p>
+    </div>
+  </div>
+
+  <!-- Cart Container -->
+  <div class="sp-cart-container">
+    {% if cart.item_count > 0 %}
+      <!-- Cart Items -->
+      <div class="sp-cart-items-wrap">
+        <div class="sp-cart-items-header">
+          <h3><i class="fa-solid fa-bag-shopping" style="margin-right: 8px; color: var(--sp-primary);"></i> Items ({{ cart.item_count }})</h3>
+          <a href="{{ routes.root_url }}" class="sp-cart-continue-shopping">
+            <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+          </a>
+        </div>
+
+        {% for item in cart.items %}
+          <div class="sp-cart-item-card" data-key="{{ item.key }}">
+            <a href="{{ item.url }}" class="sp-cart-item-image-wrap">
+              <img src="{{ item | img_url: '600x' }}" alt="{{ item.title | escape }}">
+            </a>
+            <div class="sp-cart-item-details-wrap">
+              <div class="sp-cart-item-title-wrap">
+                <a href="{{ item.url }}" style="text-decoration: none;">
+                  <h4>{{ item.product.title | escape }}</h4>
+                </a>
+                <button class="sp-cart-item-delete-btn" data-key="{{ item.key }}" aria-label="Remove item">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+              {% if item.variant.title != 'Default Title' %}
+                <p class="sp-cart-item-variant">{{ item.variant.title | escape }}</p>
+              {% endif %}
+              <div class="sp-cart-item-meta">
+                <div class="sp-cart-item-price">{{ item.final_line_price | money }}</div>
+                <div class="sp-cart-item-quantity">
+                  <span class="sp-cart-qty-label">Qty:</span>
+                  <div class="sp-qty-selector">
+                    <button class="sp-qty-btn sp-qty-minus" data-key="{{ item.key }}"><i class="fa-solid fa-minus"></i></button>
+                    <input class="sp-qty-val" type="number" value="{{ item.quantity }}" min="1" data-key="{{ item.key }}">
+                    <button class="sp-qty-btn sp-qty-plus" data-key="{{ item.key }}"><i class="fa-solid fa-plus"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="sp-cart-summary-wrap">
+        <h3 class="sp-cart-summary-title">
+          <i class="fa-solid fa-receipt" style="margin-right: 8px; color: var(--sp-primary);"></i> Order Summary
+        </h3>
+        <div class="sp-cart-summary-row">
+          <span>Subtotal</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        {% if cart.total_discount > 0 %}
+          <div class="sp-cart-summary-row">
+            <span>Discounts</span>
+            <span style="color: #2E7D32;">-{{ cart.total_discount | money }}</span>
+          </div>
+        {% endif %}
+        <div class="sp-cart-summary-row">
+          <span>Shipping</span>
+          <span>Calculated at checkout</span>
+        </div>
+        <div class="sp-cart-summary-total">
+          <span>Total</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <a href="{{ routes.cart_checkout_url }}" class="sp-cart-checkout-btn">
+          <i class="fa-solid fa-lock"></i> Checkout Now
+        </a>
+      </div>
+    {% else %}
+      <!-- Empty Cart -->
+      <div class="sp-cart-empty-state">
+        <i class="fa-solid fa-basket-shopping sp-cart-empty-icon"></i>
+        <h3>Your Cart is Empty</h3>
+        <p>Looks like you haven't added anything to your cart yet.</p>
+        <a href="{{ routes.root_url }}" class="sp-cart-empty-btn">
+          <i class="fa-solid fa-store"></i> Start Shopping
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Spread Heaven Cart",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#B97734"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary Dark Color",
+      "default": "#8A5A2B"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E7C18C"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF9F3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spread Heaven Cart",
+      "category": "Cart"
+    }
+  ]
+}
+{% endschema %}

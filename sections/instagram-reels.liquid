@@ -1,0 +1,407 @@
+{{ 'section-instagram-reels.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="instagram-reels page-width">
+    {%- if section.settings.heading != blank or section.settings.subtitle != blank -%}
+      <div class="instagram-reels__title-wrapper">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="instagram-reels__title inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <a href="{{ section.settings.instagram_link | default: 'https://instagram.com' }}" target="_blank" rel="noopener" class="instagram-reels__subtitle">
+            <svg class="instagram-reels__instagram-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+            {{ section.settings.subtitle }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="instagram-reels__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign video = block.settings.video
+          assign poster = block.settings.cover_image | default: video.preview_image
+          assign caption = block.settings.caption
+          assign likes = block.settings.likes
+          assign link = block.settings.link
+        -%}
+        <div class="instagram-reels__card" 
+             {{ block.shopify_attributes }}
+             data-index="{{ forloop.index0 }}"
+             {% if link != blank %}data-link="{{ link }}"{% endif %}>
+          
+          {%- if video != blank -%}
+            {{ video | video_tag: 
+              image_size: '600x', 
+              autoplay: true, 
+              loop: true, 
+              muted: true, 
+              controls: false, 
+              playsinline: true,
+              class: 'instagram-reels__video' 
+            }}
+          {%- else -%}
+            <div class="instagram-reels__video placeholder-svg-container" style="height: 100%; display: flex; align-items: center; justify-content: center; background: #222;">
+              {{ 'hero-apparel-3' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+
+          {%- if poster != blank -%}
+            {{ poster | image_url: width: 600 | image_tag: class: 'instagram-reels__poster', loading: 'lazy' }}
+          {%- endif -%}
+
+          {% comment %} Play/Pause overlay indicator {% endcomment %}
+          <div class="instagram-reels__play-overlay">
+            <svg class="instagram-reels__play-icon" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+
+          {% comment %} Top right audio toggle button {% endcomment %}
+          {%- if video != blank -%}
+            <button class="instagram-reels__audio-toggle" aria-label="Toggle Mute" type="button">
+              <!-- Muted Icon (unmute action) -->
+              <svg class="instagram-reels__audio-toggle-icon unmute-icon" viewBox="0 0 24 24">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z"/>
+              </svg>
+              <!-- Unmuted Icon (mute action) -->
+              <svg class="instagram-reels__audio-toggle-icon mute-icon" viewBox="0 0 24 24">
+                <path d="M4.34 2.93L2.93 4.34 7.29 8.7 7 9H3v6h4l5 5v-6.59l4.18 4.18c-.65.49-1.37.88-2.18 1.11v2.06c1.34-.3 2.57-.92 3.61-1.75l2.05 2.05 1.41-1.41L4.34 2.93zM10 15.17L7.83 13H5v-2h2.83l.88-.88L10 11.25v3.92zm9-3.17c0-1.77-1.02-3.29-2.5-4.03v2.24l2.45 2.45c.03-.22.05-.44.05-.66zm-2.5-7.77v2.06c2.89.86 5 3.54 5 6.71 0 1.91-.5 3.68-1.35 5.2l1.49 1.49c1.17-1.95 1.86-4.23 1.86-6.69 0-4.28-2.99-7.86-7-8.77zM12 4L9.91 6.09 12 8.18V4z"/>
+              </svg>
+            </button>
+          {%- endif -%}
+
+          {% comment %} Bottom details overlay {% endcomment %}
+          <div class="instagram-reels__overlay">
+            {%- if section.settings.subtitle != blank -%}
+              <span class="instagram-reels__handle">
+                {{ section.settings.subtitle }}
+                <svg class="instagram-reels__verified-badge" viewBox="0 0 24 24">
+                  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </span>
+            {%- endif -%}
+            {%- if caption != blank -%}
+              <p class="instagram-reels__caption">{{ caption | escape }}</p>
+            {%- endif -%}
+            {%- if likes != blank -%}
+              <div class="instagram-reels__stats">
+                <span class="instagram-reels__stat">
+                  <svg class="instagram-reels__stat-icon" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                  {{ likes }}
+                </span>
+              </div>
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  function initInstagramReels(sectionContainer) {
+    const cards = sectionContainer.querySelectorAll('.instagram-reels__card:not([data-initialized])');
+    
+    cards.forEach(card => {
+      card.setAttribute('data-initialized', 'true');
+      const video = card.querySelector('.instagram-reels__video');
+      const audioToggle = card.querySelector('.instagram-reels__audio-toggle');
+      const link = card.getAttribute('data-link');
+
+      // Click/Tap handling for the card
+      card.addEventListener('click', (e) => {
+        // If they clicked the audio toggle button, don't trigger the card play/link
+        if (e.target.closest('.instagram-reels__audio-toggle')) {
+          return;
+        }
+
+        if (video) {
+          if (video.paused) {
+            // Play this video and pause all other videos in the current section
+            sectionContainer.querySelectorAll('.instagram-reels__video').forEach(otherVideo => {
+              if (otherVideo !== video) {
+                otherVideo.pause();
+                otherVideo.closest('.instagram-reels__card').classList.remove('is-playing');
+              }
+            });
+            
+            video.play()
+              .then(() => {
+                card.classList.add('is-playing');
+              })
+              .catch(err => console.log('Autoplay blocked or interrupted:', err));
+          } else {
+            // If already playing, navigate to link (if present) or pause
+            if (link) {
+              window.open(link, '_blank');
+            } else {
+              video.pause();
+              card.classList.remove('is-playing');
+            }
+          }
+        } else if (link) {
+          window.open(link, '_blank');
+        }
+      });
+
+      // Audio Toggle Button Logic
+      if (audioToggle && video) {
+        audioToggle.addEventListener('click', (e) => {
+          e.stopPropagation(); // Stop click from propagating to the card
+          
+          if (video.muted) {
+            video.muted = false;
+            card.classList.add('is-unmuted');
+            // Mute all other videos in this section
+            sectionContainer.querySelectorAll('.instagram-reels__video').forEach(otherVideo => {
+              if (otherVideo !== video) {
+                otherVideo.muted = true;
+                otherVideo.closest('.instagram-reels__card').classList.remove('is-unmuted');
+              }
+            });
+          } else {
+            video.muted = true;
+            card.classList.remove('is-unmuted');
+          }
+        });
+      }
+
+      // Hover Play (Desktop only)
+      card.addEventListener('mouseenter', () => {
+        if (window.innerWidth >= 990 && video) {
+          video.play()
+            .then(() => {
+              card.classList.add('is-playing');
+            })
+            .catch(err => console.log('Hover play blocked:', err));
+        }
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (window.innerWidth >= 990 && video) {
+          video.pause();
+          card.classList.remove('is-playing');
+        }
+      });
+    });
+
+    // Intersection Observer for mobile auto-play on scroll
+    if ('IntersectionObserver' in window && window.innerWidth < 990) {
+      const grid = sectionContainer.querySelector('.instagram-reels__grid');
+      if (grid) {
+        const observerOptions = {
+          root: grid,
+          rootMargin: '0px',
+          threshold: 0.6 // Card is 60% visible in the viewport scroll area
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const card = entry.target;
+            const video = card.querySelector('.instagram-reels__video');
+            if (!video) return;
+
+            if (entry.isIntersecting) {
+              // Pause other videos first in this section
+              sectionContainer.querySelectorAll('.instagram-reels__video').forEach(otherVideo => {
+                if (otherVideo !== video) {
+                  otherVideo.pause();
+                  otherVideo.closest('.instagram-reels__card').classList.remove('is-playing');
+                }
+              });
+
+              video.play()
+                .then(() => {
+                  card.classList.add('is-playing');
+                })
+                .catch(err => console.log('Scroll autoplay blocked:', err));
+            } else {
+              video.pause();
+              card.classList.remove('is-playing');
+            }
+          });
+        }, observerOptions);
+
+        cards.forEach(card => observer.observe(card));
+      }
+    }
+  }
+
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.instagram-reels').forEach(section => {
+      initInstagramReels(section);
+    });
+  });
+
+  // Initialize in Shopify Theme Editor
+  document.addEventListener('shopify:section:load', (event) => {
+    const section = event.target.querySelector('.instagram-reels');
+    if (section) {
+      initInstagramReels(section);
+    }
+  });
+</script>
+
+
+{% schema %}
+{
+  "name": "Instagram Reels",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Follow Us on Instagram",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "@spread_heaven",
+      "label": "Instagram Username"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram Profile Link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reel",
+      "name": "Reel",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Reel Video",
+          "info": "Upload or select a 9:16 portrait video from Shopify Files."
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Poster Cover Image",
+          "info": "Optional. Fallback cover image or video thumbnail."
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption text",
+          "default": "Check out our latest arrivals! ✨"
+        },
+        {
+          "type": "text",
+          "id": "likes",
+          "label": "Likes count",
+          "default": "1.2k"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Reel Link",
+          "info": "Optional link when the card is clicked."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Reels",
+      "blocks": [
+        {
+          "type": "reel"
+        },
+        {
+          "type": "reel"
+        },
+        {
+          "type": "reel"
+        },
+        {
+          "type": "reel"
+        },
+        {
+          "type": "reel"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -44,68 +44,55 @@
           "type": "product",
           "name": "Vanilla Crispy",
           "settings": {
-            "product_image": "shopify://shop_images/WhatsApp_Image_2026-06-17_at_10.37.38_PM.jpg",
+            "product": "",
             "flavor_tag": "Creamy Vanilla & Protein Crisps",
-            "product_name": "Vanilla Crispy Peanut Butter",
             "product_desc": "Ground roasted peanuts combined with real sweet vanilla extract and crispy protein nuggets for an exceptional crunchy texture.",
             "protein_badge": "22% Protein",
-            "product_price": "$9.99",
-            "button_label": "Add To Cart",
-            "button_link": ""
+            "button_label": "Add To Cart"
           }
         },
         "product_RzjkGG": {
           "type": "product",
           "name": "Chocolate Crunchy",
           "settings": {
-            "product_image": "shopify://shop_images/WhatsApp_Image_2026-06-17_at_10.37.42_PM.jpg",
+            "product": "",
             "flavor_tag": "Rich Cocoa & Peanut Chunks",
-            "product_name": "Chocolate Crunchy Peanut Butter",
             "product_desc": "Golden peanut butter blended with premium unsweetened dark cocoa powder and crunchy chopped roasted peanuts. Guilt-free indulgence.",
             "protein_badge": "24% Protein",
-            "product_price": "$11.99",
-            "button_label": "Add To Cart",
-            "button_link": ""
+            "button_label": "Add To Cart"
           }
         },
         "product_qhpFfR": {
           "type": "product",
           "name": "Mawa Malai",
           "settings": {
-            "product_image": "shopify://shop_images/WhatsApp_Image_2026-06-17_at_10.37.45_PM_1.jpg",
+            "product": "",
             "flavor_tag": "The Traditional Royal Indulgence",
-            "product_name": "Mawa Malai Peanut Butter",
             "product_desc": "A rich Indian sweet twist. Saffron-infused peanut butter combined with toasted milk solids (mawa) and aromatic green cardamom.",
             "protein_badge": "20% Protein",
-            "product_price": "$14.99",
-            "button_label": "Add To Cart",
-            "button_link": ""
+            "button_label": "Add To Cart"
           }
         },
         "product_a7HMGd": {
           "type": "product",
           "name": "Mango Chia",
           "settings": {
+            "product": "",
             "flavor_tag": "Tropical Alphonso & Chia Superfoods",
-            "product_name": "Mango Chia Peanut Butter",
             "product_desc": "A tropical, nutrient-dense blend containing slow-roasted peanuts (78%), raw organic chia seeds (6%), and Alphonso mango flavour.",
             "protein_badge": "27% Protein",
-            "product_price": "$12.99",
-            "button_label": "Add To Cart",
-            "button_link": ""
+            "button_label": "Add To Cart"
           }
         },
         "product_jUUP6c": {
           "type": "product",
           "name": "Assortment Box",
           "settings": {
+            "product": "",
             "flavor_tag": "The Ultimate Heaven Box",
-            "product_name": "Complete Assortment Sample Box",
             "product_desc": "Taste the entire Spread Heaven selection: includes Vanilla Crispy, Mango Chia, Chocolate Crunchy, Cookies & Cream, and Mawa Malai.",
             "protein_badge": "Assorted Macros",
-            "product_price": "$44.99",
-            "button_label": "Add To Cart",
-            "button_link": ""
+            "button_label": "Add To Cart"
           }
         }
       },
@@ -134,82 +121,66 @@
         "section_subtitle": "No Junk. No Drama. Just Butter. Freshly ground jars ready to power your day."
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "all",
-        "products_to_show": 4,
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "padding_top": 56,
-        "padding_bottom": 68
-      }
-    },
-    "rich_text_KNmGbh": {
-      "type": "rich-text",
+    "why_spread_heaven_6erEYK": {
+      "type": "why-spread-heaven",
       "blocks": {
-        "heading_Vp8cDP": {
-          "type": "heading",
+        "why_card_MYmag4": {
+          "type": "why_card",
           "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
+            "icon": "fa-solid fa-seedling",
+            "heading": "Slow Golden Roasted",
+            "text": "Roasted slowly in custom batches to lock in core minerals, natural heart-healthy fats, and deep toasted nut flavor profiles."
           }
         },
-        "text_NbadED": {
-          "type": "text",
+        "why_card_bKyMJH": {
+          "type": "why_card",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+            "icon": "fa-solid fa-dumbbell",
+            "heading": "Protein Rich Fuel",
+            "text": "Packing up to 27g of dense plant-based protein per 100g to support athletic macro goals and muscle recovery."
           }
         },
-        "button_iYKJJ3": {
-          "type": "button",
+        "why_card_JBACiT": {
+          "type": "why_card",
           "settings": {
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style_secondary": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon": "fa-solid fa-ban",
+            "heading": "No Hydrogenated Fats",
+            "text": "Absolutely no cheap palm oil fillers, thickeners, processed table sugars, or chemical shelf-life extenders."
+          }
+        },
+        "why_card_mWVKWm": {
+          "type": "why_card",
+          "settings": {
+            "icon": "fa-solid fa-heart-pulse",
+            "heading": "Daily Fitness Partner",
+            "text": "Clean nutritional profile that pairs perfectly with oatmeal bowls, banana smoothies, post-workout shakes, and morning toasts."
           }
         }
       },
       "block_order": [
-        "heading_Vp8cDP",
-        "text_NbadED",
-        "button_iYKJJ3"
+        "why_card_MYmag4",
+        "why_card_bKyMJH",
+        "why_card_JBACiT",
+        "why_card_mWVKWm"
       ],
-      "name": "t:sections.rich-text.presets.name",
+      "name": "Why Spread Heaven",
       "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 52
+        "primary_color": "#B97734",
+        "primary_dark_color": "#8A5A2B",
+        "accent_color": "#E7C18C",
+        "bg_color": "#FFF9F3",
+        "text_color": "#2B1B0F",
+        "text_muted_color": "#7A5C3E",
+        "border_color": "#EDD9BC",
+        "tag": "Pure Integrity",
+        "title": "Why Spread Heaven?",
+        "subtitle": "We ground pure peanut butter with honest superfoods, making every scoop delicious and nutritious."
       }
     }
   },
   "order": [
     "spread_heaven_hero_zkQrBt",
     "featured_flavors_CC9KMX",
-    "featured-collection",
-    "rich_text_KNmGbh"
+    "why_spread_heaven_6erEYK"
   ]
 }

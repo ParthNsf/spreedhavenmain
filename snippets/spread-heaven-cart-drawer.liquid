@@ -1,0 +1,394 @@
+{% comment %}
+Spread Heaven Cart Drawer Snippet
+{% endcomment %}
+
+{% style %}
+.sp-cart-drawer-wrapper {
+  --sp-primary: #B97734;
+  --sp-primary-dark: #8A5A2B;
+  --sp-accent: #E7C18C;
+  --sp-bg: #FFF9F3;
+  --sp-bg-card: #FFFFFF;
+  --sp-border: #EBDCCB;
+  --sp-text: #2B1B0F;
+  --sp-text-muted: #5D4330;
+  --sp-text-light: #8E7A6B;
+  --sp-font-head: var(--font-heading-family, 'Poppins', sans-serif);
+  --sp-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --sp-radius: 12px;
+  --sp-radius-sm: 8px;
+  --sp-radius-lg: 20px;
+  --sp-shadow-sm: 0 4px 16px rgba(138, 90, 43, 0.05);
+  --sp-shadow-lg: 0 20px 50px rgba(43, 27, 15, 0.12);
+}
+
+.sp-cart-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--sp-transition);
+}
+
+.sp-cart-drawer-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sp-cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  background-color: var(--sp-bg);
+  border-left: 1px solid var(--sp-border);
+  z-index: 2010;
+  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--sp-shadow-lg);
+}
+
+.sp-cart-drawer.open {
+  right: 0;
+}
+
+.sp-cart-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--sp-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--sp-bg-card);
+}
+
+.sp-cart-header h3 {
+  font-family: var(--sp-font-head);
+  font-size: 17px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+  color: var(--sp-text);
+}
+
+.sp-cart-close-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--sp-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sp-text);
+  transition: var(--sp-transition);
+  background-color: var(--sp-bg-card);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.sp-cart-close-btn:hover {
+  background-color: var(--sp-border);
+  color: var(--sp-bg-card);
+}
+
+.sp-cart-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sp-cart-empty {
+  text-align: center;
+  margin: auto 0;
+  color: var(--sp-text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sp-cart-empty i {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: block;
+  color: var(--sp-text-light);
+}
+
+.sp-cart-item {
+  display: flex;
+  gap: 16px;
+  border-bottom: 1px solid var(--sp-border);
+  padding-bottom: 16px;
+}
+
+.sp-cart-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sp-cart-item-img {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--sp-bg-card);
+  flex-shrink: 0;
+}
+
+.sp-cart-item-img img {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+}
+
+.sp-cart-item-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-cart-item-title {
+  font-family: var(--sp-font-head);
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 2px;
+  color: var(--sp-text);
+  line-height: 1.3;
+}
+
+.sp-cart-item-variant {
+  font-size: 11px;
+  color: var(--sp-text-light);
+  margin-bottom: 4px;
+}
+
+.sp-cart-item-price {
+  font-family: var(--sp-font-head);
+  font-weight: 800;
+  color: var(--sp-primary);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.sp-cart-item-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sp-qty-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-sm);
+  overflow: hidden;
+  background-color: var(--sp-bg-card);
+}
+
+.sp-qty-btn {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sp-bg-card);
+  font-size: 11px;
+  color: var(--sp-text);
+  border: none;
+  cursor: pointer;
+  transition: var(--sp-transition);
+}
+
+.sp-qty-btn:hover {
+  background-color: var(--sp-border);
+  color: var(--sp-bg-card);
+}
+
+.sp-qty-val {
+  width: 32px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sp-text);
+  border: none;
+  background: transparent;
+}
+
+.sp-item-delete-btn {
+  color: #C62828;
+  font-size: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  transition: var(--sp-transition);
+}
+
+.sp-item-delete-btn:hover {
+  opacity: 0.7;
+}
+
+.sp-cart-footer {
+  padding: 24px;
+  border-top: 1px solid var(--sp-border);
+  background-color: var(--sp-bg-card);
+}
+
+.sp-cart-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--sp-font-head);
+  font-weight: 800;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: var(--sp-text);
+}
+
+.sp-cart-summary span:last-child {
+  color: var(--sp-primary);
+  font-size: 18px;
+}
+
+.sp-checkout-btn {
+  width: 100%;
+  background: var(--sp-primary);
+  color: white;
+  padding: 13px 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  border-radius: var(--sp-radius-sm);
+  transition: var(--sp-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.sp-checkout-btn:hover {
+  background: var(--sp-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--sp-shadow-sm);
+}
+
+.sp-checkout-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Scrollbar */
+.sp-cart-body::-webkit-scrollbar {
+  width: 6px;
+}
+.sp-cart-body::-webkit-scrollbar-track {
+  background: var(--sp-bg);
+}
+.sp-cart-body::-webkit-scrollbar-thumb {
+  background: var(--sp-accent);
+  border-radius: 3px;
+}
+{% endstyle %}
+
+<div class="sp-cart-drawer-wrapper">
+  <div class="sp-cart-drawer-overlay" id="spCartDrawerOverlay"></div>
+  <div class="sp-cart-drawer" id="spCartDrawer">
+    <div class="sp-cart-header">
+      <h3><i class="fa-solid fa-bag-shopping" style="margin-right: 8px; color: var(--sp-primary);"></i> Your Cart</h3>
+      <button class="sp-cart-close-btn" id="spCartCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="sp-cart-body" id="spCartBody">
+      {% if cart.item_count == 0 %}
+        <div class="sp-cart-empty">
+          <i class="fa-solid fa-shopping-basket"></i>
+          <p>Your cart is empty</p>
+        </div>
+      {% else %}
+        {% for item in cart.items %}
+          <div class="sp-cart-item" data-key="{{ item.key }}">
+            <a href="{{ item.url }}" class="sp-cart-item-img">
+              <img src="{{ item | img_url: '400x' }}" alt="{{ item.title | escape }}">
+            </a>
+            <div class="sp-cart-item-info">
+              <a href="{{ item.url }}" class="sp-cart-item-title">{{ item.product.title | escape }}</a>
+              {% if item.variant.title != 'Default Title' %}
+                <div class="sp-cart-item-variant">{{ item.variant.title | escape }}</div>
+              {% endif %}
+              <div class="sp-cart-item-price">{{ item.final_line_price | money }}</div>
+              <div class="sp-cart-item-actions">
+                <div class="sp-qty-selector">
+                  <button class="sp-qty-btn sp-qty-minus" data-key="{{ item.key }}"><i class="fa-solid fa-minus"></i></button>
+                  <input class="sp-qty-val" type="number" value="{{ item.quantity }}" min="1" data-key="{{ item.key }}">
+                  <button class="sp-qty-btn sp-qty-plus" data-key="{{ item.key }}"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <button class="sp-item-delete-btn" data-key="{{ item.key }}"><i class="fa-solid fa-trash-can"></i></button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% if cart.item_count > 0 %}
+      <div class="sp-cart-footer">
+        <div class="sp-cart-summary">
+          <span>Total</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <a href="{{ routes.cart_url }}" class="sp-checkout-btn" id="spViewCartBtn">
+          <i class="fa-solid fa-basket-shopping"></i> View Cart & Checkout
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cartDrawer = document.getElementById('spCartDrawer');
+  const cartOverlay = document.getElementById('spCartDrawerOverlay');
+  const closeBtn = document.getElementById('spCartCloseBtn');
+  const cartButtons = document.querySelectorAll('[data-open-cart="true"]');
+
+  function openCart() {
+    if (cartDrawer && cartOverlay) {
+      cartDrawer.classList.add('open');
+      cartOverlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeCart() {
+    if (cartDrawer && cartOverlay) {
+      cartDrawer.classList.remove('open');
+      cartOverlay.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeCart);
+  if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+  
+  cartButtons.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openCart();
+    });
+  });
+});
+</script>

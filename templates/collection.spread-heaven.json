@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header": {
+      "type": "spread-heaven-header",
+      "settings": {}
+    },
+    "spread-heaven-collection": {
+      "type": "spread-heaven-collection",
+      "settings": {
+        "hero_eyebrow": "Premium Peanut Butter Collection",
+        "hero_subtitle": "Slow-roasted, high-protein, zero-junk spreads crafted for real athletes and food lovers.",
+        "show_hero_pills": true,
+        "pill_1_text": "27g Protein",
+        "pill_1_icon": "dumbbell",
+        "pill_2_text": "No Palm Oil",
+        "pill_2_icon": "ban",
+        "pill_3_text": "100% Natural",
+        "pill_3_icon": "leaf",
+        "pill_4_text": "Free Shipping ₹499+",
+        "pill_4_icon": "truck-fast",
+        "primary_color": "#B97734",
+        "primary_dark_color": "#8A5A2B",
+        "accent_color": "#E7C18C",
+        "bg_color": "#FFF9F3",
+        "products_per_page": "12"
+      }
+    },
+    "footer": {
+      "type": "spread-heaven-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header",
+    "spread-heaven-collection",
+    "footer"
+  ]
+}

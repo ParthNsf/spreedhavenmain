@@ -282,12 +282,16 @@ Spread Heaven Header - Exact replica of the original HTML header
           </button>
         {% endif %}
         
-        <a href="{{ routes.cart_url }}" class="sp-nav-btn" title="Open Cart" aria-label="Open cart">
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="sp-nav-btn" title="Account" aria-label="Account">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        
+        <button class="sp-nav-btn" data-open-cart="true" title="Open Cart" aria-label="Open cart">
           <i class="fa-solid fa-bag-shopping"></i>
           {% if cart.item_count > 0 %}
             <span class="sp-cart-badge">{{ cart.item_count }}</span>
           {% endif %}
-        </a>
+        </button>
         
         <button class="sp-nav-btn sp-hamburger" id="spMenuToggle" title="Open Menu" aria-label="Open menu">
           <i class="fa-solid fa-bars"></i>
@@ -329,8 +333,29 @@ Spread Heaven Header - Exact replica of the original HTML header
           </a>
         {% endif %}
       {% endfor %}
+      
+      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--sp-border);">
+        {% if customer %}
+          <a href="{{ routes.account_url }}" class="sp-mobile-link">
+            <i class="fa-solid fa-user" style="margin-right: 12px;"></i> My Account
+          </a>
+          <a href="{{ routes.account_logout_url }}" class="sp-mobile-link">
+            <i class="fa-solid fa-right-from-bracket" style="margin-right: 12px;"></i> Logout
+          </a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}" class="sp-mobile-link">
+            <i class="fa-solid fa-right-to-bracket" style="margin-right: 12px;"></i> Login
+          </a>
+          <a href="{{ routes.account_register_url }}" class="sp-mobile-link">
+            <i class="fa-solid fa-user-plus" style="margin-right: 12px;"></i> Register
+          </a>
+        {% endif %}
+      </div>
     </div>
   </div>
+
+  <!-- Cart Drawer -->
+  {% render 'spread-heaven-cart-drawer' %}
 </div>
 
 <script>
