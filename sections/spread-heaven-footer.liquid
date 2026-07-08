@@ -228,6 +228,10 @@ Shopify Online Store 2.0 compatible section
       <div class="sp-footer-col">
         <h4>{{ section.settings.explore_title | default: 'EXPLORE' }}</h4>
         <div class="sp-footer-links">
+          <a href="{{ routes.root_url }}" class="sp-footer-link">Home</a>
+          <a href="{{ routes.collections_url }}/all" class="sp-footer-link">Shop</a>
+          <a href="/pages/about-us" class="sp-footer-link">About Us</a>
+          <a href="/pages/contact-us" class="sp-footer-link">Contact Us</a>
           {% for block in section.blocks %}
             {% if block.type == 'explore_link' %}
               <a href="{{ block.settings.link }}" class="sp-footer-link">
@@ -241,6 +245,10 @@ Shopify Online Store 2.0 compatible section
       <div class="sp-footer-col">
         <h4>{{ section.settings.products_title | default: 'PRODUCT FLAVORS' }}</h4>
         <div class="sp-footer-links">
+          <a href="/collections/all" class="sp-footer-link">Vanilla Crispy</a>
+          <a href="/collections/all" class="sp-footer-link">Chocolate Crunchy</a>
+          <a href="/collections/all" class="sp-footer-link">Mawa Malai</a>
+          <a href="/collections/all" class="sp-footer-link">Mango Chia</a>
           {% for block in section.blocks %}
             {% if block.type == 'product_link' %}
               <a href="{{ block.settings.link }}" class="sp-footer-link">

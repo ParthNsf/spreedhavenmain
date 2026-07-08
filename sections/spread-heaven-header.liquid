@@ -276,22 +276,18 @@ Spread Heaven Header - Exact replica of the original HTML header
       </nav>
 
       <div class="sp-nav-actions">
-        {% if section.settings.show_theme_toggle %}
-          <button class="sp-nav-btn" id="spThemeToggle" title="Toggle Theme" aria-label="Toggle dark mode">
-            <i class="fa-solid fa-moon"></i>
-          </button>
-        {% endif %}
+
         
         <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="sp-nav-btn" title="Account" aria-label="Account">
           <i class="fa-solid fa-user"></i>
         </a>
         
-        <button class="sp-nav-btn" data-open-cart="true" title="Open Cart" aria-label="Open cart">
+        <a href="{{ routes.cart_url }}" class="sp-nav-btn" title="View Cart" aria-label="View cart">
           <i class="fa-solid fa-bag-shopping"></i>
           {% if cart.item_count > 0 %}
             <span class="sp-cart-badge">{{ cart.item_count }}</span>
           {% endif %}
-        </button>
+        </a>
         
         <button class="sp-nav-btn sp-hamburger" id="spMenuToggle" title="Open Menu" aria-label="Open menu">
           <i class="fa-solid fa-bars"></i>

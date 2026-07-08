@@ -217,7 +217,7 @@ Spread Heaven Product Card Snippet
 {% endstyle %}
 
 <div class="sp-card-wrapper">
-  <div class="sp-product-card">
+  <a href="{{ product.url }}" class="sp-product-card">
     {%- assign flavor = '' -%}
     {%- assign category = '' -%}
     {%- assign weight = '' -%}
@@ -254,49 +254,41 @@ Spread Heaven Product Card Snippet
       <i class="fa-regular fa-heart"></i>
     </button>
 
-    <a href="{{ product.url }}" class="sp-card-image-link" style="text-decoration: none;">
-      <div class="sp-prod-image-box">
-        <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy">
-      </div>
-    </a>
+    <div class="sp-prod-image-box">
+      <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy">
+    </div>
 
     <div class="sp-card-content">
-      <a href="{{ product.url }}" class="sp-card-text-link" style="text-decoration: none;">
-        <div class="sp-prod-tag">{{ flavor | default: 'Peanut Butter' }}</div>
-        <h3 class="sp-prod-title">{{ product.title | escape }}</h3>
-        <p class="sp-prod-desc">{{ product.description | strip_html | truncatewords: 15 }}</p>
-        
-        <div class="sp-card-stars">
-          <div class="sp-stars-row">
-            {%- assign rounded_rating = rating | round -%}
-            {%- for i in (1..rounded_rating) -%}
-              <i class="fa-solid fa-star"></i>
-            {%- endfor -%}
-          </div>
-          <span class="sp-card-rating-txt">{{ rating }} ({{ product.reviews_count | default: 0 | plus: 50 }} reviews)</span>
+      <div class="sp-prod-tag">{{ flavor | default: 'Peanut Butter' }}</div>
+      <h3 class="sp-prod-title">{{ product.title | escape }}</h3>
+      <p class="sp-prod-desc">{{ product.description | strip_html | truncatewords: 15 }}</p>
+      
+      <div class="sp-card-stars">
+        <div class="sp-stars-row">
+          {%- assign rounded_rating = rating | round -%}
+          {%- for i in (1..rounded_rating) -%}
+            <i class="fa-solid fa-star"></i>
+          {%- endfor -%}
         </div>
+        <span class="sp-card-rating-txt">{{ rating }} ({{ product.reviews_count | default: 0 | plus: 50 }} reviews)</span>
+      </div>
 
-        <div class="sp-prod-meta">
-          {%- if protein > 0 -%}<span class="sp-prod-protein">{{ protein }}g Protein</span>{%- endif -%}
-          {%- if weight != '' -%}<span class="sp-prod-weight">{{ weight }}</span>{%- endif -%}
-        </div>
+      <div class="sp-prod-meta">
+        {%- if protein > 0 -%}<span class="sp-prod-protein">{{ protein }}g Protein</span>{%- endif -%}
+        {%- if weight != '' -%}<span class="sp-prod-weight">{{ weight }}</span>{%- endif -%}
+      </div>
 
-        <div class="sp-price-row">
-          <span class="sp-price-now">{{ product.price | money }}</span>
-          {%- if product.compare_at_price > product.price -%}
-            <span class="sp-price-was">{{ product.compare_at_price | money }}</span>
-            <span class="sp-price-off">{{ discount }}% OFF</span>
-          {%- endif -%}
-        </div>
-      </a>
+      <div class="sp-price-row">
+        <span class="sp-price-now">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="sp-price-was">{{ product.compare_at_price | money }}</span>
+          <span class="sp-price-off">{{ discount }}% OFF</span>
+        {%- endif -%}
+      </div>
 
-      {%- form 'product', product, class: 'sp-add-to-cart-form' -%}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        <button type="submit" name="add" class="sp-prod-btn"{% if product.selected_or_first_available_variant.available == false %} disabled{% endif %}>
-          <i class="fa-solid fa-bag-shopping"></i> 
-          {% if product.selected_or_first_available_variant.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
-        </button>
-      {%- endform -%}
+      <div class="sp-prod-btn">
+        <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+      </div>
     </div>
-  </div>
+  </a>
 </div>

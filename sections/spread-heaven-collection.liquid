@@ -1151,6 +1151,46 @@ Spread Heaven Collection Section - Premium collection page with filters
     gap: 8px;
   }
 }
+
+/* Collection Tabs styling */
+.sp-collection-tabs-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.sp-collection-tabs-container::-webkit-scrollbar {
+  display: none;
+}
+.sp-collection-tabs-inner {
+  display: flex;
+  gap: 12px;
+  white-space: nowrap;
+}
+.sp-collection-tab {
+  background: var(--sp-bg-card);
+  border: 1px solid var(--sp-border);
+  color: var(--sp-text-muted);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: var(--sp-font-head);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--sp-transition);
+}
+.sp-collection-tab:hover {
+  border-color: var(--sp-primary);
+  color: var(--sp-primary);
+}
+.sp-collection-tab.active {
+  background: var(--sp-primary);
+  border-color: var(--sp-primary);
+  color: white;
+}
 {% endstyle %}
 
 <div class="sp-collection-wrapper">
@@ -1177,6 +1217,18 @@ Spread Heaven Collection Section - Premium collection page with filters
         {% if section.settings.pill_4_text %}<span class="sp-hero-pill"><i class="fa-solid fa-{{ section.settings.pill_4_icon | default: 'truck-fast' }}"></i> {{ section.settings.pill_4_text }}</span>{% endif %}
       </div>
       {% endif %}
+    </div>
+  </div>
+
+  <!-- Collection Selector Tabs -->
+  <div class="sp-collection-tabs-container">
+    <div class="sp-collection-tabs-inner">
+      <button class="sp-collection-tab {% if collection.handle == 'all' or collection == blank %}active{% endif %}" data-handle="all">All Products</button>
+      {% for coll in collections %}
+        {% if coll.products_count > 0 and coll.handle != 'all' %}
+          <button class="sp-collection-tab {% if coll.handle == collection.handle %}active{% endif %}" data-handle="{{ coll.handle }}">{{ coll.title }}</button>
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 
@@ -1407,30 +1459,29 @@ Spread Heaven Collection Section - Premium collection page with filters
 
 <!-- Hidden product data for JS filtering -->
 <div id="spProductData" style="display:none;" data-collection="{{ collection.handle }}">
-  {% for product in collection.products %}
-    {%- assign variant = product.selected_or_first_available_variant -%}
-    <div class="sp-product-data" 
-         data-id="{{ product.id }}" 
-         data-variant-id="{{ variant.id }}"
-         data-title="{{ product.title | escape }}" 
-         data-url="{{ product.url }}" 
-         data-image="{{ product.featured_image | image_url: width: 400 }}"
-         data-price="{{ product.price | money_without_currency | remove: ',' }}"
-         data-price-formatted="{{ product.price | money }}"
-         data-compare-price="{{ product.compare_at_price | money_without_currency | remove: ',' | default: 0 }}"
-         data-compare-price-formatted="{{ product.compare_at_price | money }}"
-         data-available="{{ variant.available }}"
-         {% for tag in product.tags %}
-           {% if tag contains 'flavor:' %}data-flavor="{{ tag | remove: 'flavor:' | escape }}"{% endif %}
-           {% if tag contains 'category:' %}data-category="{{ tag | remove: 'category:' | escape }}"{% endif %}
-           {% if tag contains 'weight:' %}data-weight="{{ tag | remove: 'weight:' | escape }}"{% endif %}
-           {% if tag contains 'protein:' %}data-protein="{{ tag | remove: 'protein:' | escape }}"{% endif %}
-           {% if tag contains 'rating:' %}data-rating="{{ tag | remove: 'rating:' | escape }}"{% endif %}
-           {% if tag contains 'badge:' %}data-badge="{{ tag | remove: 'badge:' | escape }}"{% endif %}
-         {% endfor %}
-         data-description="{{ product.description | strip_html | truncatewords: 15 | escape }}"
-    ></div>
-  {% endfor %}
+  {% paginate collections.all.products by 250 %}
+    {% for product in collections.all.products %}
+      <div class="sp-product-data" 
+           data-id="{{ product.id }}" 
+           data-title="{{ product.title | escape }}" 
+           data-url="{{ product.url }}" 
+           data-image="{{ product.featured_image | image_url: width: 400 }}"
+           data-price="{{ product.price | money_without_currency | remove: ',' }}"
+           data-compare-price="{{ product.compare_at_price | money_without_currency | remove: ',' | default: 0 }}"
+           data-available="{{ product.available }}"
+           data-collections="{% for c in product.collections %}{{ c.handle }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+           {% for tag in product.tags %}
+             {% if tag contains 'flavor:' %}data-flavor="{{ tag | remove: 'flavor:' | escape }}"{% endif %}
+             {% if tag contains 'category:' %}data-category="{{ tag | remove: 'category:' | escape }}"{% endif %}
+             {% if tag contains 'weight:' %}data-weight="{{ tag | remove: 'weight:' | escape }}"{% endif %}
+             {% if tag contains 'protein:' %}data-protein="{{ tag | remove: 'protein:' | escape }}"{% endif %}
+             {% if tag contains 'rating:' %}data-rating="{{ tag | remove: 'rating:' | escape }}"{% endif %}
+             {% if tag contains 'badge:' %}data-badge="{{ tag | remove: 'badge:' | escape }}"{% endif %}
+           {% endfor %}
+           data-description="{{ product.description | strip_html | truncatewords: 15 | escape }}"
+      ></div>
+    {% endfor %}
+  {% endpaginate %}
 </div>
 
 <script>
@@ -1452,6 +1503,7 @@ Spread Heaven Collection Section - Premium collection page with filters
   // State
   let spState = {
     search: '',
+    collection: '{{ collection.handle | default: "all" }}',
     flavors: new Set(),
     categories: new Set(),
     weights: new Set(),
@@ -1471,14 +1523,11 @@ Spread Heaven Collection Section - Premium collection page with filters
     document.querySelectorAll('#spProductData .sp-product-data').forEach(el => {
       products.push({
         id: el.dataset.id,
-        variantId: el.dataset.variantId,
         title: el.dataset.title,
         url: el.dataset.url,
         image: el.dataset.image,
         price: parseFloat(el.dataset.price) || 0,
-        priceFormatted: el.dataset.priceFormatted,
         comparePrice: parseFloat(el.dataset.comparePrice) || 0,
-        comparePriceFormatted: el.dataset.comparePriceFormatted,
         available: el.dataset.available === 'true',
         flavor: el.dataset.flavor || '',
         category: el.dataset.category || '',
@@ -1486,7 +1535,8 @@ Spread Heaven Collection Section - Premium collection page with filters
         protein: parseInt(el.dataset.protein) || 0,
         rating: parseFloat(el.dataset.rating) || 4.5,
         badge: el.dataset.badge || '',
-        description: el.dataset.description || ''
+        description: el.dataset.description || '',
+        collections: el.dataset.collections || ''
       });
     });
     return products;
@@ -1744,6 +1794,10 @@ Spread Heaven Collection Section - Premium collection page with filters
   function spGetFiltered() {
     const products = spGetProducts();
     return products.filter(p => {
+      if (spState.collection && spState.collection !== 'all') {
+        const productCollections = (p.collections || '').split(',');
+        if (!productCollections.includes(spState.collection)) return false;
+      }
       if (spState.search) {
         const searchTerm = spState.search.toLowerCase();
         if (!p.title.toLowerCase().includes(searchTerm) && 
@@ -1972,6 +2026,17 @@ Spread Heaven Collection Section - Premium collection page with filters
   if (sidebarToggleBtn) sidebarToggleBtn.addEventListener('click', spOpenSidebar);
   if (closeSidebar) closeSidebar.addEventListener('click', spCloseSidebarFn);
   if (sidebarOverlay) sidebarOverlay.addEventListener('click', spCloseSidebarFn);
+
+  // Collection selector tabs event listeners
+  document.querySelectorAll('.sp-collection-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.sp-collection-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      spState.collection = tab.getAttribute('data-handle');
+      spState.page = 1;
+      spRender();
+    });
+  });
 
   // Initialize
   spBuildFilters();

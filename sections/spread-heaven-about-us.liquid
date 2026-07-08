@@ -122,8 +122,17 @@ Shopify Online Store 2.0 compatible section
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
   color: #fff;
+}
+
+.sp-about-icon svg {
+  width: 30px;
+  height: 30px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .sp-about-card h3 {
@@ -226,21 +235,46 @@ Shopify Online Store 2.0 compatible section
     <div class="sp-about-grid">
       {% if section.settings.card_1_title != blank %}
         <div class="sp-about-card">
-          <div class="sp-about-icon">{{ section.settings.card_1_icon | escape }}</div>
+          <div class="sp-about-icon">
+            <!-- Mission icon: Crosshair / Target -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6"/>
+              <circle cx="12" cy="12" r="2"/>
+              <line x1="12" y1="2" x2="12" y2="6"/>
+              <line x1="12" y1="18" x2="12" y2="22"/>
+              <line x1="2" y1="12" x2="6" y2="12"/>
+              <line x1="18" y1="12" x2="22" y2="12"/>
+            </svg>
+          </div>
           <h3>{{ section.settings.card_1_title | escape }}</h3>
           <p>{{ section.settings.card_1_description | escape }}</p>
         </div>
       {% endif %}
       {% if section.settings.card_2_title != blank %}
         <div class="sp-about-card">
-          <div class="sp-about-icon">{{ section.settings.card_2_icon | escape }}</div>
+          <div class="sp-about-icon">
+            <!-- Values icon: Shield with checkmark -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
           <h3>{{ section.settings.card_2_title | escape }}</h3>
           <p>{{ section.settings.card_2_description | escape }}</p>
         </div>
       {% endif %}
       {% if section.settings.card_3_title != blank %}
         <div class="sp-about-card">
-          <div class="sp-about-icon">{{ section.settings.card_3_icon | escape }}</div>
+          <div class="sp-about-icon">
+            <!-- Team icon: Group of people -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
           <h3>{{ section.settings.card_3_title | escape }}</h3>
           <p>{{ section.settings.card_3_description | escape }}</p>
         </div>

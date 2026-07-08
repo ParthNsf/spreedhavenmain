@@ -25,13 +25,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Variant Selection
-  const selectedOptions = [];
+  window.selectedOptions = [];
+  window.variants = [];
+
+  // Load variant data
+  const variantJsonEl = document.getElementById('spVariantJson');
+  if (variantJsonEl) {
+    try {
+      window.variants = JSON.parse(variantJsonEl.textContent);
+    } catch (e) {
+      console.error('Error parsing variant JSON', e);
+    }
+  }
+
+  // Initialize selected options
   const optionSelectors = document.querySelectorAll('[data-option]');
   if (optionSelectors.length > 0) {
     optionSelectors.forEach((selector, idx) => {
       const buttons = selector.querySelectorAll('.sp-variant-btn');
       if (buttons.length > 0) {
-        selectedOptions[idx] = buttons[0].getAttribute('data-value');
+        window.selectedOptions[idx] = buttons[0].getAttribute('data-value');
       }
     });
   }
@@ -79,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.classList.add('active');
         tabPanels.forEach(panel => panel.classList.remove('active'));
         document.getElementById('spTab-' + targetTab).classList.add('active');
-        
+
         // Animate bars when nutrition or reviews tab is shown
         if (targetTab === 'nutrition') {
           animateNutritionBars();
@@ -89,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
-    
+
     // Animate review bars on load if reviews tab is active
     const activeReviewPanel = document.getElementById('spTab-reviews');
     if (activeReviewPanel && activeReviewPanel.classList.contains('active')) {
@@ -122,7 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (buyNowBtn && addToCartBtn) {
     buyNowBtn.addEventListener('click', () => {
       if (addToCartBtn.closest('form')) {
-        addToCartBtn.closest('form').submit();
+        const form = addToCartBtn.closest('form');
+        const buyNowInput = document.createElement('input');
+        buyNowInput.type = 'hidden';
+        buyNowInput.name = 'buy_now';
+        buyNowInput.value = '1';
+        form.appendChild(buyNowInput);
+        form.submit();
       }
     });
   }
@@ -134,11 +153,61 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('Thanks for your feedback!', 'fa-thumbs-up');
     });
   });
-  
+
   // Animate nutrition bars on load
   animateNutritionBars();
   animateReviewBars();
 });
+
+// Find matching variant based on selected options
+function findMatchingVariant(options, variantsArray) {
+  for (let i = 0; i < variantsArray.length; i++) {
+    const variant = variantsArray[i];
+    let match = true;
+    for (let j = 0; j < options.length; j++) {
+      if (variant.options[j] !== options[j]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) {
+      return variant;
+    }
+  }
+  return null;
+}
+
+// Update price and variant ID
+function updateProductDisplay(variant) {
+  const variantIdInput = document.getElementById('spVariantId');
+  const addToCartBtn = document.getElementById('spAddToCartBtn');
+  const buyNowBtn = document.getElementById('spBuyNowBtn');
+  const inStockBadge = document.querySelector('.sp-in-stock-badge');
+
+  if (variantIdInput && variant) {
+    variantIdInput.value = variant.id;
+  }
+
+  if (addToCartBtn && buyNowBtn && variant) {
+    if (variant.available) {
+      addToCartBtn.disabled = false;
+      buyNowBtn.disabled = false;
+    } else {
+      addToCartBtn.disabled = true;
+      buyNowBtn.disabled = true;
+    }
+  }
+
+  if (inStockBadge && variant) {
+    if (variant.available) {
+      inStockBadge.textContent = 'In stock';
+      inStockBadge.style.color = 'var(--sp-success)';
+    } else {
+      inStockBadge.textContent = 'Out of stock';
+      inStockBadge.style.color = '#d32f2f';
+    }
+  }
+}
 
 // Animate Nutrition Bars
 function animateNutritionBars() {
@@ -174,6 +243,20 @@ function selectVariantOption(button, optionIndex, value) {
   if (container) {
     container.querySelectorAll('.sp-variant-btn').forEach(b => b.classList.remove('active'));
     button.classList.add('active');
+  }
+
+  // Update selected options array
+  if (typeof window.selectedOptions === 'undefined') {
+    window.selectedOptions = [];
+  }
+  window.selectedOptions[optionIndex] = value;
+
+  // Find the matching variant and update display
+  if (typeof window.variants !== 'undefined' && window.variants.length > 0) {
+    const matchingVariant = findMatchingVariant(window.selectedOptions, window.variants);
+    if (matchingVariant) {
+      updateProductDisplay(matchingVariant);
+    }
   }
 }
 

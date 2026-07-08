@@ -390,5 +390,96 @@ document.addEventListener('DOMContentLoaded', function() {
       openCart();
     });
   });
+
+  // Check if drawer should be open on load (e.g. after update reload)
+  if (sessionStorage.getItem('spCartDrawerOpen') === 'true') {
+    sessionStorage.removeItem('spCartDrawerOpen');
+    openCart();
+  }
+
+  // Drawer Cart AJAX update function
+  const updateDrawerCartQuantity = (key, quantity) => {
+    const cartDrawerBody = document.getElementById('spCartBody');
+    if (cartDrawerBody) {
+      cartDrawerBody.style.opacity = '0.5';
+      cartDrawerBody.style.pointerEvents = 'none';
+    }
+
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        id: key,
+        quantity: parseInt(quantity)
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      sessionStorage.setItem('spCartDrawerOpen', 'true');
+      window.location.reload();
+    })
+    .catch(error => {
+      console.error('Error updating drawer cart:', error);
+      if (cartDrawerBody) {
+        cartDrawerBody.style.opacity = '1';
+        cartDrawerBody.style.pointerEvents = 'auto';
+      }
+    });
+  };
+
+  // Plus button click
+  document.querySelectorAll('#spCartDrawer .sp-qty-plus').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = button.getAttribute('data-key');
+      const input = button.parentElement.querySelector('.sp-qty-val');
+      if (input) {
+        const newVal = parseInt(input.value) + 1;
+        input.value = newVal;
+        updateDrawerCartQuantity(key, newVal);
+      }
+    });
+  });
+
+  // Minus button click
+  document.querySelectorAll('#spCartDrawer .sp-qty-minus').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = button.getAttribute('data-key');
+      const input = button.parentElement.querySelector('.sp-qty-val');
+      if (input) {
+        const newVal = parseInt(input.value) - 1;
+        if (newVal >= 1) {
+          input.value = newVal;
+          updateDrawerCartQuantity(key, newVal);
+        }
+      }
+    });
+  });
+
+  // Manual quantity input change
+  document.querySelectorAll('#spCartDrawer .sp-qty-val').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const key = input.getAttribute('data-key');
+      let newVal = parseInt(input.value);
+      if (isNaN(newVal) || newVal < 1) {
+        newVal = 1;
+        input.value = 1;
+      }
+      updateDrawerCartQuantity(key, newVal);
+    });
+  });
+
+  // Delete button click
+  document.querySelectorAll('#spCartDrawer .sp-item-delete-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = button.getAttribute('data-key');
+      updateDrawerCartQuantity(key, 0);
+    });
+  });
 });
 </script>

@@ -80,6 +80,7 @@ Spread Heaven Cart Section - Full Cart Page
   text-transform: uppercase;
   line-height: 1.05;
   margin-bottom: 8px;
+  color: #ffffff;
 }
 .sp-cart-hero-sub {
   font-size: 14px;
@@ -468,7 +469,7 @@ Spread Heaven Cart Section - Full Cart Page
           <span>Total</span>
           <span>{{ cart.total_price | money }}</span>
         </div>
-        <a href="{{ routes.cart_checkout_url }}" class="sp-cart-checkout-btn">
+        <a href="/checkout" class="sp-cart-checkout-btn">
           <i class="fa-solid fa-lock"></i> Checkout Now
         </a>
       </div>
@@ -485,6 +486,93 @@ Spread Heaven Cart Section - Full Cart Page
     {% endif %}
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const updateCartQuantity = (key, quantity) => {
+    const cartContainer = document.querySelector('.sp-cart-container');
+    if (cartContainer) {
+      cartContainer.style.opacity = '0.5';
+      cartContainer.style.pointerEvents = 'none';
+    }
+
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        id: key,
+        quantity: parseInt(quantity)
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      window.location.reload();
+    })
+    .catch(error => {
+      console.error('Error updating cart:', error);
+      if (cartContainer) {
+        cartContainer.style.opacity = '1';
+        cartContainer.style.pointerEvents = 'auto';
+      }
+    });
+  };
+
+  // Plus button click
+  document.querySelectorAll('.sp-qty-plus').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = button.getAttribute('data-key');
+      const input = button.parentElement.querySelector('.sp-qty-val');
+      if (input) {
+        const newVal = parseInt(input.value) + 1;
+        input.value = newVal;
+        updateCartQuantity(key, newVal);
+      }
+    });
+  });
+
+  // Minus button click
+  document.querySelectorAll('.sp-qty-minus').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = button.getAttribute('data-key');
+      const input = button.parentElement.querySelector('.sp-qty-val');
+      if (input) {
+        const newVal = parseInt(input.value) - 1;
+        if (newVal >= 1) {
+          input.value = newVal;
+          updateCartQuantity(key, newVal);
+        }
+      }
+    });
+  });
+
+  // Manual quantity input change
+  document.querySelectorAll('.sp-qty-val').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const key = input.getAttribute('data-key');
+      let newVal = parseInt(input.value);
+      if (isNaN(newVal) || newVal < 1) {
+        newVal = 1;
+        input.value = 1;
+      }
+      updateCartQuantity(key, newVal);
+    });
+  });
+
+  // Delete button click
+  document.querySelectorAll('.sp-cart-item-delete-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = button.getAttribute('data-key');
+      updateCartQuantity(key, 0);
+    });
+  });
+});
+</script>
 
 {% schema %}
 {

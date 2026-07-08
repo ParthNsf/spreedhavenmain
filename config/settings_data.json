@@ -146,7 +146,7 @@
             "type": "nav_link",
             "settings": {
               "label": "Home",
-              "link": "shopify://collections",
+              "link": "",
               "active": false
             }
           },

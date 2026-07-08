@@ -10,11 +10,14 @@
 {
   "sections": {
     "main": {
-      "type": "main-404",
+      "type": "main-page",
       "disabled": true,
-      "settings": {}
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     },
-    "spread_heaven_collection_RypinU": {
+    "spread_heaven_collection_FCCtPF": {
       "type": "spread-heaven-collection",
       "name": "Spread Heaven Collection",
       "settings": {
@@ -39,6 +42,6 @@
   },
   "order": [
     "main",
-    "spread_heaven_collection_RypinU"
+    "spread_heaven_collection_FCCtPF"
   ]
 }

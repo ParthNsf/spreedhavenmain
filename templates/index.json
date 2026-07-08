@@ -44,7 +44,7 @@
           "type": "product",
           "name": "Vanilla Crispy",
           "settings": {
-            "product": "",
+            "product": "spread-heaven-vanilla-crispy-peanut-butter-1kg",
             "flavor_tag": "Creamy Vanilla & Protein Crisps",
             "product_desc": "Ground roasted peanuts combined with real sweet vanilla extract and crispy protein nuggets for an exceptional crunchy texture.",
             "protein_badge": "22% Protein",
@@ -55,7 +55,7 @@
           "type": "product",
           "name": "Chocolate Crunchy",
           "settings": {
-            "product": "",
+            "product": "spread-heaven-chocolate-crunchy-peanut-butter-high-protein-1kg",
             "flavor_tag": "Rich Cocoa & Peanut Chunks",
             "product_desc": "Golden peanut butter blended with premium unsweetened dark cocoa powder and crunchy chopped roasted peanuts. Guilt-free indulgence.",
             "protein_badge": "24% Protein",
@@ -66,7 +66,7 @@
           "type": "product",
           "name": "Mawa Malai",
           "settings": {
-            "product": "",
+            "product": "spread-heaven-cookies-cream-peanut-butter-1kg-24-protein-high-protein-peanut-butter",
             "flavor_tag": "The Traditional Royal Indulgence",
             "product_desc": "A rich Indian sweet twist. Saffron-infused peanut butter combined with toasted milk solids (mawa) and aromatic green cardamom.",
             "protein_badge": "20% Protein",
@@ -77,7 +77,7 @@
           "type": "product",
           "name": "Mango Chia",
           "settings": {
-            "product": "",
+            "product": "spread-heaven-strawberry-chia-peanut-butter-1kg",
             "flavor_tag": "Tropical Alphonso & Chia Superfoods",
             "product_desc": "A tropical, nutrient-dense blend containing slow-roasted peanuts (78%), raw organic chia seeds (6%), and Alphonso mango flavour.",
             "protein_badge": "27% Protein",
@@ -88,7 +88,7 @@
           "type": "product",
           "name": "Assortment Box",
           "settings": {
-            "product": "",
+            "product": "spread-heaven-cookies-cream-peanut-butter-1kg",
             "flavor_tag": "The Ultimate Heaven Box",
             "product_desc": "Taste the entire Spread Heaven selection: includes Vanilla Crispy, Mango Chia, Chocolate Crunchy, Cookies & Cream, and Mawa Malai.",
             "protein_badge": "Assorted Macros",
@@ -165,22 +165,155 @@
       ],
       "name": "Why Spread Heaven",
       "settings": {
-        "primary_color": "#B97734",
-        "primary_dark_color": "#8A5A2B",
-        "accent_color": "#E7C18C",
-        "bg_color": "#FFF9F3",
-        "text_color": "#2B1B0F",
-        "text_muted_color": "#7A5C3E",
-        "border_color": "#EDD9BC",
+        "primary_color": "#b97734",
+        "primary_dark_color": "#8a5a2b",
+        "accent_color": "#e7c18c",
+        "bg_color": "#fff9f3",
+        "text_color": "#2b1b0f",
+        "text_muted_color": "#7a5c3e",
+        "border_color": "#edd9bc",
         "tag": "Pure Integrity",
         "title": "Why Spread Heaven?",
         "subtitle": "We ground pure peanut butter with honest superfoods, making every scoop delicious and nutritious."
+      }
+    },
+    "healthy_ideas_FbjNK4": {
+      "type": "healthy-ideas",
+      "blocks": {
+        "idea_JT6jzi": {
+          "type": "idea",
+          "settings": {
+            "image": "shopify://shop_images/730332009_17869740918687503_64040640116903783_n.jpg",
+            "title": "Label Instructions",
+            "description": "Official suggestions ground directly onto the back of our premium product jars.",
+            "link": ""
+          }
+        },
+        "idea_q3qPK8": {
+          "type": "idea",
+          "settings": {
+            "image": "shopify://shop_images/733127139_17870213829687503_5156701603225684587_n.jpg",
+            "title": "Bread & Crackers",
+            "description": "Spread a generous, thick golden layer over toasted sourdough slices or crisp crackers.",
+            "link": ""
+          }
+        },
+        "idea_fzPnAK": {
+          "type": "idea",
+          "settings": {
+            "image": "shopify://shop_images/732707940_17870386248687503_6945823402816674682_n.jpg",
+            "title": "Smoothies & Dips",
+            "description": "Swirl into your morning blender or serve as a clean dip for raw apple and banana bowls.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "idea_JT6jzi",
+        "idea_q3qPK8",
+        "idea_fzPnAK"
+      ],
+      "name": "Healthy Ideas",
+      "settings": {
+        "tag": "Healthy Ideas",
+        "heading": "How To Enjoy",
+        "heading_size": "h1",
+        "subtitle": "Real athletic suggestions pulled straight from our official tub labels.",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "cta_banner_riBP9r": {
+      "type": "cta-banner",
+      "name": "CTA Banner",
+      "settings": {
+        "heading": "Ready To Spread Heaven?",
+        "description": "Clean plant-based protein fuel with absolute integrity. Directly from our roasters to your kitchen.",
+        "button_1_label": "Shop the Lineup",
+        "button_1_link": "",
+        "button_2_label": "Follow @spread_heaven26",
+        "button_2_link": "",
+        "color_scheme": "",
+        "use_custom_brand_colors": true,
+        "brand_bg_color": "#b97734",
+        "brand_text_color": "#fff9f3",
+        "brand_button_bg": "#fff9f3",
+        "brand_button_text": "#8a5a2b",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "instagram_reels_fFGmkX": {
+      "type": "instagram-reels",
+      "blocks": {
+        "reel_AUj9Ni": {
+          "type": "reel",
+          "settings": {
+            "caption": "Check out our latest arrivals! ✨",
+            "likes": "1.2k",
+            "link": ""
+          }
+        },
+        "reel_MPWhMH": {
+          "type": "reel",
+          "settings": {
+            "caption": "Check out our latest arrivals! ✨",
+            "likes": "1.2k",
+            "link": ""
+          }
+        },
+        "reel_RXRwhK": {
+          "type": "reel",
+          "settings": {
+            "caption": "Check out our latest arrivals! ✨",
+            "likes": "1.2k",
+            "link": ""
+          }
+        },
+        "reel_9qM6dT": {
+          "type": "reel",
+          "settings": {
+            "caption": "Check out our latest arrivals! ✨",
+            "likes": "1.2k",
+            "link": ""
+          }
+        },
+        "reel_gxY9Li": {
+          "type": "reel",
+          "settings": {
+            "caption": "Check out our latest arrivals! ✨",
+            "likes": "1.2k",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "reel_AUj9Ni",
+        "reel_MPWhMH",
+        "reel_RXRwhK",
+        "reel_9qM6dT",
+        "reel_gxY9Li"
+      ],
+      "disabled": true,
+      "name": "Instagram Reels",
+      "settings": {
+        "heading": "Follow Us on Instagram",
+        "heading_size": "h1",
+        "subtitle": "@spread_heaven",
+        "instagram_link": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
     "spread_heaven_hero_zkQrBt",
     "featured_flavors_CC9KMX",
-    "why_spread_heaven_6erEYK"
+    "healthy_ideas_FbjNK4",
+    "why_spread_heaven_6erEYK",
+    "cta_banner_riBP9r",
+    "instagram_reels_fFGmkX"
   ]
 }

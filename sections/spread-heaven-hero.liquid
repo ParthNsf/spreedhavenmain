@@ -96,8 +96,6 @@ Shopify Online Store 2.0 compatible section
   transition: var(--sp-transition);
   text-decoration: none;
   cursor: pointer;
-  width: 50%; /* Set each button to 50% width */
-  flex: 1 1 50%;
 }
 
 .sp-btn-primary {
@@ -236,7 +234,7 @@ Shopify Online Store 2.0 compatible section
 @media (max-width: 900px) {
   .sp-hero-inner {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
   }
 
   .sp-hero-content {
@@ -256,7 +254,11 @@ Shopify Online Store 2.0 compatible section
   }
 
   .sp-hero-visual {
-    display: none;
+    display: flex;
+  }
+
+  .sp-hero-img-card {
+    max-width: 100%;
   }
 }
 
@@ -289,14 +291,7 @@ Shopify Online Store 2.0 compatible section
             {{ section.settings.primary_button_label | escape }}
           </a>
         {% endif %}
-        {% if section.settings.secondary_button_label != blank %}
-          <a 
-            href="{{ section.settings.secondary_button_link }}" 
-            class="sp-btn sp-btn-outline"
-          >
-            {{ section.settings.secondary_button_label | escape }}
-          </a>
-        {% endif %}
+
       </div>
       <div class="sp-hero-metrics">
         {% if section.settings.metric_1_value != blank %}
